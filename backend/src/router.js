@@ -2,22 +2,27 @@ const express = require("express");
 
 const router = express.Router();
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
+/* IMPORT ROUTERS */
 
-// Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+const userRouter = require("./routers/userRouter");
+const candidateRouter = require("./routers/candidateRouter");
+const companyRouter = require("./routers/companyRouter");
+const consultantRouter = require("./routers/consultantRouter");
 
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
+/* USER */
 
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+router.use("/", userRouter);
 
-// Route to add a new item
-router.post("/items", itemControllers.add);
+/* CANDIDATE */
 
-/* ************************************************************************* */
+router.use("/candidat", candidateRouter);
+
+/* COMPANY */
+
+router.use("/entreprise", companyRouter);
+
+/* CONSULTANT */
+
+router.use("/consultant", consultantRouter);
 
 module.exports = router;
