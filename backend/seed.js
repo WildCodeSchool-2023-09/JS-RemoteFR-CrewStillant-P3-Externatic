@@ -19,23 +19,23 @@ const seed = async () => {
 
     // Generating Seed Data
 
-    // Optional: Truncate all tables (remove existing data)
-    await database.query("truncate activity");
-    await database.query("truncate candidate");
-    await database.query("truncate candidate_degree");
-    await database.query("truncate compagny");
-    await database.query("truncate compagny_sector");
-    await database.query("truncate degree");
-    await database.query("truncate experience");
-    await database.query("truncate job");
-    await database.query("truncate location");
-    await database.query("truncate skill");
-    await database.query("truncate user");
-    await database.query("truncate user_type");
+    // // Optional: Truncate all tables (remove existing data)
+    // await database.query("truncate activity");
+    // await database.query("truncate candidate");
+    // await database.query("truncate candidate_degree");
+    // await database.query("truncate compagny");
+    // await database.query("truncate compagny_sector");
+    // await database.query("truncate degree");
+    // await database.query("truncate experience");
+    // await database.query("truncate job");
+    // await database.query("truncate location");
+    // await database.query("truncate skill");
+    // await database.query("truncate user");
+    // await database.query("truncate user_type");
 
     // Random skill level using an array & faker
     const skillLevel = ["notions", "moyen", "confirmé", "expert"];
-    const randomSLevel = fakerFR.datatype.int({
+    const randomSLevel = fakerFR.number.int({
       min: 0,
       max: skillLevel.length - 1,
     });
@@ -50,14 +50,14 @@ const seed = async () => {
       "Bac+5",
       "Bac+8",
     ];
-    const randomLevel = fakerFR.datatype.int({
+    const randomLevel = fakerFR.number.int({
       min: 0,
       max: degreeLevel.length - 1,
     });
 
     // Random user type using an array & faker
     const userType = ["candidat", "entreprise", "consultant"];
-    const randomType = fakerFR.datatype.int({
+    const randomType = fakerFR.number.int({
       min: 0,
       max: userType.length - 1,
     });
@@ -65,11 +65,11 @@ const seed = async () => {
     // Insert fake data into all tables in the same order
     for (let i = 0; i < 20; i += 1) {
       queries.push(
-        database.query("insert into activity(apply_date) values (?)", [
+        database.query("insert into activity (apply_date) values (?)", [
           fakerFR.date.recent({ days: 1 }),
         ]),
         database.query(
-          "insert into candidate (first_name, last_name, date_of_birth, wanted salary) VALUES (?, ?, ?, ?)",
+          "insert into candidate (first_name, last_name, date_of_birth, wanted_salary) VALUES (?, ?, ?, ?)",
           [
             fakerFR.person.firstName(),
             fakerFR.person.lastName(),
