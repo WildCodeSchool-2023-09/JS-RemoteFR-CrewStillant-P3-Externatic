@@ -4,7 +4,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-const { faker } = require("@faker-js/faker");
+const { fakerFR } = require("@faker-js/faker");
 
 // Import database client
 const database = require("./database/client");
@@ -33,26 +33,55 @@ const seed = async () => {
     await database.query("truncate user");
     await database.query("truncate user_type");
 
-    // Insert fake data into the 'item' table
+    // Random skill level using an array & faker
+    const skillLevel = ["notions", "moyen", "confirmé", "expert"];
+    const randomSLevel = fakerFR.datatype.int({
+      min: 0,
+      max: skillLevel.length - 1,
+    });
+
+    // Random degree level using an array & faker
+    const degreeLevel = [
+      "CAP-BEP",
+      "Bac",
+      "Bac+2",
+      "Bac+3",
+      "Bac+4",
+      "Bac+5",
+      "Bac+8",
+    ];
+    const randomLevel = fakerFR.datatype.int({
+      min: 0,
+      max: degreeLevel.length - 1,
+    });
+
+    // Random user type using an array & faker
+    const userType = ["candidat", "entreprise", "consultant"];
+    const randomType = fakerFR.datatype.int({
+      min: 0,
+      max: userType.length - 1,
+    });
+
+    // Insert fake data into all tables in the same order
     for (let i = 0; i < 20; i += 1) {
       queries.push(
         database.query("insert into activity(apply_date) values (?)", [
-          faker.date.recent({ days: 1 }),
+          fakerFR.date.recent({ days: 1 }),
         ]),
         database.query(
           "insert into candidate (first_name, last_name, date_of_birth, wanted salary) VALUES (?, ?, ?, ?)",
           [
-            faker.person.firstName(),
-            faker.person.lastName(),
-            faker.date.birthdate({ min: 18, max: 75, mode: "age" }),
-            faker.number.int({ min: 35000, max: 200000 }),
+            fakerFR.person.firstName(),
+            fakerFR.person.lastName(),
+            fakerFR.date.birthdate({ min: 18, max: 75, mode: "age" }),
+            fakerFR.number.int({ min: 35000, max: 200000 }),
           ]
         ),
         database.query(
           "INSERT INTO compagny (name, image, description, website, establishment_date) VALUES (?, ?, ?, ?, ?)",
           [
-            faker.company.name(),
-            faker.image.urlPlaceholder({
+            fakerFR.company.name(),
+            fakerFR.image.urlPlaceholder({
               width: 128,
               height: 128,
               backgroundColor: "6B6B6B",
@@ -60,21 +89,89 @@ const seed = async () => {
               format: "png",
               text: "logo",
             }),
-            faker.lorem.paragraph({ min: 2, max: 5 }),
-            faker.internet.url({ appendSlash: true }),
-            faker.date.past({ years: 30 }),
+            fakerFR.lorem.paragraph({ min: 2, max: 5 }),
+            fakerFR.internet.url({ appendSlash: true }),
+            fakerFR.date.past({ years: 30 }),
           ]
         ),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", []),
-        database.query("", [])
+        database.query("INSERT INTO compagny_sector (sector) VALUES (?)", [
+          fakerFR.person.jobArea(),
+        ]),
+        database.query(
+          "INSERT INTO degree (name, level, starting_date, completion_date, university, city) VALUES (?, ?, ?, ?, ?, ?)",
+          [
+            fakerFR.person.jobType(),
+            degreeLevel[randomLevel],
+            fakerFR.date.between({
+              from: "2018-12-01T00:00:00.000Z",
+              to: "2022-12-01T00:00:00.000Z",
+            }),
+            fakerFR.date.between({
+              from: "2022-12-01T00:00:00.000Z",
+              to: "2023-12-01T00:00:00.000Z",
+            }),
+            fakerFR.company.name(),
+            fakerFR.location.city(),
+          ]
+        ),
+        database.query(
+          "INSERT INTO experience (start_date, end_date, job_title, company_name, city, country, description) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          [
+            fakerFR.date.between({
+              from: "2018-12-01T00:00:00.000Z",
+              to: "2022-12-01T00:00:00.000Z",
+            }),
+            fakerFR.date.between({
+              from: "2022-12-01T00:00:00.000Z",
+              to: "2023-12-01T00:00:00.000Z",
+            }),
+            fakerFR.person.jobTitle(),
+            fakerFR.company.name(),
+            fakerFR.location.city(),
+            "France",
+            fakerFR.lorem.paragraph({ min: 2, max: 5 }),
+          ]
+        ),
+        database.query(
+          "INSERT INTO job (title, type, description, created_date, is_active) VALUES (?, ?, ?, ?, ?)",
+          [
+            fakerFR.person.jobTitle(),
+            fakerFR.person.jobType(),
+            fakerFR.lorem.paragraph({ min: 5, max: 10 }),
+            fakerFR.date.recent({ days: 10 }),
+            fakerFR.datatype.boolean(0.7),
+          ]
+        ),
+        database.query(
+          "INSERT INTO location (address, city, state, country, zip) VALUES (?, ?, ?, ?, ?)",
+          [
+            fakerFR.location.street(),
+            fakerFR.location.city(),
+            fakerFR.location.state(),
+            "France",
+            fakerFR.location.zipCode("#####"),
+          ]
+        ),
+        database.query("INSERT INTO skill (name, level) VALUES (?, ?)", [
+          fakerFR.word.adjective(),
+          skillLevel[randomSLevel],
+        ]),
+        database.query(
+          "INSERT INTO user (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, registration_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+          [
+            fakerFR.internet.email(),
+            fakerFR.internet.password({ length: 10, memorable: true }),
+            fakerFR.datatype.boolean(0.8),
+            fakerFR.helpers.fromRegExp(/[0]{1}[0-9]{1}[0-9]{8}/),
+            fakerFR.datatype.boolean(0.6),
+            fakerFR.datatype.boolean(0.9),
+            fakerFR.internet.avatar(),
+            fakerFR.date.recent({ days: 1 }),
+          ]
+        ),
+        database.query("INSERT INTO user_type (type) VALUES (?)", [
+          userType[randomType],
+        ])
       );
     }
 
