@@ -30,7 +30,7 @@ const seed = async () => {
       "Immeuble",
       "Residence",
     ];
-    
+
     // Optional: Truncate tables (remove existing data)
     // await database.query("truncate item");
 

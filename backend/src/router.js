@@ -2,12 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-/* IMPORT ROUTERS */
-
+// IMPORT ROUTERS
+const userRouter = require("./routers/userRouter");
+const candidateRouter = require("./routers/candidateRouter");
 const companyRouter = require("./routers/companyRouter");
 
-/* COMPANY */
-
-router.use("/entreprise", companyRouter);
+router.use("/", userRouter);
+router.use("candidate", candidateRouter);
+router.use("company", companyRouter);
 
 module.exports = router;
