@@ -4,12 +4,12 @@
 
 // Import the manager modules responsible for handling data operations on the tables
 const CandidateManager = require("./models/CandidateManager");
-const CompagnyManager = require("./models/CompagnyManager");
+const CompanyManager = require("./models/CompanyManager");
 const UserManager = require("./models/UserManager");
 
 const managers = [
   UserManager,
-  CompagnyManager,
+  CompanyManager,
   CandidateManager,
   // Add other managers here
 ];
