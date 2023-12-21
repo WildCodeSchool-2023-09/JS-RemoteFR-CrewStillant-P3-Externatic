@@ -4,7 +4,7 @@ const tables = require("../tables");
 
 const browse = async (res, req) => {
   try {
-    const getCompany = await tables.candidate.readAll(req.body);
+    const getCompany = await tables.company.readAll(req.body);
     if (getCompany) {
       res.status(200).json("Companies has been successfully called");
     } else {
@@ -19,7 +19,7 @@ const browse = async (res, req) => {
 
 const read = async (res, req) => {
   try {
-    const getCompanyId = await tables.candidate.readAll(req.params.id);
+    const getCompanyId = await tables.company.readAll(req.params.id);
     if (getCompanyId) {
       res.status(200).json("Company has been successfully called");
     } else {
@@ -34,12 +34,12 @@ const read = async (res, req) => {
 
 const edit = async (res, req) => {
   try {
-    const editCompany = await tables.candidate.update(
+    const editCompany = await tables.company.update(
       req.body,
-      parseInt(req.parms.body, 10)
+      parseInt(req.params.body, 10)
     );
     if (editCompany) {
-      res.status(200).json("Companies has been successfully edited");
+      res.status(200).json("Company has been successfully edited");
     } else {
       res.sendStatus(404);
     }
@@ -52,7 +52,7 @@ const edit = async (res, req) => {
 
 const add = async (res, req) => {
   try {
-    const addCompany = await tables.candidate.create(req.body);
+    const addCompany = await tables.company.create(req.body);
     if (addCompany) {
       res.status(201).json("Companies has been successfully added");
     } else {
@@ -67,7 +67,7 @@ const add = async (res, req) => {
 
 const remove = async (res, req) => {
   try {
-    const removeCompany = await tables.candidate.delete(
+    const removeCompany = await tables.company.delete(
       parseInt(req.params.id, 10)
     );
     if (removeCompany) {

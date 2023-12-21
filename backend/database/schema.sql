@@ -121,6 +121,7 @@ CREATE TABLE user (
     image VARCHAR(255)  NULL,
     registration_date DATE  NOT NULL,
     user_type_id INT  NOT NULL,
+    company_id INT NULL,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
