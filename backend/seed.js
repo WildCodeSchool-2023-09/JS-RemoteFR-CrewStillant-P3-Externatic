@@ -30,6 +30,9 @@ const seed = async () => {
       "Immeuble",
       "Residence",
     ];
+    
+    // Optional: Truncate tables (remove existing data)
+    // await database.query("truncate item");
 
     // Random number attribute using an array & faker
     const numAttribute = ["bis", "ter", "quater", "ante", "A", "B", "C", "D"];
