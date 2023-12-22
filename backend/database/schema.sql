@@ -1,4 +1,3 @@
-
 -- Table: activity
 CREATE TABLE activity (
     id INT AUTO_INCREMENT NOT NULL,
@@ -78,6 +77,7 @@ CREATE TABLE job (
     title VARCHAR(100)  NOT NULL,
     type VARCHAR(30)  NOT NULL,
     description TEXT  NOT NULL,
+    hours_worked INT NOT NULL,
     created_date DATETIME NOT NULL,
     is_active BOOL  NOT NULL,
     job_location_id INT  NOT NULL,
@@ -88,11 +88,14 @@ CREATE TABLE job (
 -- Table: location
 CREATE TABLE location (
     id INT AUTO_INCREMENT NOT NULL,
+    additional_adress VARCHAR(100) NULL,
+    number_adress INT NOT NULL,
+    number_attribute VARCHAR(10) NULL,
     address VARCHAR(100)  NOT NULL,
     city VARCHAR(50)  NOT NULL,
     state VARCHAR(50)  NOT NULL,
     country VARCHAR(50)  NOT NULL,
-    zip INT  NOT NULL,
+    zip VARCHAR(5)  NOT NULL,
     CONSTRAINT location_pk PRIMARY KEY (id)
 );
 
@@ -112,12 +115,13 @@ CREATE TABLE user (
     email VARCHAR(255)  NOT NULL,
     password VARCHAR(100)  NOT NULL,
     is_active BOOL  NOT NULL,
-    contact_number INT(20)  NOT NULL,
+    contact_number VARCHAR(20)  NOT NULL,
     sms_notification_active BOOL  NOT NULL,
     email_notification_active BOOL  NOT NULL,
     image VARCHAR(255)  NULL,
     registration_date DATE  NOT NULL,
     user_type_id INT  NOT NULL,
+    company_id INT NULL,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
@@ -127,55 +131,3 @@ CREATE TABLE user_type (
     type VARCHAR(20)  NOT NULL,
     CONSTRAINT user_type_pk PRIMARY KEY (id)
 );
-
--- foreign keys
--- Reference: company_sector 
-ALTER TABLE company ADD CONSTRAINT company_sector_fk FOREIGN KEY (company_sector_id)
-    REFERENCES company_sector (id);
-
--- Reference: candidate_degree 
-ALTER TABLE candidate_degree ADD CONSTRAINT degree_candidate_fk FOREIGN KEY (degree_id)
-    REFERENCES degree (id);
-
--- Reference: experience 
-ALTER TABLE experience ADD CONSTRAINT candidate_experience_fk FOREIGN KEY (candidate_id)
-    REFERENCES candidate (id);
-
--- Reference: job 
-ALTER TABLE job ADD CONSTRAINT job_location_fk FOREIGN KEY (job_location_id)
-    REFERENCES location (id);
-
--- Reference: job 
-ALTER TABLE activity ADD CONSTRAINT user_job_fk FOREIGN KEY (user_account_id)
-    REFERENCES user (id);
-
--- Reference: activity
-ALTER TABLE activity ADD CONSTRAINT job_activity_fk FOREIGN KEY (job_post_id)
-    REFERENCES job (id);
-
--- Reference: job_post_company 
-ALTER TABLE job ADD CONSTRAINT job_company_fk FOREIGN KEY (company_id)
-    REFERENCES company (id);
-
--- Reference: job_post_skill 
-ALTER TABLE skill ADD CONSTRAINT job_skill_fk FOREIGN KEY (job_id)
-    REFERENCES job (id);
-
--- Reference: candidate_degree 
-ALTER TABLE candidate_degree ADD CONSTRAINT candidate_degree_fk FOREIGN KEY (candidate_id)
-    REFERENCES candidate (id);
-
--- Reference: candidate 
-ALTER TABLE candidate ADD CONSTRAINT user_candidate_fk FOREIGN KEY (user_account_id)
-    REFERENCES user (id);
-
--- Reference: skill 
-ALTER TABLE skill ADD CONSTRAINT candidate_skill_fk FOREIGN KEY (candidate_id)
-    REFERENCES candidate (id);
-
--- Reference: user_type 
-ALTER TABLE user ADD CONSTRAINT user_type_fk FOREIGN KEY (user_type_id)
-    REFERENCES user_type (id);
-
--- End of file.
-
