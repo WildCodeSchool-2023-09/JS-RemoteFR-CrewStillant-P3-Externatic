@@ -66,7 +66,7 @@ const seed = async () => {
     for (let i = 0; i < 20; i += 1) {
       queries.push(
         database.query(
-          "insert into activity (apply_date, job_post_id, user_account_id) values (?, ?, ?)",
+          "insert into activity (apply_date, job_id, user_id) values (?, ?, ?)",
           [
             fakerFR.date.recent({ days: 1 }),
             fakerFR.number.int({ min: 1, max: 20 }),
@@ -74,7 +74,7 @@ const seed = async () => {
           ]
         ),
         database.query(
-          "insert into candidate (first_name, last_name, date_of_birth, wanted_salary, user_account_id) VALUES (?, ?, ?, ?, ?)",
+          "insert into candidate (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?, ?, ?, ?, ?)",
           [
             fakerFR.person.firstName(),
             fakerFR.person.lastName(),
@@ -91,7 +91,7 @@ const seed = async () => {
           ]
         ),
         database.query(
-          "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id) VALUES (?, ?, ?, ?, ?, ?)",
+          "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.company.name(),
             fakerFR.image.urlPlaceholder({
@@ -106,6 +106,7 @@ const seed = async () => {
             fakerFR.internet.url({ appendSlash: true }),
             fakerFR.date.past({ years: 30 }),
             fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
         database.query("INSERT INTO company_sector (sector) VALUES (?)", [
@@ -117,12 +118,12 @@ const seed = async () => {
             faker.person.jobType(),
             faker.helpers.arrayElement(degreeLevel, 1),
             fakerFR.date.between({
-              from: "2018-12-01T00:00:00.000Z",
-              to: "2022-12-01T00:00:00.000Z",
+              from: "2018-12-01",
+              to: "2022-12-01",
             }),
             fakerFR.date.between({
-              from: "2022-12-01T00:00:00.000Z",
-              to: "2023-12-01T00:00:00.000Z",
+              from: "2022-12-01",
+              to: "2023-12-01",
             }),
             fakerFR.company.name(),
             fakerFR.location.city(),
@@ -132,12 +133,12 @@ const seed = async () => {
           "INSERT INTO experience (start_date, end_date, job_title, company_name, city, country, description, candidate_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.date.between({
-              from: "2018-12-01T00:00:00.000Z",
-              to: "2022-12-01T00:00:00.000Z",
+              from: "2018-12-01",
+              to: "2022-12-01",
             }),
             fakerFR.date.between({
-              from: "2022-12-01T00:00:00.000Z",
-              to: "2023-12-01T00:00:00.000Z",
+              from: "2022-12-01",
+              to: "2023-12-01",
             }),
             faker.person.jobTitle(),
             fakerFR.company.name(),
@@ -170,7 +171,7 @@ const seed = async () => {
           ]
         ),
         database.query(
-          "INSERT INTO user (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, registration_date, user_type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO user (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.internet.email(),
             fakerFR.internet.password({ length: 10, memorable: true }),
@@ -179,7 +180,6 @@ const seed = async () => {
             fakerFR.datatype.boolean(0.6),
             fakerFR.datatype.boolean(0.9),
             fakerFR.internet.avatar(),
-            fakerFR.date.recent({ days: 1 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
@@ -192,13 +192,12 @@ const seed = async () => {
     for (let i = 0; i < 200; i += 1) {
       queries.push(
         database.query(
-          "INSERT INTO job (title, type, description, hours_worked, created_date, is_active, job_location_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO job (title, type, description, hours_worked, is_active, location_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             faker.person.jobTitle(),
             faker.helpers.arrayElement(jobType, 1),
             fakerFR.lorem.paragraph({ min: 5, max: 10 }),
             fakerFR.number.int({ min: 24, max: 48 }),
-            fakerFR.date.recent({ days: 1 }),
             fakerFR.datatype.boolean(0.7),
             fakerFR.number.int({ min: 1, max: 20 }),
             fakerFR.number.int({ min: 1, max: 20 }),
