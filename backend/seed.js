@@ -180,7 +180,7 @@ const seed = async () => {
             fakerFR.datatype.boolean(0.6),
             fakerFR.datatype.boolean(0.9),
             fakerFR.internet.avatar(),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 3 }),
           ]
         ),
         database.query("INSERT INTO user_type (type) VALUES (?)", [
