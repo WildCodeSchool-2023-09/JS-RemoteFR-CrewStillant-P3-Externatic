@@ -2,19 +2,19 @@
 CREATE TABLE activity (
     id INT AUTO_INCREMENT NOT NULL,
     apply_date DATE  NOT NULL,
-    job_post_id INT  NOT NULL,
-    user_account_id INT  NOT NULL,
+    job_id INT  NOT NULL,
+    user_id INT  NOT NULL,
     CONSTRAINT activity_pk PRIMARY KEY (id)
 );
 
 -- Table: candidate
 CREATE TABLE candidate (
     id INT AUTO_INCREMENT NOT NULL,
-    first_name VARCHAR(50)  NOT NULL,
-    last_name VARCHAR(50)  NOT NULL,
+    firstname VARCHAR(80)  NOT NULL,
+    lastname VARCHAR(80)  NOT NULL,
     date_of_birth DATE  NOT NULL,
     wanted_salary INT  NULL,
-    user_account_id INT  NOT NULL,
+    user_id INT  NOT NULL,
     CONSTRAINT candidate_pk PRIMARY KEY (id)
 );
 
@@ -35,6 +35,7 @@ CREATE TABLE company (
     website VARCHAR(255)  NOT NULL,
     establishment_date DATE  NOT NULL,
     company_sector_id INT  NOT NULL,
+    user_id INT NOT NULL,
     CONSTRAINT company_pk PRIMARY KEY (id)
 );
 
@@ -78,9 +79,9 @@ CREATE TABLE job (
     type VARCHAR(30)  NOT NULL,
     description TEXT  NOT NULL,
     hours_worked INT NOT NULL,
-    created_date DATETIME NOT NULL,
+    created_date DATETIME NOT NULL DEFAULT NOW(),
     is_active BOOL  NOT NULL,
-    job_location_id INT  NOT NULL,
+    location_id INT  NOT NULL,
     company_id INT  NOT NULL,
     CONSTRAINT job_pk PRIMARY KEY (id)
 );
@@ -89,7 +90,7 @@ CREATE TABLE job (
 CREATE TABLE location (
     id INT AUTO_INCREMENT NOT NULL,
     additional_adress VARCHAR(100) NULL,
-    number_adress INT NOT NULL,
+    number_adress INT NULL,
     number_attribute VARCHAR(10) NULL,
     address VARCHAR(100)  NOT NULL,
     city VARCHAR(50)  NOT NULL,
@@ -119,9 +120,8 @@ CREATE TABLE user (
     sms_notification_active BOOL  NOT NULL,
     email_notification_active BOOL  NOT NULL,
     image VARCHAR(255)  NULL,
-    registration_date DATE  NOT NULL,
+    registration_date DATETIME NOT NULL DEFAULT NOW(),
     user_type_id INT  NOT NULL,
-    company_id INT NULL,
     CONSTRAINT user_pk PRIMARY KEY (id)
 );
 
