@@ -1,0 +1,17 @@
+.jobOffersContainer {
+  max-width: 1130px;
+  width: 100%;
+  margin: auto;
+  h1 {
+    font-size: 3rem;
+    color: var(--primary);
+    letter-spacing: 0.3rem;
+  }
+}
+.jobOffers {
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  grid-auto-columns: repeat(3, 350px);
+  gap: 20px;
+  place-content: center;
+}
