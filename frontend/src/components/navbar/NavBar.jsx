@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import styles from "./navBar.module.scss";
 import externaticLogo from "../../assets/images/EXTERNATIC-LOGO.png";
 import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
@@ -14,7 +16,9 @@ function NavBar() {
               <img src={externaticLogo2} alt="logo" />
             </li>
             <li>
-              <i className={`fa-solid fa-bars `} />
+              <i>
+                <FontAwesomeIcon icon={faBars} />
+              </i>
             </li>
           </ul>
         </div>

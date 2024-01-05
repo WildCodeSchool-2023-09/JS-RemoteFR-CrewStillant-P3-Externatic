@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "./banner.module.scss";
 
 function Banner({ job, setFilter }) {
@@ -23,7 +25,9 @@ function Banner({ job, setFilter }) {
           placeholder="Recherche"
         />
         <div className="d-flex justify-content-center align-items-center">
-          <i className="  fa-solid fa-magnifying-glass" />
+          <i>
+            <FontAwesomeIcon icon={faSearch} />
+          </i>
         </div>
       </div>
     </section>
