@@ -2,8 +2,32 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
+import HomePage from "./pages/HomePage";
+import CandidatePage from "./pages/CandidatePage";
+import UserProfil from "./components/user/UserProfil";
 
-const router = createBrowserRouter([{ path: "/", element: <App /> }]);
+const router = createBrowserRouter([
+  {
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+        loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+      {
+        path: "/candidat",
+        element: <CandidatePage />,
+        children: [
+          {
+            path: "profil",
+            element: <UserProfil />,
+          },
+        ],
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
