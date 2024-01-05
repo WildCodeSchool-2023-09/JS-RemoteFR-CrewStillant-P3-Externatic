@@ -1,0 +1,83 @@
+h1 {
+  font: 500% jost;
+  color: whitesmoke;
+  margin-left: 10.6rem;
+  text-align: center;
+}
+
+.h1 {
+  background-color: gray;
+  margin-bottom: 2rem;
+  display: flex;
+}
+
+.user-page {
+  display: flex;
+}
+
+// Side section
+
+.side-section {
+  padding: 6rem 2rem;
+  border-radius: 12px;
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  background-color: #ca2061;
+
+  a {
+    font: 140% jost;
+    text-align: center;
+    text-decoration: none;
+    color: aliceblue;
+  }
+}
+
+// User profile
+
+.profile-section {
+  border: solid 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
+  padding: 0 8rem;
+  margin: 0;
+}
+
+.user-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.profile-pic {
+  border-radius: 2rem;
+}
+
+.user-info {
+  font: 120% jost;
+}
+
+button {
+  font-size: 1.2rem;
+}
+
+.button-space {
+  font: 100% jost;
+  background-color: #851342;
+  color: white;
+  border-style: none;
+  border-radius: 0.4rem;
+  margin: 1rem;
+  padding: 0.6rem;
+}
+// User Messages
+
+// User tracking candidacy
+
+// User history candidacy
+
+// Parameters

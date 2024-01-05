@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import "../assets/styles/candidatePage.scss";
 import SideSection from "../Components/SideSection";
 
 function CandidatePage() {
