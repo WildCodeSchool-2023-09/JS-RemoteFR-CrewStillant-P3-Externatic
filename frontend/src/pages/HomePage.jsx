@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
-import NavBar from "../components/navbar/NavBar";
-import MainHomePage from "../components/MainHomePage";
+import NavBar from "../toto/navbar/NavBar";
+import MainHomePage from "../toto/MainHomePage";
 
 function HomePage() {
   const job = useLoaderData();
