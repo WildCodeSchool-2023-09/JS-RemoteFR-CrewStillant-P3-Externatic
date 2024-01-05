@@ -94,13 +94,10 @@ const seed = async () => {
           "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.company.name(),
-            fakerFR.image.urlPlaceholder({
-              width: 128,
-              height: 128,
-              backgroundColor: "6B6B6B",
-              textColor: "FFFFFF",
-              format: "png",
-              text: "logo",
+            fakerFR.image.urlLoremFlickr({
+              width: 400,
+              height: 300,
+              category: "business",
             }),
             fakerFR.lorem.paragraph({ min: 2, max: 5 }),
             fakerFR.internet.url({ appendSlash: true }),

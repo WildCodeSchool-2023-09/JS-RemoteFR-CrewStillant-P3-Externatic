@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Banner from "./banner/Banner";
 import JobOffers from "./jobOffers/JobOffers";
 import Footer from "./footer/Footer";
+import Gallery from "./carousel/Gallery";
 
 function MainHomePage({ job }) {
   const [filter, setFilter] = useState("");
@@ -10,6 +11,7 @@ function MainHomePage({ job }) {
     <div>
       <Banner job={job} filter={filter} setFilter={setFilter} />
       <JobOffers job={job} filter={filter} />
+      <Gallery />
       <Footer />
     </div>
   );
