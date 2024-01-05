@@ -81,6 +81,9 @@ CREATE TABLE job (
     hours_worked INT NOT NULL,
     created_date DATETIME NOT NULL DEFAULT NOW(),
     is_active BOOL  NOT NULL,
+    salary INT NOT NULL,
+    place VARCHAR(10) NOT NULL,
+    sector VARCHAR(100) NOT NULL,
     location_id INT  NOT NULL,
     company_id INT  NOT NULL,
     CONSTRAINT job_pk PRIMARY KEY (id)
