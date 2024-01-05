@@ -1,0 +1,35 @@
+.jobOffer {
+  height: 400px;
+  border-radius: 20px;
+  cursor: pointer;
+  &:hover {
+    img {
+      transform: scale(1.1);
+    }
+    .jobOfferTitle {
+      color: var(--primary);
+    }
+  }
+}
+
+.imgContainer {
+  height: 250px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  overflow: hidden;
+  img {
+    width: 100%;
+    transition: 1s transform;
+  }
+}
+.jobOfferTitle {
+  color: var(--gray-2);
+  background-color: var(--secondary);
+  height: 150px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: 1s color;
+  i {
+    font-size: 20px;
+  }
+}
