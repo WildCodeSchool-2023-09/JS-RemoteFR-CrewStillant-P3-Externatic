@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
+import CandidatePage from "./pages/CandidatePage";
+import UserProfile from "./Components/UserSpace/UserProfile";
+
 
 const router = createBrowserRouter([
   {
@@ -12,6 +15,16 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+       {
+        path: "/candidat",
+        element: <CandidatePage />,
+        children: [
+          {
+            path: "/profile",
+            element: <UserProfile />,
+          },
+        ],
       },
     ],
   },
