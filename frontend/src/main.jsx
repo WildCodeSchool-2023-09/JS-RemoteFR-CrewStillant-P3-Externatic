@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <CandidatePage />,
         children: [
           {
-            path: "profile",
+            path: "profil",
             element: <UserProfile />,
           },
         ],
