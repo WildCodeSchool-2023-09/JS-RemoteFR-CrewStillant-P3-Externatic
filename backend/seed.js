@@ -54,13 +54,16 @@ const seed = async () => {
     // Random user type using an array & faker
     const userType = ["candidat", "entreprise", "consultant"];
 
-    // Random user type using an array & faker
+    // Random job type using an array & faker
     const jobType = [
       "Contrat à durée déterminée",
       "Contrat à durée indéterminée",
       "Intérim",
       "Alternance",
     ];
+
+    // Random job place using an array & faker
+    const jobPlace = ["Sur site", "Hybride", "A distance"];
 
     // Insert fake data into all tables in the same order
     for (let i = 0; i < 20; i += 1) {
@@ -94,13 +97,10 @@ const seed = async () => {
           "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.company.name(),
-            fakerFR.image.urlPlaceholder({
-              width: 128,
-              height: 128,
-              backgroundColor: "6B6B6B",
-              textColor: "FFFFFF",
-              format: "png",
-              text: "logo",
+            fakerFR.image.urlLoremFlickr({
+              width: 400,
+              height: 300,
+              category: "business",
             }),
             fakerFR.lorem.paragraph({ min: 2, max: 5 }),
             fakerFR.internet.url({ appendSlash: true }),
@@ -189,16 +189,19 @@ const seed = async () => {
       );
     }
 
-    for (let i = 0; i < 200; i += 1) {
+    for (let i = 0; i < 1557; i += 1) {
       queries.push(
         database.query(
-          "INSERT INTO job (title, type, description, hours_worked, is_active, location_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO job (title, type, description, hours_worked, is_active, salary, place, sector, location_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
           [
             faker.person.jobTitle(),
             faker.helpers.arrayElement(jobType, 1),
             fakerFR.lorem.paragraph({ min: 5, max: 10 }),
             fakerFR.number.int({ min: 24, max: 48 }),
             fakerFR.datatype.boolean(0.7),
+            fakerFR.number.int({ min: 35000, max: 200000 }),
+            faker.helpers.arrayElement(jobPlace, 1),
+            fakerFR.lorem.word(),
             fakerFR.number.int({ min: 1, max: 20 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
