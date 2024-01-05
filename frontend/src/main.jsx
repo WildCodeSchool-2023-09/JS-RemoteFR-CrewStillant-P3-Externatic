@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import CandidatePage from "./pages/CandidatePage";
-import UserProfile from "./components/userSpace/UserProfile";
+import UserProfil from "./components/userSpace/UserProfil";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "profil",
-            element: <UserProfile />,
+            element: <UserProfil />,
           },
         ],
       },

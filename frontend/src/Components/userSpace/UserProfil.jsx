@@ -1,4 +1,4 @@
-function UserProfile() {
+function UserProfil() {
   return (
     <div className="profile-section">
       <div className="user-image">
@@ -34,4 +34,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
+export default UserProfil;
