@@ -2,11 +2,11 @@ const tables = require("../tables");
 
 // GET
 
-const browse = async (res, req) => {
+const browse = async (req, res) => {
   try {
-    const getCompany = await tables.company.readAll(req.body);
+    const getCompany = await tables.company.readAll();
     if (getCompany) {
-      res.status(200).json("Companies has been successfully called");
+      res.status(200).json(getCompany);
     } else {
       res.sendStatus(400);
     }
@@ -17,11 +17,12 @@ const browse = async (res, req) => {
 
 // GET BY ID
 
-const read = async (res, req) => {
+const read = async (req, res) => {
+  const { id } = req.params;
   try {
-    const getCompanyId = await tables.company.readAll(req.params.id);
-    if (getCompanyId) {
-      res.status(200).json("Company has been successfully called");
+    const getCompanyId = await tables.company.read(parseInt(id, 10));
+    if (getCompanyId.length > 0) {
+      res.status(200).json(getCompanyId);
     } else {
       res.sendStatus(404);
     }
@@ -32,29 +33,53 @@ const read = async (res, req) => {
 
 // PUT
 
-const edit = async (res, req) => {
+const edit = async (req, res, next) => {
+  const { name, image, description, website, establishmentDate } = req.body;
+  const { id } = req.params;
   try {
     const editCompany = await tables.company.update(
-      req.body,
-      parseInt(req.params.body, 10)
+      name,
+      image,
+      description,
+      website,
+      establishmentDate,
+      parseInt(id, 10)
     );
-    if (editCompany) {
-      res.status(200).json("Company has been successfully edited");
+
+    if (editCompany.length > 0) {
+      res.status(200).json(editCompany);
     } else {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // POST
 
-const add = async (res, req) => {
+const add = async (req, res) => {
+  const {
+    name,
+    image,
+    description,
+    website,
+    establishmentDate,
+    companySectorId,
+    userId,
+  } = req.body;
   try {
-    const addCompany = await tables.company.create(req.body);
+    const addCompany = await tables.company.create(
+      name,
+      image,
+      description,
+      website,
+      establishmentDate,
+      companySectorId,
+      userId
+    );
     if (addCompany) {
-      res.status(201).json("Companies has been successfully added");
+      res.status(201).json(addCompany);
     } else {
       res.sendStatus(404);
     }
@@ -65,13 +90,14 @@ const add = async (res, req) => {
 
 // DELETE
 
-const remove = async (res, req) => {
+const remove = async (req, res) => {
+  const { id } = req.params;
   try {
-    const removeCompany = await tables.company.delete(
-      parseInt(req.params.id, 10)
-    );
-    if (removeCompany) {
-      res.status(200).json("Candidate has been successefully deleted");
+    const removeCompany = await tables.company.delete(parseInt(id, 10));
+    if (removeCompany.length > 0) {
+      res
+        .status(200)
+        .json("Company has been successefully deleted from your table");
     } else {
       res.sendStatus(404);
     }
