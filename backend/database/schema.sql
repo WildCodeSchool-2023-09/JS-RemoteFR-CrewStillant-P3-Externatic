@@ -116,7 +116,7 @@ CREATE TABLE skill (
 -- Table: user
 CREATE TABLE user (
    id INT AUTO_INCREMENT NOT NULL,
-    email VARCHAR(255)  NOT NULL,
+    email VARCHAR(255)  NOT NULL UNIQUE,
     password VARCHAR(100)  NOT NULL,
     is_active BOOL  NOT NULL,
     contact_number VARCHAR(20)  NOT NULL,
