@@ -7,13 +7,20 @@ const CompanyManager = require("./models/CompanyManager");
 const UserManager = require("./models/UserManager");
 const JobManager = require("./models/JobManager");
 const CandidateManager = require("./models/CandidateManager");
+const DegreeManager = require("./models/DegreeManager");
+const ExperienceManager = require("./models/ExperienceManager");
+const ActivityManager = require("./models/ActivityManager");
+const MessageManager = require("./models/MessageManger");
 
 const managers = [
   UserManager,
   CompanyManager,
   CandidateManager,
   JobManager,
-  // Add other managers here
+  DegreeManager,
+  ExperienceManager,
+  ActivityManager,
+  MessageManager,
 ];
 
 // Create an empty object to hold data managers for different tables

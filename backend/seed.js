@@ -52,7 +52,7 @@ const seed = async () => {
     ];
 
     // Random user type using an array & faker
-    const userType = ["candidat", "entreprise", "consultant"];
+    const userType = ["candidat", "entreprise", "consultant", "administrateur"];
 
     // Random job type using an array & faker
     const jobType = [
@@ -69,7 +69,7 @@ const seed = async () => {
     for (let i = 0; i < 20; i += 1) {
       queries.push(
         database.query(
-          "insert into activity (apply_date, job_id, user_id) values (?, ?, ?)",
+          "INSERT INTO activity (apply_date, job_id, user_id) values (?, ?, ?)",
           [
             fakerFR.date.recent({ days: 1 }),
             fakerFR.number.int({ min: 1, max: 20 }),
@@ -77,7 +77,7 @@ const seed = async () => {
           ]
         ),
         database.query(
-          "insert into candidate (first_name, last_name, date_of_birth, wanted_salary, user_account_id) VALUES (?, ?, ?, ?, ?)",
+          "INSERT INTO candidate (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?, ?, ?, ?, ?)",
           [
             fakerFR.person.firstName(),
             fakerFR.person.lastName(),
@@ -93,8 +93,9 @@ const seed = async () => {
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
+
         database.query(
-          "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?,?)",
+          "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.company.name(),
             fakerFR.image.urlLoremFlickr({
@@ -105,7 +106,6 @@ const seed = async () => {
             fakerFR.lorem.paragraph({ min: 2, max: 5 }),
             fakerFR.internet.url({ appendSlash: true }),
             fakerFR.date.past({ years: 30 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
             fakerFR.number.int({ min: 1, max: 20 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
@@ -168,7 +168,7 @@ const seed = async () => {
             fakerFR.word.adjective(),
             faker.helpers.arrayElement(skillLevel, 1),
             fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 200 }),
+            fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
         database.query(
@@ -181,15 +181,15 @@ const seed = async () => {
             fakerFR.datatype.boolean(0.6),
             fakerFR.datatype.boolean(0.9),
             fakerFR.internet.avatar(),
-            fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 3 }),
+            fakerFR.number.int({ min: 1, max: 4 }),
           ]
-        ),
-        database.query("INSERT INTO user_type (type) VALUES (?)", [
-          faker.helpers.arrayElement(userType, 1),
-        ])
+        )
       );
     }
+
+    userType.map((e) =>
+      database.query("INSERT INTO user_type (type) VALUES (?)", [e])
+    );
 
     for (let i = 0; i < 1557; i += 1) {
       queries.push(
@@ -205,6 +205,19 @@ const seed = async () => {
             faker.helpers.arrayElement(jobPlace, 1),
             fakerFR.lorem.word(),
             fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 20 }),
+          ]
+        )
+      );
+    }
+
+    for (let i = 0; i < 150; i += 1) {
+      queries.push(
+        database.query(
+          "INSERT INTO message (subject, text, user_id) VALUES ( ?, ?, ?)",
+          [
+            fakerFR.lorem.sentence(3),
+            fakerFR.lorem.paragraph({ min: 5, max: 10 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         )

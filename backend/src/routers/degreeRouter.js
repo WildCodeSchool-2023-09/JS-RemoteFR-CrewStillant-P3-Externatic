@@ -4,17 +4,14 @@ const router = express.Router();
 
 const {
   browse,
-  read,
   edit,
   add,
   remove,
-} = require("../controllers/candidateController");
+} = require("../controllers/degreeController");
 
 // GET
 
 router.get("/", browse);
-
-router.get("/:id", read);
 
 // PUT
 

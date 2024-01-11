@@ -4,8 +4,6 @@ CREATE TABLE activity (
     apply_date DATE  NOT NULL,
     job_id INT  NOT NULL,
     user_id INT  NOT NULL,
-    job_id INT  NOT NULL,
-    user_id INT  NOT NULL,
     CONSTRAINT activity_pk PRIMARY KEY (id)
 );
 
@@ -38,7 +36,6 @@ CREATE TABLE company (
     establishment_date DATE  NOT NULL,
     company_sector_id INT  NOT NULL,
     user_id INT NOT NULL,
-    user_id INT NOT NULL,
     CONSTRAINT company_pk PRIMARY KEY (id)
 );
 
@@ -64,13 +61,13 @@ CREATE TABLE degree (
 -- Table: experience
 CREATE TABLE experience (
     id INT AUTO_INCREMENT NOT NULL,
-    start_date DATE  NOT NULL,
+    start_date DATE  NULL,
     end_date DATE  NULL,
-    job_title VARCHAR(50)  NOT NULL,
+    job_title VARCHAR(50)  NULL,
     company_name VARCHAR(100)  NULL,
     city VARCHAR(50)  NULL,
     country VARCHAR(50)  NULL,
-    description TEXT  NOT NULL,
+    description TEXT  NULL,
     candidate_id INT  NOT NULL,
     CONSTRAINT experience_pk PRIMARY KEY (id)
 );
@@ -82,7 +79,7 @@ CREATE TABLE job (
     type VARCHAR(30)  NOT NULL,
     description TEXT  NOT NULL,
     hours_worked INT NOT NULL,
-    created_date DATETIME NOT NULL DEFAULT NOW() DEFAULT NOW(),
+    created_date DATETIME NOT NULL DEFAULT NOW(),
     is_active BOOL  NOT NULL,
     salary INT NOT NULL,
     place VARCHAR(10) NOT NULL,
@@ -119,14 +116,13 @@ CREATE TABLE skill (
 -- Table: user
 CREATE TABLE user (
    id INT AUTO_INCREMENT NOT NULL,
-    email VARCHAR(255)  NOT NULL,
+    email VARCHAR(255)  NOT NULL UNIQUE,
     password VARCHAR(100)  NOT NULL,
     is_active BOOL  NOT NULL,
     contact_number VARCHAR(20)  NOT NULL,
     sms_notification_active BOOL  NOT NULL,
     email_notification_active BOOL  NOT NULL,
     image VARCHAR(255)  NULL,
-    registration_date DATETIME NOT NULL DEFAULT NOW(),
     registration_date DATETIME NOT NULL DEFAULT NOW(),
     user_type_id INT  NOT NULL,
     CONSTRAINT user_pk PRIMARY KEY (id)
@@ -137,4 +133,12 @@ CREATE TABLE user_type (
     id INT AUTO_INCREMENT NOT NULL,
     type VARCHAR(20)  NOT NULL,
     CONSTRAINT user_type_pk PRIMARY KEY (id)
+);
+
+-- Table: messages
+CREATE TABLE message(
+id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+subject VARCHAR(255) NOT NULL,
+text TEXT NOT NULL,
+user_id INT NOT NULL
 );

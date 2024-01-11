@@ -21,7 +21,7 @@ const read = async (req, res) => {
   const { id } = req.params;
   try {
     const getCompanyId = await tables.company.read(parseInt(id, 10));
-    if (getCompanyId.length > 0) {
+    if (getCompanyId[0]) {
       res.status(200).json(getCompanyId);
     } else {
       res.sendStatus(404);
