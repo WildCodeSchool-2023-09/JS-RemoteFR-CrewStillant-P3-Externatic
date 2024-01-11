@@ -61,13 +61,13 @@ CREATE TABLE degree (
 -- Table: experience
 CREATE TABLE experience (
     id INT AUTO_INCREMENT NOT NULL,
-    start_date DATE  NULL,
+    start_date DATE NOT NULL,
     end_date DATE  NULL,
-    job_title VARCHAR(50)  NULL,
+    job_title VARCHAR(50) NOT NULL,
     company_name VARCHAR(100)  NULL,
     city VARCHAR(50)  NULL,
     country VARCHAR(50)  NULL,
-    description TEXT  NULL,
+    description TEXT NOT NULL,
     candidate_id INT  NOT NULL,
     CONSTRAINT experience_pk PRIMARY KEY (id)
 );
