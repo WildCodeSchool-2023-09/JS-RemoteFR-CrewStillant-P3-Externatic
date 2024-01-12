@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import externaticLogo from "../../assets/images/EXTERNATIC-LOGO.png";
 import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
-import SideBar from "../sidebar/SideBar";
+import SideBar from "../sidebar/SideNavBar";
 import styles from "./navBar.module.scss";
 
 function NavBar() {
