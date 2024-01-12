@@ -18,6 +18,7 @@ function JobOffers({ job, filter }) {
               title={j.title}
               image={j.image}
               type={j.type}
+              city={j.state}
             />
           ))}
       </section>

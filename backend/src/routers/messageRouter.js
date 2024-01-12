@@ -2,23 +2,20 @@ const express = require("express");
 
 const router = express.Router();
 
+// Imports
+
 const {
   browse,
   read,
-  edit,
   add,
   remove,
-} = require("../controllers/candidateController");
+} = require("../controllers/messageController");
 
 // GET
 
 router.get("/", browse);
 
 router.get("/:id", read);
-
-// PUT
-
-router.put("/:id", edit);
 
 // POST
 
