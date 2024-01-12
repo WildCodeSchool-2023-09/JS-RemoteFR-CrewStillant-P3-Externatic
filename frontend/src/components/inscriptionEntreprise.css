@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.signupEnterprise div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.signupEnterprise {
+  display: grid;
+}
+
+.grid .confirmButtonEnterprise {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 5em;
+}
