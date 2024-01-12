@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import externaticLogo from "../../assets/images/EXTERNATIC-LOGO.png";
 import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
-import styles from "./navBar.module.scss";
 import SideBar from "../sidebar/SideBar";
+import styles from "./navBar.module.scss";
 
 function NavBar() {
   const [sidebar, setSidebar] = useState(false);
