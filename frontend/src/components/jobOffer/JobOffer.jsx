@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./jobOffer.module.scss";
 
-function JobOffer({ image, title, type }) {
+function JobOffer({ image, title, type, city }) {
   const [liked, setLiked] = useState(false);
   const handleClick = () => {
     setLiked(!liked);
@@ -23,6 +23,7 @@ function JobOffer({ image, title, type }) {
       >
         <h3 className="mb-10">{title}</h3>
         <p>{type}</p>
+        <p>{city}</p>
         <i className={`fa-solid fa-heart ${liked ? "text-primary" : ""}`} />
       </div>
     </div>
@@ -32,5 +33,6 @@ JobOffer.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
 };
 export default JobOffer;
