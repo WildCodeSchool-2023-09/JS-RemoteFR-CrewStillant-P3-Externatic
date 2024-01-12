@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import * as IoIcons from "react-icons/io5";
 import styles from "./jobOffer.module.scss";
 
 function JobOffer({ image, title, type }) {
@@ -23,7 +24,9 @@ function JobOffer({ image, title, type }) {
       >
         <h3 className="mb-10">{title}</h3>
         <p>{type}</p>
-        <i className={`fa-solid fa-heart ${liked ? "text-primary" : ""}`} />
+        <i className={`${liked ? "text-primary" : ""}`}>
+          <IoIcons.IoHeart />
+        </i>
       </div>
     </div>
   );
