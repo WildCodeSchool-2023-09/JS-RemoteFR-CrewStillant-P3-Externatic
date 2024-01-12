@@ -11,16 +11,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "/accueil",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
       {
-        path: "/",
+        path: "/candidat",
         element: <CandidatePage />,
         children: [
           {
-            path: "/profil/:id",
+            path: "profil/:id",
             element: <UserProfil />,
             loader: ({ params }) =>
               fetch(
