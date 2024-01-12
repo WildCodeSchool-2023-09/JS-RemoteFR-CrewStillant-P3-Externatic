@@ -25,7 +25,7 @@ const sidebarData = [
   },
   {
     title: "Candidat",
-    path: "/candidat",
+    path: "/candidat/profil/:id",
     icon: <PiIcons.PiStudentLight />,
     cName: "nav-text",
   },
