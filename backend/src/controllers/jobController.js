@@ -10,7 +10,6 @@ const browse = async (req, res) => {
     } else {
       res.sendStatus(404);
     }
-    res.sendStatus(404);
   } catch (err) {
     console.error(err);
   }
