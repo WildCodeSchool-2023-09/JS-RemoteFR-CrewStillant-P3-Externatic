@@ -50,3 +50,7 @@ ALTER TABLE activity ADD CONSTRAINT user_activity FOREIGN KEY user_activity (use
 -- Reference: user_type
 ALTER TABLE user ADD CONSTRAINT user_type FOREIGN KEY user_type (user_type_id)
     REFERENCES user_type (id);
+
+    -- Reference: message
+ALTER TABLE message ADD CONSTRAINT user_id FOREIGN KEY user (user_id)
+    REFERENCES user (id);

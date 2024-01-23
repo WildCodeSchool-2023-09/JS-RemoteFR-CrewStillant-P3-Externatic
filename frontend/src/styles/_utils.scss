@@ -1,0 +1,169 @@
+.p-5 {
+  padding: 5px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.p-30 {
+  padding: 30px;
+}
+
+.m-5 {
+  margin: 5px;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.mr-30 {
+  margin-right: 30px;
+}
+.ml-15 {
+  margin-left: 15px;
+}
+
+.m-20 {
+  margin: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.my-30 {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  width: 100%;
+}
+.card {
+  background-color: var(--gray-3);
+  box-shadow: var(--box-shadow);
+}
+
+.btn {
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  color: var(--gray-1);
+  font-weight: 700;
+  font-size: 2rem;
+  cursor: pointer;
+
+  font-family: "Montserrat", sans-serif;
+  transition: 0.8s;
+  &:hover {
+    opacity: 0.7;
+    transform: translateY(-5px);
+  }
+}
+.btn-primary {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+}
+.btn-reverse-primary {
+  background-color: var(--gray-2);
+  opacity: 0.6;
+  border: 1px solid var(--primary);
+}
+.calc {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+.text-primary {
+  color: black;
+}
+
+.menu-bars {
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+  color: #fff;
+}
+.nav-menu {
+  background-color: #851342;
+  width: 260px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  transition: 850ms;
+  z-index: 10000;
+}
+.nav-menu.active {
+  right: 0;
+  transition: 350ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 60px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 18px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.nav-text a:hover {
+  background-color: #fff;
+  color: black;
+  opacity: 0.6;
+}
+
+.nav-menu-items {
+  width: 100%;
+}
+
+.navbar-toggle {
+  background-color: #851342;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
