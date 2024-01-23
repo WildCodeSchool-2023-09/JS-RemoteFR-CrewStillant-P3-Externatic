@@ -14,7 +14,7 @@ const browseFilters = async (req, res, next) => {
   } = req.query;
   try {
     // Fetch all offers from the database
-    const offers = await tables.job.readAll(
+    const offers = await tables.job.readAllFilters(
       terms,
       location,
       salary,
