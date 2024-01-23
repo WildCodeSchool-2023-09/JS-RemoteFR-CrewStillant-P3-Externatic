@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "/candidate",
+        path: "candidate",
         element: <CandidatePage />,
         children: [
           {

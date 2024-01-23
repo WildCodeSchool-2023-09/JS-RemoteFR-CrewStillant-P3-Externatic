@@ -32,7 +32,11 @@ export default function SearchPage() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}search?${filters.toString()}`)
+      .get(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/job/searchPage?${filters.toString()}`
+      )
       .then((res) => setData(res.data))
       .then(setIsValidate(false));
   }, [isValidate, terms]);
@@ -194,6 +198,15 @@ export default function SearchPage() {
                 <p>Heures hebdomadaires : {offer.hours_worked}H</p>
                 <p>Lieu de travail : {offer.place}</p>
                 <p>Ville : {offer.city}</p>
+                <iframe
+                  title="Maps Embed Location"
+                  width="400"
+                  height="300"
+                  style={{ border: 0 }}
+                  src={`https://www.google.com/maps/embed/v1/place?key=${
+                    import.meta.env.VITE_GOOGLE_API
+                  }&q=${offer.city}`}
+                />
               </div>
             </>
           ) : (
