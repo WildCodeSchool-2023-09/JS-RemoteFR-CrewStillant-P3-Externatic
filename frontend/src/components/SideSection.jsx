@@ -5,13 +5,10 @@ import style from "../assets/styles/candidatePage.module.scss";
 function SideSection() {
   return (
     <section className={`${style.sidesection}`}>
-      <NavLink to="/" className={`${style.sidesection.a}`}>
-        Compte
-      </NavLink>
-      <NavLink> Messages</NavLink>
+      <NavLink to="/candidat/profil/10">Compte</NavLink>
+      <NavLink to="/candidat/messages/10"> Messages</NavLink>
       <NavLink> Suivi de candidatures </NavLink>
-      <NavLink> Historique de candidatures </NavLink>
-      <NavLink> Paramètres </NavLink>
+      <NavLink to="/candidat/activités/10">Historique de candidatures</NavLink>
     </section>
   );
 }

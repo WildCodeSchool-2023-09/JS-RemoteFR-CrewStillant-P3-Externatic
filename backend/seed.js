@@ -95,7 +95,7 @@ const seed = async () => {
         ),
 
         database.query(
-          "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          "INSERT INTO company (name, image, description, website, establishment_date, siret, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.company.name(),
             fakerFR.image.urlLoremFlickr({
@@ -106,6 +106,7 @@ const seed = async () => {
             fakerFR.lorem.paragraph({ min: 2, max: 5 }),
             fakerFR.internet.url({ appendSlash: true }),
             fakerFR.date.past({ years: 30 }),
+            fakerFR.number.int({ min: 10000000000000, max: 99999999999999 }),
             fakerFR.number.int({ min: 1, max: 20 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]

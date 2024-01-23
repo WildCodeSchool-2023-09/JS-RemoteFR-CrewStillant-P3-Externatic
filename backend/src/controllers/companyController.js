@@ -65,6 +65,7 @@ const add = async (req, res) => {
     description,
     website,
     establishmentDate,
+    siret,
     companySectorId,
     userId,
   } = req.body;
@@ -75,6 +76,7 @@ const add = async (req, res) => {
       description,
       website,
       establishmentDate,
+      siret,
       companySectorId,
       userId
     );
