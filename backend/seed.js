@@ -51,14 +51,14 @@ const seed = async () => {
       "Bac+8",
     ];
 
-    // Random user type using an array & faker
-    const userType = ["candidat", "entreprise", "consultant"];
+    // Random user type using an array
+    const userType = ["candidat", "entreprise", "consultant", "administrateur"];
 
     // Random user type using an array & faker
     const jobType = [
       "Contrat à durée déterminée",
       "Contrat à durée indéterminée",
-      "Intérim",
+      "Stage",
       "Alternance",
     ];
 
@@ -94,13 +94,10 @@ const seed = async () => {
           "INSERT INTO company (name, image, description, website, establishment_date, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
           [
             fakerFR.company.name(),
-            fakerFR.image.urlPlaceholder({
-              width: 128,
-              height: 128,
-              backgroundColor: "6B6B6B",
-              textColor: "FFFFFF",
-              format: "png",
-              text: "logo",
+            fakerFR.image.urlLoremFlickr({
+              width: 400,
+              height: 300,
+              category: "business",
             }),
             fakerFR.lorem.paragraph({ min: 2, max: 5 }),
             fakerFR.internet.url({ appendSlash: true }),
@@ -167,7 +164,7 @@ const seed = async () => {
             fakerFR.word.adjective(),
             faker.helpers.arrayElement(skillLevel, 1),
             fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 1557 }),
           ]
         ),
         database.query(
@@ -180,14 +177,15 @@ const seed = async () => {
             fakerFR.datatype.boolean(0.6),
             fakerFR.datatype.boolean(0.9),
             fakerFR.internet.avatar(),
-            fakerFR.number.int({ min: 1, max: 3 }),
+            fakerFR.number.int({ min: 1, max: 4 }),
           ]
-        ),
-        database.query("INSERT INTO user_type (type) VALUES (?)", [
-          faker.helpers.arrayElement(userType, 1),
-        ])
+        )
       );
     }
+
+    userType.map((e) =>
+      database.query("INSERT INTO user_type (type) VALUES (?)", [e])
+    );
 
     for (let i = 0; i < 200; i += 1) {
       queries.push(

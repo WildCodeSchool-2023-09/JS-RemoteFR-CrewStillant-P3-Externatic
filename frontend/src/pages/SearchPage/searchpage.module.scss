@@ -1,0 +1,148 @@
+$box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
+$box-shadowMB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
+$box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
+
+@import url("https://fonts.googleapis.com/css2?family=Jost");
+* {
+  font-family: "Jost";
+}
+
+.results {
+  margin: auto;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin: 1rem;
+  min-height: fit-content;
+  border: 1px solid red;
+
+  .filters {
+    min-height: min-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    justify-items: center;
+    border: 2px solid;
+    border-radius: 1rem;
+    box-shadow: $box-shadow;
+    -webkit-box-shadow: $box-shadowWB;
+    -moz-box-shadow: $box-shadowMB;
+
+    .title {
+      width: 100%;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      margin: 0 1vw 1vh 1vw;
+
+      label {
+        margin-top: 1rem;
+      }
+      label:first-child {
+        margin-top: 0;
+      }
+      input,
+      select {
+        border-radius: 0.5rem;
+        margin-bottom: 3vh;
+      }
+      input[type="range"] {
+        margin-bottom: 0;
+      }
+      .jobPlace label {
+        margin-top: 4rem;
+      }
+      .Rsalary {
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+    }
+
+    select:last-child {
+      display: flex;
+      justify-items: center;
+    }
+
+    button {
+      position: relative;
+      width: fit-content;
+      border: 1px solid;
+      border-radius: 0.5rem;
+      margin: 0.5rem;
+      box-shadow: $box-shadow;
+      background: white;
+      -webkit-box-shadow: $box-shadowWB;
+      -moz-box-shadow: $box-shadowMB;
+    }
+  }
+
+  .offers {
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    border: 2px solid blue;
+    border-radius: 1rem 0 0 1rem;
+    box-shadow: $box-shadow;
+    -webkit-box-shadow: $box-shadowWB;
+    -moz-box-shadow: $box-shadowMB;
+    overflow: scroll;
+    position: relative;
+    border-right: 1px groove;
+    overflow-x: hidden;
+
+    .listOffers {
+      width: 20vw;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      div {
+        margin-bottom: 1rem;
+        border: 1px solid;
+        border-radius: 1rem;
+        button {
+          width: 100%;
+          height: 100%;
+          border: none;
+          border-radius: 1rem;
+          background: white;
+        }
+      }
+    }
+  }
+  .offers::-webkit-scrollbar {
+    display: none;
+  }
+  .detailledOffer {
+    min-width: 50vw;
+    width: fit-content;
+    border: 2px solid;
+    border-left: 2px groove;
+    border-radius: 0 1rem 1rem 0;
+    padding: 1rem;
+  }
+}
+@media (max-width: 900px) or (max-height: 810px) {
+  .results {
+    flex-direction: column;
+    .filters {
+      margin: auto;
+      flex-direction: column;
+      .form {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: auto;
+        height: auto;
+        justify-content: center;
+      }
+      button {
+        height: fit-content;
+      }
+    }
+  }
+}

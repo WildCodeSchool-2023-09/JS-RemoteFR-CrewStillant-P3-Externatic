@@ -3,7 +3,7 @@ const tables = require("../tables");
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   const {
-    terms,
+    terms = null,
     location = null,
     salary = null,
     place = null,
