@@ -1,0 +1,29 @@
+.signupCandidate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signupCandidate .formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.signupCandidate div p {
+  display: flex;
+  align-items: center;
+}
+
+.signupCandidate div input {
+  height: 4em;
+  width: 10em;
+}
+
+.confirmButtonCandidate {
+  display: flex;
+  justify-content: space-around;
+  height: 5em;
+  margin-right: 30em;
+  margin-left: 30em;
+}

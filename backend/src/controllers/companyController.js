@@ -65,8 +65,9 @@ const add = async (req, res) => {
     description,
     website,
     establishmentDate,
-    companySectorId,
-    userId,
+    siret,
+    insertId2: companySectorId,
+    insertId: userId,
   } = req.body;
   try {
     const addCompany = await tables.company.create(
@@ -75,6 +76,7 @@ const add = async (req, res) => {
       description,
       website,
       establishmentDate,
+      siret,
       companySectorId,
       userId
     );
