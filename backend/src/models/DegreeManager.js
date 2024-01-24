@@ -7,7 +7,15 @@ class DegreeManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT degree.name AS degree, degree.level AS level, degree.starting_date AS starting_date, degree.completion_date AS completion_date, degree.university AS university, degree.city AS city, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate_degree ON ${this.table}.id = candidate_degree.degree_id LEFT JOIN candidate ON candidate_degree.candidate_id = candidate.id`
+      `SELECT degree.name AS degree, degree.level AS level, degree.starting_date AS startingDate, degree.completion_date AS completionDate, degree.university AS university, degree.city AS city, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate_degree ON ${this.table}.id = candidate_degree.degree_id LEFT JOIN candidate ON candidate_degree.candidate_id = candidate.id`
+    );
+    return result;
+  }
+
+  async read(id) {
+    const [result] = await this.database.query(
+      `SELECT degree.name AS degree, degree.level AS level, degree.starting_date AS startingDate, degree.completion_date AS completionDate, degree.university AS university, degree.city AS city, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate_degree ON ${this.table}.id = candidate_degree.degree_id LEFT JOIN candidate ON candidate_degree.candidate_id = candidate.id WHERE candidate_degree.candidate_id =?`,
+      [id]
     );
     return result;
   }

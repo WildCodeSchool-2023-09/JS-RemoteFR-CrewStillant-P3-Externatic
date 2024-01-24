@@ -7,7 +7,16 @@ class ExperienceManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT experience.job_title AS job_title, experience.company_name AS company_name, experience.start_date AS start_date, experience.end_date AS end_date, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate ON candidate.id = ${this.table}.candidate_id `
+      `SELECT experience.job_title AS jobTitle, experience.company_name AS companyName, experience.start_date AS startDate, experience.end_date AS endDate, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate ON candidate.id = ${this.table}.candidate_id `
+    );
+
+    return result;
+  }
+
+  async read(id) {
+    const [result] = await this.database.query(
+      `SELECT experience.job_title AS jobTitle, experience.company_name AS companyName, experience.start_date AS startDate, experience.end_date AS endDate, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate ON candidate.id = ${this.table}.candidate_id WHERE ${this.table}.candidate_id=?`,
+      [id]
     );
 
     return result;

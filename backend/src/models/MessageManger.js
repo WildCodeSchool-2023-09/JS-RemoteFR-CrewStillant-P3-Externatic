@@ -14,7 +14,7 @@ class MessageManager extends AbstractManager {
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT user.email, message.subject, message.text, message.recieved_date AS receivedDate FROM ${this.table} INNER JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id=?`,
+      `SELECT user.email, message.subject, message.text, message.recieved_date AS receivedDate FROM ${this.table} INNER JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.user_id=?`,
       [id]
     );
     return result;
