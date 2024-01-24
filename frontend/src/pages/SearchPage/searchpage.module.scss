@@ -18,7 +18,7 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
   border: 1px solid red;
 
   .filters {
-    min-height: min-content;
+    min-height: 50vh;
     width: fit-content;
     display: flex;
     flex-direction: column;
@@ -33,12 +33,13 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
 
     .title {
       width: 100%;
+      margin: 2vh 0rem;
     }
 
     .form {
       display: flex;
       flex-direction: column;
-      margin: 0 1vw 1vh 1vw;
+      margin: 3vh 1vw 1vh 1vw;
 
       label {
         margin-top: 1rem;
@@ -84,7 +85,7 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
   .offers {
     display: flex;
     flex-direction: row;
-    margin-left: 1rem;
+    margin: auto;
     border: 2px solid blue;
     border-radius: 1rem 0 0 1rem;
     box-shadow: $box-shadow;
@@ -125,12 +126,23 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
     border-left: 2px groove;
     border-radius: 0 1rem 1rem 0;
     padding: 1rem;
+    margin: auto;
+    .smallInformations {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      margin: 3vh 8vw;
+      p {
+        margin: 1.5vh 1.5vw;
+      }
+    }
   }
 }
 @media (max-width: 900px) or (max-height: 810px) {
   .results {
     flex-direction: column;
     .filters {
+      max-height: max-content;
       margin: auto;
       flex-direction: column;
       .form {

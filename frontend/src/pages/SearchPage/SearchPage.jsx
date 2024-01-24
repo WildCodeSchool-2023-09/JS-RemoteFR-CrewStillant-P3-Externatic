@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { jobType, jobPlace } from "./datas/filterDatas";
-import formatString from "../../services/formatString";
+import { formatString, replaceAll } from "../../services/formatting";
 import styles from "./searchpage.module.scss";
 
 export default function SearchPage() {
@@ -31,21 +31,26 @@ export default function SearchPage() {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `${
-          import.meta.env.VITE_BACKEND_URL
-        }/job/searchPage?${filters.toString()}`
-      )
-      .then((res) => setData(res.data))
-      .then(setIsValidate(false));
-  }, [isValidate, terms]);
+    if (isValidate) {
+      axios
+        .get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/job/searchPage?${filters.toString()}`
+        )
+        .then((res) => setData(res.data))
+        .then(setIsValidate(false));
+    }
+  }, [isValidate]);
 
+  console.info(data);
+
+  /**
+   * Fonction qui vient appliquer les filtres.
+   */
   const handleFilters = () => {
     const params = new URLSearchParams(filters);
-    if (terms !== "") {
-      params.set("terms", terms);
-    }
+    params.set("terms", terms);
     if (city !== "") {
       params.set("location", city);
     }
@@ -76,17 +81,19 @@ export default function SearchPage() {
     params.delete("type");
     setType("none");
     setFilters(params);
-    try {
-      if (terms != null && terms !== "") {
-        axios
-          .get(`${import.meta.env.VITE_BACKEND_URL}search?terms=${terms}`)
-          .then((res) => setData(res.data));
-      }
-    } catch (e) {
-      console.error(e);
-    }
+    setIsValidate(true);
+    // try {
+    //   if (terms != null && terms !== "") {
+    //     axios
+    //       .get(
+    //         `${import.meta.env.VITE_BACKEND_URL}/job/searchPage?terms=${terms}`
+    //       )
+    //       .then((res) => setData(res.data));
+    //   }
+    // } catch (e) {
+    //   console.error(e);
+    // }
   };
-  console.info(data);
 
   const clickOffer = (id) => {
     setOffer(data.find((e) => id === e.id));
@@ -95,6 +102,7 @@ export default function SearchPage() {
   return (
     <main>
       <SearchBar
+        setIsValidate={setIsValidate}
         setTerms={setTerms}
         filters={filters}
         setFilters={setFilters}
@@ -193,21 +201,35 @@ export default function SearchPage() {
             <>
               <h3>{offer.title}</h3>
               <p>{offer.description}</p>
-              <div>
-                <p>Salaire annuel : {offer.salary} €</p>
-                <p>Heures hebdomadaires : {offer.hours_worked}H</p>
-                <p>Lieu de travail : {offer.place}</p>
-                <p>Ville : {offer.city}</p>
-                <iframe
-                  title="Maps Embed Location"
-                  width="400"
-                  height="300"
-                  style={{ border: 0 }}
-                  src={`https://www.google.com/maps/embed/v1/place?key=${
-                    import.meta.env.VITE_GOOGLE_API
-                  }&q=${offer.city}`}
-                />
+              <div className={`${styles.smallInformations}`}>
+                <p>
+                  <b>Type de contrat :</b> {offer.type}
+                </p>
+                <p>
+                  <b>Salaire annuel :</b> {offer.salary} €
+                </p>
+                <p>
+                  <b>Heures hebdomadaires :</b> {offer.hours_worked}H
+                </p>
+                <p>
+                  <b>Lieu de travail :</b> {offer.place}
+                </p>
+                <p>
+                  <b>Adresse :</b> {replaceAll(offer.address)}
+                </p>
+                <p>
+                  <b>Ville :</b> {offer.city}
+                </p>
               </div>
+              <iframe
+                title="Maps Embed Location"
+                width="450"
+                height="350"
+                style={{ border: 0 }}
+                src={`https://www.google.com/maps/embed/v1/place?key=${
+                  import.meta.env.VITE_GOOGLE_API
+                }&q=${offer.city}`}
+              />
             </>
           ) : (
             <h2>Commencez à recherchez une offre</h2>

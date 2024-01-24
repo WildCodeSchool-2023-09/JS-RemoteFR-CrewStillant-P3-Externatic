@@ -24,7 +24,11 @@ const browseFilters = async (req, res, next) => {
       orderby,
       Number(limit)
     );
-    res.json(offers);
+    if (offers !== null) {
+      res.json(offers);
+    } else {
+      res.send(401).json({ message: "Recherche non aboutie" });
+    }
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

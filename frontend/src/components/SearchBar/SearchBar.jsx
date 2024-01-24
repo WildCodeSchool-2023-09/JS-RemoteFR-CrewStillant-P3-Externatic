@@ -4,7 +4,12 @@ import { ErrorMessage } from "@hookform/error-message";
 import PropTypes from "prop-types";
 import styles from "./searchbar.module.scss";
 
-export default function SearchBar({ setTerms, filters, setFilters }) {
+export default function SearchBar({
+  setIsValidate,
+  setTerms,
+  filters,
+  setFilters,
+}) {
   const {
     register,
     handleSubmit,
@@ -14,10 +19,12 @@ export default function SearchBar({ setTerms, filters, setFilters }) {
   });
 
   const onSubmit = (data) => {
+    console.info(data.search);
     setTerms(data.search);
     const params = new URLSearchParams(filters);
     params.set("terms", data.search);
     setFilters(params);
+    setIsValidate(true);
   };
 
   return (
@@ -29,7 +36,7 @@ export default function SearchBar({ setTerms, filters, setFilters }) {
           className={`${styles.searchBar}`}
           placeholder="Votre recherche ici"
           {...register("search", {
-            required: "Veuillez entrer votre recherche.",
+            // required: "Veuillez entrer votre recherche.",
             minLength: {
               value: 2,
               message: "Veuillez entrer au moins 2 caractères.",
@@ -59,6 +66,7 @@ export default function SearchBar({ setTerms, filters, setFilters }) {
 }
 
 SearchBar.propTypes = {
+  setIsValidate: PropTypes.func.isRequired,
   setTerms: PropTypes.func.isRequired,
   filters: PropTypes.shape.isRequired,
   setFilters: PropTypes.func.isRequired,

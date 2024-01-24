@@ -95,7 +95,7 @@ class JobManager extends AbstractManager {
     limit
   ) {
     // Toute la logique pour pouvoir accumuler les filtres de recherche via un tableau d'objets.
-    const initialSql = `SELECT j.id, j.title, j.type, j.description, j.hours_worked, j.created_date, j.is_active, j.salary, j.place, j.sector, l.city AS city, j.company_id FROM ${this.table} AS j JOIN location AS l ON l.id=j.location_id`;
+    const initialSql = `SELECT j.id, j.title, j.type, j.description, j.hours_worked, j.created_date, j.is_active, j.salary, j.place, j.sector, CONCAT(COALESCE(l.additional_adress, '.'), ' ', COALESCE(l.number_adress, '.'), ' ', COALESCE(l.number_attribute, '.'), ' ', l.address) AS address, l.city, l.zip as cityCode, l.state, l.country, j.company_id FROM ${this.table} AS j JOIN location AS l ON l.id=j.location_id`;
     const where = [];
 
     // S'il y a un filtre de présent via les query, j'ajoute un nouvel objet dans le tableau ci-dessus.
@@ -155,13 +155,17 @@ class JobManager extends AbstractManager {
 
     const values = where.map(({ value }) => value);
 
-    // Je fais ma requête SQL préparée avec mon tableau d'objets.
-    const [rows] = await this.database.query(
-      query + (orderBy != null ? orderBySql : "") + limitSql,
-      values
-    );
+    console.info(where.length);
+    if (where.length !== 0) {
+      // Je fais ma requête SQL préparée avec mon tableau d'objets.
+      const [rows] = await this.database.query(
+        query + (orderBy != null ? orderBySql : "") + limitSql,
+        values
+      );
 
-    return rows;
+      return rows;
+    }
+    return null;
   }
 }
 
