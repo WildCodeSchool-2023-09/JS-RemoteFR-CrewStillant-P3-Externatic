@@ -14,7 +14,7 @@ function CandidatePage() {
       </div>
 
       <div className={`${style.userpage}`}>
-        <SideSection />
+        <SideSection user={user} />
         <Outlet context={(user, messages, activity)} />
       </div>
     </div>

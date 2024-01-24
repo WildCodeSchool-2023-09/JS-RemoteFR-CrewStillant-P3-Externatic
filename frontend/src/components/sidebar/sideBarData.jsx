@@ -2,7 +2,6 @@ import * as CiIcons from "react-icons/ci";
 import * as PiIcons from "react-icons/pi";
 import * as AiIcons from "react-icons/ai";
 import * as MdIcons from "react-icons/md";
-import * as RiIcons from "react-icons/ri";
 
 const sidebarData = [
   {
@@ -25,14 +24,8 @@ const sidebarData = [
   },
   {
     title: "Candidat",
-    path: "/candidat/profil/11",
+    path: "/candidat/profil/15",
     icon: <PiIcons.PiStudentLight />,
-    cName: "nav-text",
-  },
-  {
-    title: "Se déconnecter",
-    path: "/accueil",
-    icon: <RiIcons.RiLogoutCircleLine />,
     cName: "nav-text",
   },
 ];

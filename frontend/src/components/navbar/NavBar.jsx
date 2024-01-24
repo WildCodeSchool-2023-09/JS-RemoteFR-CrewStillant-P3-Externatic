@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +8,7 @@ import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
 import SideBar from "../sidebar/SideNavBar";
 import styles from "./navBar.module.scss";
 
-function NavBar() {
+function NavBar({ auth, setAuth }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
   return (
@@ -19,7 +20,11 @@ function NavBar() {
         <div className="d-flex justify-content-flex-end flex-fill">
           <ul className=" d-flex align-items-center mr-30">
             <li className="d-flex justify-content-space-center align-items-center">
-              <a href="#connect">Se Connecter</a>
+              {auth ? (
+                <p>{auth.email}</p>
+              ) : (
+                <Link to="/login"> Se connecter </Link>
+              )}
               <img src={externaticLogo2} alt="logo" />
             </li>
             <li>
@@ -30,9 +35,23 @@ function NavBar() {
           </ul>
         </div>
       </nav>
-      <SideBar sidebar={sidebar} showSidebar={showSidebar} />
+      <SideBar
+        sidebar={sidebar}
+        showSidebar={showSidebar}
+        setAuth={setAuth}
+        auth={auth}
+      />
     </div>
   );
 }
+
+NavBar.propTypes = {
+  auth: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    username: PropTypes.string,
+  }).isRequired,
+  setAuth: PropTypes.func.isRequired,
+};
 
 export default NavBar;

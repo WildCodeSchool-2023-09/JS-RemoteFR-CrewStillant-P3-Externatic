@@ -4,6 +4,10 @@ import { useOutletContext } from "react-router-dom";
 function UserDiploma() {
   const { degrees } = useOutletContext();
 
+  if (!degrees || degrees.length === 0) {
+    return <p>Aucun diplôme ajouté.</p>;
+  }
+
   const [{ degree, level, startingDate, completionDate, university, city }] =
     degrees;
   const formatDateString = (dateString) => {

@@ -1,21 +1,30 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import style from "../assets/styles/candidatePage.module.scss";
 
-function SideSection() {
+function SideSection({ user }) {
   return (
     <section className={`${style.sidesection}`}>
-      <NavLink to="/candidat/profil/20">Compte</NavLink>
-      <NavLink to="/candidat/diplôme/20">Mes diplômes</NavLink>
-      <NavLink to="/candidat/expérience/20">Mes expérience</NavLink>
-      <NavLink to="/candidat/compétence/20">
+      <NavLink to={`/candidat/profil/${user.id}`}>Compte</NavLink>
+      <NavLink to={`/candidat/diplôme/${user.id}`}>Mes diplômes</NavLink>
+      <NavLink to={`/candidat/expérience/${user.id}`}>Mes expérience</NavLink>
+      <NavLink to={`/candidat/compétence/${user.id}`}>
         Mes critères et compétences
       </NavLink>
-      <NavLink to="/candidat/messages/20"> Messages</NavLink>
+      <NavLink to={`/candidat/messages/${user.id}`}> Messages</NavLink>
       <NavLink> Suivi de candidatures </NavLink>
-      <NavLink to="/candidat/activités/20">Historique de candidatures</NavLink>
+      <NavLink to={`/candidat/activités/${user.id}`}>
+        Historique de candidatures
+      </NavLink>
     </section>
   );
 }
+
+SideSection.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default SideSection;

@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 function CriteriaUser({ criteria }) {
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleSelectChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   return (
-    <select>
+    <select value={selectedValue} onChange={handleSelectChange}>
+      <option value="" disabled>
+        Select a criteria
+      </option>
       {criteria &&
         criteria.map((c) => (
           <option key={c.id} value={c.value}>
@@ -21,7 +30,6 @@ CriteriaUser.propTypes = {
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         .isRequired,
       name: PropTypes.string.isRequired,
-      // Add more prop types if needed
     })
   ),
 };

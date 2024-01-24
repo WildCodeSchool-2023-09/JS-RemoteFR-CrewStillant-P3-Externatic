@@ -11,6 +11,7 @@ import UserActivity from "./components/user/UserActivity";
 import UserDiploma from "./components/user/UserDiploma";
 import UserExperience from "./components/user/UserExperience";
 import UserChoices from "./components/user/UserChoices";
+import Login from "./components/Login";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         path: "/accueil",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "/candidat",

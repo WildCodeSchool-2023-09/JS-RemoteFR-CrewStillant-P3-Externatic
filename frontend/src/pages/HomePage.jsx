@@ -5,7 +5,7 @@ function HomePage() {
   const job = useLoaderData();
   return (
     <div>
-      <MainHomePage job={job} />
+      <MainHomePage job={job} />;
     </div>
   );
 }
