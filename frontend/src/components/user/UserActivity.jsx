@@ -1,6 +1,6 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
-import style from "../../assets/styles/candidatePage.module.scss";
+import { useOutletContext, NavLink } from "react-router-dom";
+import style from "../../assets/styles/activityPage.module.scss";
 
 function UserActivity() {
   const { activity } = useOutletContext();
@@ -13,18 +13,19 @@ function UserActivity() {
   };
 
   return (
-    <div className={`${style.profilesection}`}>
-      <div id="1" className={`${style.userimage}`}>
-        <nav>
+    <div className={`${style.profileActivity}`}>
+      <div id="1" className={`${style.sideActivity}`}>
+        <NavLink>
           <h3>{title}</h3>
-        </nav>
+        </NavLink>
         <h4>{type}</h4>
         <h4>{formatDateString(applyDate)}</h4>
       </div>
-      <div id="2" className={`${style.userinfo}`}>
+      <hr />
+      <div id="2" className={`${style.selectedActivity}`}>
         <h2>{title}</h2>
         <h4>{type}</h4>
-        <h4>{salary}</h4>
+        <h4>{salary} euro/an</h4>
         <p>{formatDateString(applyDate)}</p>
         <p>{description}</p>
       </div>

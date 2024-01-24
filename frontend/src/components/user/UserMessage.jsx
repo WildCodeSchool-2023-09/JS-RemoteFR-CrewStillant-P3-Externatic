@@ -1,6 +1,6 @@
 import React from "react";
-import { useOutletContext } from "react-router-dom";
-import style from "../../assets/styles/candidatePage.module.scss";
+import { useOutletContext, NavLink } from "react-router-dom";
+import style from "../../assets/styles/messagePage.module.scss";
 
 function UserMessage() {
   const { messages } = useOutletContext();
@@ -13,14 +13,15 @@ function UserMessage() {
   };
 
   return (
-    <div className={`${style.profilesection}`}>
-      <div id="1" className={`${style.userimage}`}>
-        <nav>
+    <div className={`${style.profileMessage}`}>
+      <div id="1" className={`${style.messageList}`}>
+        <NavLink>
           <h3>{subject}</h3>
-        </nav>
+        </NavLink>
         <h4>{email}</h4>
       </div>
-      <div id="2" className={`${style.userinfo}`}>
+      <hr />
+      <div id="2" className={`${style.message}`}>
         <h2>{subject}</h2>
         <h4>{email}</h4>
         <p>{formatDateString(receivedDate)}</p>
