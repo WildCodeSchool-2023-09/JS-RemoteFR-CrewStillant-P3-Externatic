@@ -69,11 +69,9 @@ const add = async (req, res) => {
     insertId2: companySectorId,
     insertId: userId,
   } = req.body;
-  const { filename } = req.file;
   try {
     const addCompany = await tables.company.create(
       name,
-      filename,
       description,
       website,
       establishmentDate,

@@ -31,7 +31,6 @@ class CompanyManager extends AbstractManager {
 
   async create(
     name,
-    filename,
     description,
     website,
     establishmentDate,
@@ -40,11 +39,10 @@ class CompanyManager extends AbstractManager {
     userId
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, image, description, website, establishment_date, siret, company_sector_id,
-    user_id) VALUES (?,?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (name, description, website, establishment_date, siret, company_sector_id,
+    user_id) VALUES (?,?,?,?,?,?,?)`,
       [
         name,
-        filename,
         description,
         website,
         establishmentDate,

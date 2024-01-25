@@ -12,7 +12,6 @@ export default function InscriptionEntreprise() {
     formState: { errors },
   } = useForm();
 
-  const [file, setFile] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
@@ -20,8 +19,7 @@ export default function InscriptionEntreprise() {
       const type = 2;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
-        { ...data, file, type },
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { ...data, type }
       );
 
       const responseTwo = await axios.post(
@@ -34,8 +32,7 @@ export default function InscriptionEntreprise() {
 
       const responseThree = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/company`,
-        { ...data, file, insertId, insertId2 },
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { ...data, insertId, insertId2 }
       );
 
       if (
@@ -50,28 +47,8 @@ export default function InscriptionEntreprise() {
     }
   };
 
-  const handleUpload = (e) => {
-    e.preventDefault();
-    setFile(e.target.files);
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {Boolean(file.length) && (
-        <img
-          className="avatar"
-          src={URL.createObjectURL(file[0])}
-          alt="avatar"
-        />
-      )}
-      <p>Téléchargez votre photo de profil (500ko max)</p>
-      <input
-        required
-        name="file"
-        type="file"
-        onChange={handleUpload}
-        accept="image/jpeg, image/png"
-      />
       <section className="grid">
         <section className="signupCompany">
           <div>

@@ -55,11 +55,10 @@ class UserManager extends AbstractManager {
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
-    type,
-    filename
+    type
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, user_type_id) VALUES (?,?,?,?,?,?,?)`,
       [
         email,
         password,
@@ -67,7 +66,6 @@ class UserManager extends AbstractManager {
         contactNumber,
         smsNotificationActive,
         emailNotificationActive,
-        filename,
         type,
       ]
     );

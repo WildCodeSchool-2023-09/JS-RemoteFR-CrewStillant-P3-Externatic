@@ -13,28 +13,21 @@ export default function InscriptionCandidat() {
     formState: { errors },
   } = useForm();
 
-  const [file, setFile] = useState([]);
-  const [cv, setCv] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
-    console.info("data", data);
-    console.info("avatar", file);
-    console.info("cv", cv);
     try {
       const type = 1;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
-        { ...data, file, type },
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { ...data, type }
       );
 
       const { insertId } = response.data;
 
       const responseTwo = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/candidate`,
-        { ...data, cv, insertId },
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { ...data, insertId }
       );
 
       if (response.status === 201 && responseTwo.status === 201) {
@@ -45,51 +38,8 @@ export default function InscriptionCandidat() {
     }
   };
 
-  const handleUpload = (e) => {
-    e.preventDefault();
-    setFile(e.target.files);
-  };
-  const handleUploadCV = (e) => {
-    e.preventDefault();
-    setCv(e.target.files);
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {Boolean(file.length) && (
-        <img
-          className="avatar"
-          src={URL.createObjectURL(file[0])}
-          alt="avatar"
-        />
-      )}
-      <p>Téléchargez votre photo de profil (500ko max, format .jpeg/.png)</p>
-      <input
-        required
-        name="file"
-        type="file"
-        onChange={handleUpload}
-        accept="image/jpeg, image/png"
-      />
-      {Boolean(cv.length) && (
-        <a
-          className="curriculumVitae"
-          href={URL.createObjectURL(cv[0])}
-          target="_blank"
-          rel="noopener noreferrer"
-          alt="cv"
-        >
-          C.V.
-        </a>
-      )}
-      <p>Téléchargez votre CV (500ko max, format .pdf/.docx/.odt)</p>
-      <input
-        required
-        name="cv"
-        type="file"
-        onChange={handleUploadCV}
-        accept="file/pdf, file/odt, file/docx"
-      />
       <section className="signupCandidate">
         <div className="formGrid">
           <p>Nom:</p>

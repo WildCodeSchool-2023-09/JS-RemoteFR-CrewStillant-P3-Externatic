@@ -70,6 +70,8 @@ const edit = async (req, res) => {
 // POST
 
 const add = async (req, res) => {
+  console.info(req.body);
+  console.info(req.file);
   const {
     email,
     password,
@@ -79,7 +81,6 @@ const add = async (req, res) => {
     emailNotificationActive,
     type,
   } = req.body;
-  const { filename } = req.file;
   try {
     const addUser = await tables.user.create(
       email,
@@ -88,8 +89,7 @@ const add = async (req, res) => {
       contactNumber,
       smsNotificationActive ? 1 : 0,
       emailNotificationActive ? 1 : 0,
-      type,
-      filename
+      type
     );
     if (addUser) {
       res.status(201).json(addUser);
