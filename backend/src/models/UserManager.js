@@ -51,21 +51,23 @@ class UserManager extends AbstractManager {
   async create(
     email,
     password,
+    isActive,
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
-    image,
-    type
+    type,
+    filename
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (email, password, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?,?,?,?,?,?,?,?)`,
       [
         email,
         password,
+        isActive,
         contactNumber,
         smsNotificationActive,
         emailNotificationActive,
-        image,
+        filename,
         type,
       ]
     );

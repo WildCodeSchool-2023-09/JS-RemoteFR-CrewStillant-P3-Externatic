@@ -16,7 +16,7 @@ export default function InscriptionCandidat() {
   const onSubmit = async (data) => {
     console.info(data);
     try {
-      const type = 2;
+      const type = 1;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
         { ...data, type }
@@ -65,7 +65,7 @@ export default function InscriptionCandidat() {
           <p>E-mail:</p>
           <input
             type="email"
-            placeholder="toto@gmail.com"
+            placeholder="johndoe@gmail.com"
             {...register("email", {
               pattern: {
                 value: /^[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[.][a-z]+$/i,
@@ -110,7 +110,7 @@ export default function InscriptionCandidat() {
         </div>
 
         <div className="formGrid">
-          <p>Pays:</p>
+          <p>Pays :</p>
           <input
             type="text"
             placeholder="Trouver une offre"

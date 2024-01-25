@@ -73,21 +73,23 @@ const add = async (req, res) => {
   const {
     email,
     password,
+    isActive = 1,
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
-    image,
     type,
   } = req.body;
+  const { filename } = req.file;
   try {
     const addUser = await tables.user.create(
       email,
       password,
+      isActive,
       contactNumber,
-      smsNotificationActive,
-      emailNotificationActive,
-      image,
-      type
+      smsNotificationActive ? 1 : 0,
+      emailNotificationActive ? 1 : 0,
+      type,
+      filename
     );
     if (addUser) {
       res.status(201).json(addUser);

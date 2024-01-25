@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
       {
-        path: "/inscription",
+        path: "inscription",
         element: <SignUp />,
       },
       {

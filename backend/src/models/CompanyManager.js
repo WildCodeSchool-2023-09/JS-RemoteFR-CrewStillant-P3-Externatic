@@ -31,7 +31,7 @@ class CompanyManager extends AbstractManager {
 
   async create(
     name,
-    image,
+    filename,
     description,
     website,
     establishmentDate,
@@ -44,7 +44,7 @@ class CompanyManager extends AbstractManager {
     user_id) VALUES (?,?,?,?,?,?,?,?)`,
       [
         name,
-        image,
+        filename,
         description,
         website,
         establishmentDate,

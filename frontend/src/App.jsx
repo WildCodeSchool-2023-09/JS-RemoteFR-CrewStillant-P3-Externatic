@@ -1,12 +1,16 @@
 import { Outlet } from "react-router-dom";
-import "./App.scss";
+import { useState } from "react";
 import NavBar from "./components/navbar/NavBar";
+import Footer from "./components/footer/Footer";
+import "./App.scss";
 
 function App() {
+  const [auth, setAuth] = useState({ token: "", userVerified: "" });
   return (
     <div>
       <NavBar />
-      <Outlet />
+      <Outlet context={{ auth, setAuth }} />
+      <Footer />
     </div>
   );
 }

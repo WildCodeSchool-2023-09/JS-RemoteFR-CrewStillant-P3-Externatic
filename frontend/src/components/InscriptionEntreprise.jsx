@@ -12,15 +12,17 @@ export default function InscriptionEntreprise() {
     formState: { errors },
   } = useForm();
 
+  const [file, setFile] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
+  console.info(file);
   const onSubmit = async (data) => {
-    console.info(data);
     try {
       const type = 2;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
-        { ...data, type }
+        { ...data, file, type },
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       const responseTwo = await axios.post(
@@ -33,7 +35,8 @@ export default function InscriptionEntreprise() {
 
       const responseThree = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/company`,
-        { ...data, insertId, insertId2 }
+        { ...data, file, insertId, insertId2 },
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       if (
@@ -48,17 +51,38 @@ export default function InscriptionEntreprise() {
     }
   };
 
+  const handleUpload = (e) => {
+    e.preventDefault();
+    setFile(e.target.files);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {Boolean(file.length) && (
+        <img
+          className="avatar"
+          src={URL.createObjectURL(file[0])}
+          alt="avatar"
+        />
+      )}
+      <p>Téléchargez votre photo de profil (500ko max)</p>
+      <input
+        required
+        name="file"
+        type="file"
+        onChange={handleUpload}
+        accept="image/jpeg, image/png"
+      />
       <section className="grid">
-        <section className="signupEnterprise">
+        <section className="signupCompany">
           <div>
             <p>Nom:</p>
             <input
               type="text"
-              placeholder="Toto Corp."
+              placeholder="Toto SARL"
               {...register("name", {
-                minLength: { value: 3, message: "Ce champ est obligatoire" },
+                minLength: { value: 2, message: "Au moins 2 caractères" },
+                required: "Ce champ est obligatoire",
               })}
             />
             {errors.name && (
@@ -71,10 +95,11 @@ export default function InscriptionEntreprise() {
             <input
               type="email"
               placeholder="toto@gmail.com"
+              autoComplete
               {...register("email", {
                 pattern: {
                   value: /^[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[.][a-z]+$/i,
-                  message: "Champ email invalide",
+                  message: "E-mail invalide",
                 },
                 required: "Ce champ est obligatoire",
               })}
@@ -85,15 +110,42 @@ export default function InscriptionEntreprise() {
           </div>
 
           <div>
-            <p>Password:</p>
+            <p>Mot de passe :</p>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
+              autoComplete
               {...register("password", {
                 pattern: {
-                  value:
-                    /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/i,
-                  message: "Doit contenir au minimum 8 - 16 caractères",
+                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+                  message:
+                    "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial",
+                },
+                required: "Ce champ est obligatoire",
+              })}
+            />
+            {errors.password && (
+              <span className="text-red-500">{errors.password.message}</span>
+            )}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "😀" : "😎"}
+            </button>
+          </div>
+
+          <div>
+            <p>Confirmez mot de passe :</p>
+            <input
+              type="password"
+              name="confirmPassword"
+              autoComplete
+              {...register("confirmPassword", {
+                pattern: {
+                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+                  message:
+                    "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial",
                 },
                 required: "Ce champ est obligatoire",
               })}
@@ -103,17 +155,14 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <button type="button" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? "😀" : "😎"}
-          </button>
-
           <div>
-            <p>Website:</p>
+            <p>Site internet :</p>
             <input
               type="text"
               placeholder="www.toto.com"
               {...register("website", {
-                minLength: { value: 10, message: "Ce champ est obligatoire" },
+                minLength: { value: 5, message: "Au moins 5 caractères" },
+                required: "Ce champ est obligatoire",
               })}
             />
             {errors.website && (
@@ -122,12 +171,13 @@ export default function InscriptionEntreprise() {
           </div>
 
           <div>
-            <p>Phone Number:</p>
+            <p>Numéro de téléphone :</p>
             <input
               type="text"
               placeholder="0123456789"
               {...register("contactNumber", {
-                minLength: { value: 10, message: "Ce champ est obligatoire" },
+                minLength: { value: 10, message: "Format invalide" },
+                required: "Ce champ est obligatoire",
               })}
             />
             {errors.contact_number && (
@@ -138,12 +188,16 @@ export default function InscriptionEntreprise() {
           </div>
 
           <div>
-            <p>Ville:</p>
+            <p>Ville :</p>
             <input
               type="text"
-              placeholder="New York"
+              placeholder="Ville"
               {...register("city", {
-                minLength: { value: 3, message: "Ce champ est obligatoire" },
+                minLength: {
+                  value: 1,
+                  message: "Ce champ ne peut être vide",
+                },
+                required: "Ce champ est obligatoire",
               })}
             />
             {errors.city && (
@@ -152,12 +206,16 @@ export default function InscriptionEntreprise() {
           </div>
 
           <div>
-            <p>Pays:</p>
+            <p>Pays :</p>
             <input
               type="text"
-              placeholder="Trouver une offre"
+              placeholder="Pays"
               {...register("country", {
-                minLength: { value: 3, message: "Ce champ est obligatoire" },
+                pattern: {
+                  value: /France/gi,
+                  message: "Vous devez impérativement être localiser en France",
+                },
+                required: "Ce champ est obligatoire",
               })}
             />
             {errors.country && (
@@ -166,12 +224,15 @@ export default function InscriptionEntreprise() {
           </div>
 
           <div>
-            <p>N° SIRET:</p>
+            <p>N° SIRET :</p>
             <input
               type="text"
-              placeholder="Trouver une offre"
+              placeholder="N° SIRET"
               {...register("siret", {
-                minLength: { value: 14, message: "Ce champ est obligatoire" },
+                pattern: {
+                  value: /[0-9]{14}/,
+                  message: "Veuillez rentrer un numéro SIRET en 14 chiffres",
+                },
               })}
             />
             {errors.siret && (
@@ -189,7 +250,7 @@ export default function InscriptionEntreprise() {
                   value:
                     /^(19[0-9]{2}|2[0-9]{3})-(0[1-9]|1[012])-([123]0|[012][1-9]|31)$/,
                   message:
-                    "Vous devez renseigner une date dans le bon format, ex: AAAA/MM/JJ",
+                    "Veuillez renseigner une date au bon format, ex: AAAA/MM/JJ",
                 },
               })}
             />
@@ -204,9 +265,10 @@ export default function InscriptionEntreprise() {
             <p>Secteur:</p>
             <input
               type="text"
-              placeholder="Trouver une offre"
+              placeholder="Secteur"
               {...register("sector", {
-                minLength: { value: 3, message: "Ce champ est obligatoire" },
+                minLength: { value: 3, message: "Au moins 3 caractères" },
+                required: "Ce champs est obligatoire",
               })}
             />
             {errors.company_sector_id && (
@@ -220,9 +282,10 @@ export default function InscriptionEntreprise() {
             <p>Description:</p>
             <textarea
               type="text"
-              placeholder="Trouver une offre"
+              placeholder="Entrez une description"
               {...register("description", {
-                minLength: { value: 150, message: "Ce champ est obligatoire" },
+                minLength: { value: 100, message: "Au moins 100 caractères" },
+                required: "Ce champs est obligatoire",
               })}
             />
             {errors.description && (
@@ -259,7 +322,7 @@ export default function InscriptionEntreprise() {
           />
         </section>
 
-        <div className="confirmButtonEnterprise">
+        <div className="confirmButtonCompany">
           <button type="submit">Confirmer Inscription</button>
         </div>
       </section>
