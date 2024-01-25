@@ -7,3 +7,21 @@
     }
   }
 }
+
+.button {
+  border: 1px;
+  background-color: #851342;
+  margin-left: 16px;
+}
+
+.disconnect {
+  margin-left: 16px;
+  margin-top: 500px;
+  color: #f5f5f5;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+}

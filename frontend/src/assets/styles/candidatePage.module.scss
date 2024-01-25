@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .banner {
   background: url("https://i0.wp.com/michaelgrinder.com/wp-content/uploads/2019/06/my-account-banner.jpg")
     center;
@@ -23,14 +27,14 @@
 .sidesection {
   padding: 6em 2em;
   border-radius: 0.75em;
-  margin: 2em;
   display: flex;
   align-items: flex-start;
   justify-self: flex-start;
   flex-direction: column;
   gap: 6em;
-  background-color: #ca2061;
+  background-color: var(--primary);
   height: auto;
+  margin: 0 0 3em 2em;
 
   a {
     font: 140% jost;
@@ -50,7 +54,7 @@
   align-items: center;
   gap: 10em;
   padding: 0 8em;
-  margin: 0;
+  margin: 0 0 3em 0;
 }
 
 .userimage {
@@ -62,7 +66,7 @@
 
 .profilepic {
   border-radius: 15em;
-  width: 40em;
+  width: 15em;
 }
 
 .userinfo {
@@ -75,8 +79,8 @@ button {
 
 .buttonspace {
   font: 100% jost;
-  background-color: #851342;
-  color: white;
+  background-color: var(--secondary);
+  color: var(--gray-2);
   border-style: none;
   border-radius: 0.4em;
   margin: 1em;

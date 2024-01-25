@@ -52,5 +52,5 @@ ALTER TABLE user ADD CONSTRAINT user_type FOREIGN KEY user_type (user_type_id)
     REFERENCES user_type (id);
 
     -- Reference: message
-ALTER TABLE message ADD CONSTRAINT user_id FOREIGN KEY user (user_id)
+ALTER TABLE message ADD CONSTRAINT message_user FOREIGN KEY user (user_id)
     REFERENCES user (id);

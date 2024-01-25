@@ -7,14 +7,14 @@ class CompanyManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT company.name, company.image, company.description, company.website, company.establishment_date, company_sector.sector FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id`
+      `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id`
     );
     return result;
   }
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT company.name, company.image, company.description, company.website, company.establishment_date, company_sector.sector FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id WHERE ${this.table}.id=?`,
+      `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email  FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id WHERE ${this.table}.id=?`,
       [id]
     );
     return result;
@@ -35,18 +35,20 @@ class CompanyManager extends AbstractManager {
     description,
     website,
     establishmentDate,
+    siret,
     companySectorId,
     userId
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, image, description, website, establishment_date, company_sector_id,
-    user_id) VALUES (?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (name, image, description, website, establishment_date, siret, company_sector_id,
+    user_id) VALUES (?,?,?,?,?,?,?,?)`,
       [
         name,
         image,
         description,
         website,
         establishmentDate,
+        siret,
         companySectorId,
         userId,
       ]

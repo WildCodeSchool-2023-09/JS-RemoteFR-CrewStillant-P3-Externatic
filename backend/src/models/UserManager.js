@@ -22,7 +22,7 @@ class UserManager extends AbstractManager {
 
   async update(
     email,
-    password,
+    hashedPassword,
     isActive,
     contactNumber,
     smsNotificationActive,
@@ -35,7 +35,7 @@ class UserManager extends AbstractManager {
       `UPDATE ${this.table} SET email=?, password=?, is_active=?, contact_number=?, sms_notification_active=?, email_notification_active=?, image=?, user_type_id=? WHERE id = ?`,
       [
         email,
-        password,
+        hashedPassword,
         isActive,
         contactNumber,
         smsNotificationActive,
@@ -50,7 +50,7 @@ class UserManager extends AbstractManager {
 
   async create(
     email,
-    password,
+    hashedPassword,
     isActive,
     contactNumber,
     smsNotificationActive,
@@ -62,7 +62,7 @@ class UserManager extends AbstractManager {
       `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?,?,?,?,?,?,?,?)`,
       [
         email,
-        password,
+        hashedPassword,
         isActive,
         contactNumber,
         smsNotificationActive,
@@ -80,6 +80,15 @@ class UserManager extends AbstractManager {
       [id]
     );
     return result;
+  }
+
+  async readByEmail(email) {
+    const [rows] = await this.database.query(
+      `SELECT id, email, password FROM ${this.table} WHERE email=?`,
+      [email]
+    );
+
+    return rows[0];
   }
 }
 

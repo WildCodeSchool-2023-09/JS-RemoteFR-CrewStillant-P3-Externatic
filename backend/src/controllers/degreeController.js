@@ -15,6 +15,20 @@ const browse = async (req, res) => {
   }
 };
 
+const read = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const getDegreeId = await tables.degree.read(parseInt(id, 10));
+    if (getDegreeId) {
+      res.status(200).json(getDegreeId);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // PUT
 
 const edit = async (req, res, next) => {
@@ -84,4 +98,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { browse, edit, add, remove };
+module.exports = { browse, read, edit, add, remove };
