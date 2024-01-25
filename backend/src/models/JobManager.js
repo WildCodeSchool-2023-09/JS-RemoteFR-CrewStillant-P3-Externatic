@@ -9,14 +9,14 @@ class JobManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked, job.salary, job.created_date, location.additional_adress, location.number_adress, location.number_attribute, location.address, location.city, location.zip, location.state, location.country, skill.name, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id`
+      `SELECT job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, location.additional_adress AS additionalAdress, location.number_adress AS numberAdress, location.number_attribute AS numberAttribute, location.address, location.city, location.zip, location.state, location.country, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id`
     );
     return result;
   }
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked, job.salary, job.created_date, location.additional_adress, location.number_adress, location.number_attribute, location.address, location.city, location.zip, location.state, location.country, skill.name, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id WHERE ${this.table}.id=?`,
+      `SELECT job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, location.additional_adress AS additionalAdress, location.number_adress AS numberAdress, location.number_attribute AS numberAttribute, location.address, location.city, location.zip, location.state, location.country, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id WHERE ${this.table}.company_id=?`,
       [id]
     );
     return result;

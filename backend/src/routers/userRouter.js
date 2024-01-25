@@ -6,6 +6,8 @@ const { read, edit, add, remove } = require("../controllers/userController");
 
 const { browseFilters } = require("../controllers/jobController");
 
+const { hash } = require("../middlewares/hashPassword");
+
 // GET
 
 router.get("/search", browseFilters);
@@ -14,11 +16,11 @@ router.get("/:id", read);
 
 // POST
 
-router.post("/", add);
+router.post("/", hash, add);
 
 // PUT
 
-router.put("/:id", edit);
+router.put("/:id", hash, edit);
 
 // DELETE
 

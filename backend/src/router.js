@@ -14,6 +14,7 @@ const activityRouter = require("./routers/activityRouter");
 const messageRouter = require("./routers/messageRouter");
 const sectorRouter = require("./routers/sectorRouter");
 const skillRouter = require("./routers/skillRouter");
+const authRouter = require("./routers/authRouter");
 
 // ROUTES
 
@@ -27,5 +28,6 @@ router.use("/activity", activityRouter);
 router.use("/message", messageRouter);
 router.use("/sector", sectorRouter);
 router.use("/skill", skillRouter);
+router.use("/login", authRouter);
 
 module.exports = router;

@@ -2,8 +2,10 @@ import React from "react";
 import { useOutletContext, NavLink } from "react-router-dom";
 import style from "../../assets/styles/messagePage.module.scss";
 
-function UserMessage() {
+function CompanyMessage() {
   const { messages } = useOutletContext();
+
+  const [{ subject, email, text, receivedDate }] = messages;
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -13,31 +15,20 @@ function UserMessage() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {messages &&
-          messages.map((m) => (
-            <>
-              <NavLink>
-                <h3>{m.subject}</h3>
-              </NavLink>
-              <h4>{m.email}</h4>
-              <hr />
-            </>
-          ))}
+        <NavLink>
+          <h3>{subject}</h3>
+        </NavLink>
+        <h4>{email}</h4>
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {messages &&
-          messages.map((m) => (
-            <>
-              <h2>{m.subject}</h2>
-              <h4>{m.email}</h4>
-              <p>{formatDateString(m.receivedDate)}</p>
-              <p>{m.text}</p>
-            </>
-          ))}
+        <h2>{subject}</h2>
+        <h4>{email}</h4>
+        <p>{formatDateString(receivedDate)}</p>
+        <p>{text}</p>
       </div>
     </div>
   );
 }
 
-export default UserMessage;
+export default CompanyMessage;

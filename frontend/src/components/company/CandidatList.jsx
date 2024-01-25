@@ -2,8 +2,8 @@ import React from "react";
 import { useOutletContext, NavLink } from "react-router-dom";
 import style from "../../assets/styles/messagePage.module.scss";
 
-function UserMessage() {
-  const { messages } = useOutletContext();
+function CandidatList() {
+  const { candidats } = useOutletContext();
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -13,26 +13,33 @@ function UserMessage() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {messages &&
-          messages.map((m) => (
+        {candidats &&
+          candidats.map((c) => (
             <>
               <NavLink>
-                <h3>{m.subject}</h3>
+                <h3>
+                  {c.firstname} {c.lastname}
+                </h3>
               </NavLink>
-              <h4>{m.email}</h4>
+              <h4>{c.email}</h4>
+              <h4>{c.contactNumber}</h4>
               <hr />
             </>
           ))}
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {messages &&
-          messages.map((m) => (
+        {candidats &&
+          candidats.map((c) => (
             <>
-              <h2>{m.subject}</h2>
-              <h4>{m.email}</h4>
-              <p>{formatDateString(m.receivedDate)}</p>
-              <p>{m.text}</p>
+              <img src={c.image} alt={c.firstname} />
+              <h2>
+                {c.firstname} {c.lastname}
+              </h2>
+              <p>{formatDateString(c.dateOfBirth)}</p>
+              <p>{c.email}</p>
+              <p>{c.contactNumber}</p>
+              <hr />
             </>
           ))}
       </div>
@@ -40,4 +47,4 @@ function UserMessage() {
   );
 }
 
-export default UserMessage;
+export default CandidatList;

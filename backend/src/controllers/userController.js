@@ -2,7 +2,7 @@ const tables = require("../tables");
 
 // GET
 
-const browse = async (req, res) => {
+const browse = async (req, res, next) => {
   try {
     const getUser = await tables.user.readAll();
     if (getUser) {
@@ -11,13 +11,13 @@ const browse = async (req, res) => {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // GET BY ID
 
-const read = async (req, res) => {
+const read = async (req, res, next) => {
   const { id } = req.params;
   try {
     const getUserId = await tables.user.read(parseInt(id, 10));
@@ -27,16 +27,16 @@ const read = async (req, res) => {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // PUT
 
-const edit = async (req, res) => {
+const edit = async (req, res, next) => {
   const {
     email,
-    password,
+    hashedPassword,
     isActive,
     contactNumber,
     smsNotificationActive,
@@ -48,7 +48,7 @@ const edit = async (req, res) => {
   try {
     const editUser = await tables.user.edit(
       email,
-      password,
+      hashedPassword,
       isActive,
       contactNumber,
       smsNotificationActive,
@@ -63,18 +63,16 @@ const edit = async (req, res) => {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // POST
 
-const add = async (req, res) => {
-  console.info(req.body);
-  console.info(req.file);
+const add = async (req, res, next) => {
   const {
     email,
-    password,
+    hashedPassword,
     isActive = 1,
     contactNumber,
     smsNotificationActive,
@@ -84,7 +82,7 @@ const add = async (req, res) => {
   try {
     const addUser = await tables.user.create(
       email,
-      password,
+      hashedPassword,
       isActive,
       contactNumber,
       smsNotificationActive ? 1 : 0,
@@ -97,13 +95,13 @@ const add = async (req, res) => {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // DELETE
 
-const remove = async (req, res) => {
+const remove = async (req, res, next) => {
   const { id } = req.params;
   try {
     const deleteUser = await tables.user.delete(parseInt(id, 10));
@@ -115,7 +113,7 @@ const remove = async (req, res) => {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 

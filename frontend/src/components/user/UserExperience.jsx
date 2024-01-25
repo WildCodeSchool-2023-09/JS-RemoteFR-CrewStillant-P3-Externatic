@@ -8,10 +8,6 @@ function UserExperience() {
     return <p>Aucune expérience ajoutée.</p>;
   }
 
-  const [
-    { jobTitle, companyName, startDate, endDate, description, city, country },
-  ] = experience;
-
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -20,22 +16,27 @@ function UserExperience() {
   return (
     <div>
       <ul>
-        <li> Poste: {jobTitle} </li>
-        <li> Compagnie: {companyName} </li>
-        <li> Cité: {city} </li>
-        <li> Pays: {country} </li>
-        <li>
-          {" "}
-          Période:
-          {formatDateString(startDate)} -{" "}
-          {endDate !== null ? (
-            formatDateString(endDate)
-          ) : (
-            <p> Toujours en poste </p>
-          )}
-        </li>
-        <li> Description: {description} </li>
-      </ul>{" "}
+        {experience &&
+          experience.map((e) => (
+            <>
+              <li> Poste: {e.jobTitle} </li>
+              <li> Compagnie: {e.companyName} </li>
+              <li> Cité: {e.city} </li>
+              <li> Pays: {e.country} </li>
+              <li>
+                Période:
+                {formatDateString(e.startDate)} -
+                {e.endDate !== null ? (
+                  formatDateString(e.endDate)
+                ) : (
+                  <p> Toujours en poste </p>
+                )}
+              </li>
+              <li> Description: {e.description} </li>
+              <hr />
+            </>
+          ))}
+      </ul>
     </div>
   );
 }

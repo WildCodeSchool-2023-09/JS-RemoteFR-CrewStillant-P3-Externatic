@@ -43,8 +43,6 @@ export default function SearchPage() {
     }
   }, [isValidate]);
 
-  console.info(data);
-
   /**
    * Fonction qui vient appliquer les filtres.
    */

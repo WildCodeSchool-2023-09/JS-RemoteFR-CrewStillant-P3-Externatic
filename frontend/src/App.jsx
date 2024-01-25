@@ -5,10 +5,11 @@ import Footer from "./components/footer/Footer";
 import "./App.scss";
 
 function App() {
-  const [auth, setAuth] = useState({ token: "", userVerified: "" });
+  const [auth, setAuth] = useState();
+
   return (
     <div>
-      <NavBar />
+      <NavBar auth={auth} setAuth={setAuth} />
       <Outlet context={{ auth, setAuth }} />
       <Footer />
     </div>

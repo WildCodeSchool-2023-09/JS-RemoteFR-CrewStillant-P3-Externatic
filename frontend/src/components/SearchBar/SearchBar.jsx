@@ -16,7 +16,6 @@ export default function SearchBar({
   const onSubmit = (data) => {
     const params = new URLSearchParams(filters);
     if (data.search !== "") {
-      console.info(data.search);
       setTerms(data.search);
       params.set("terms", data.search);
       setFilters(params);
