@@ -2,8 +2,8 @@ import React from "react";
 import { useOutletContext, NavLink } from "react-router-dom";
 import style from "../../assets/styles/messagePage.module.scss";
 
-function UserMessage() {
-  const { messages } = useOutletContext();
+function CompanyOffers() {
+  const { job } = useOutletContext();
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -13,26 +13,34 @@ function UserMessage() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {messages &&
-          messages.map((m) => (
+        {job &&
+          job.map((j) => (
             <>
               <NavLink>
-                <h3>{m.subject}</h3>
+                <h3>{j.title}</h3>
               </NavLink>
-              <h4>{m.email}</h4>
+              <h4>{j.type}</h4>
+              <h4>{formatDateString(j.createdDate)}</h4>
               <hr />
             </>
           ))}
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {messages &&
-          messages.map((m) => (
+        {job &&
+          job.map((j) => (
             <>
-              <h2>{m.subject}</h2>
-              <h4>{m.email}</h4>
-              <p>{formatDateString(m.receivedDate)}</p>
-              <p>{m.text}</p>
+              <h2>{j.title}</h2>
+              <p>{formatDateString(j.createdDate)}</p>
+              <p>{j.type}</p>
+              <p>{j.hoursWorked}</p>
+              <p>{j.salary}</p>
+              {j.skill && j.level ? (
+                <p>
+                  {j.skill} : {j.level}
+                </p>
+              ) : null}
+              <p>{j.description}</p>
             </>
           ))}
       </div>
@@ -40,4 +48,4 @@ function UserMessage() {
   );
 }
 
-export default UserMessage;
+export default CompanyOffers;

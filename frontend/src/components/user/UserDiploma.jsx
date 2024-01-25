@@ -4,8 +4,9 @@ import { useOutletContext } from "react-router-dom";
 function UserDiploma() {
   const { degrees } = useOutletContext();
 
-  const [{ degree, level, startingDate, completionDate, university, city }] =
-    degrees;
+  if (!degrees || degrees.length === 1) {
+    return <p>Aucun diplôme ajouté.</p>;
+  }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -14,12 +15,18 @@ function UserDiploma() {
   return (
     <div>
       <ul>
-        <li> Diplôme: {degree} </li>
-        <li> Niveau: {level} </li>
-        <li> Début de formation: {formatDateString(startingDate)} </li>
-        <li> Fin de formation{formatDateString(completionDate)} </li>
-        <li> Univeristé: {university} </li>
-        <li> Ville: {city} </li>
+        {degrees &&
+          degrees.map((d) => (
+            <>
+              <li> Diplôme: {d.degree} </li>
+              <li> Niveau: {d.level} </li>
+              <li> Début de formation: {formatDateString(d.startingDate)} </li>
+              <li> Fin de formation: {formatDateString(d.completionDate)} </li>
+              <li> Univeristé: {d.university} </li>
+              <li> Ville: {d.city} </li>
+              <hr />
+            </>
+          ))}
       </ul>
     </div>
   );

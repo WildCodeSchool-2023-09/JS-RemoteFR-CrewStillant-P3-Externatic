@@ -2,7 +2,6 @@ import * as CiIcons from "react-icons/ci";
 import * as PiIcons from "react-icons/pi";
 import * as AiIcons from "react-icons/ai";
 import * as MdIcons from "react-icons/md";
-import * as RiIcons from "react-icons/ri";
 
 const sidebarData = [
   {
@@ -13,7 +12,7 @@ const sidebarData = [
   },
   {
     title: "Espace messagerie",
-    path: "/accueil",
+    path: "/candidate/message/",
     icon: <AiIcons.AiOutlineMessage />,
     cName: "nav-text",
   },
@@ -25,14 +24,14 @@ const sidebarData = [
   },
   {
     title: "Candidat",
-    path: "/candidat/profil/11",
+    path: "/candidat/profil",
     icon: <PiIcons.PiStudentLight />,
     cName: "nav-text",
   },
   {
-    title: "Se déconnecter",
-    path: "/accueil",
-    icon: <RiIcons.RiLogoutCircleLine />,
+    title: "Recrutement interne",
+    path: "https://www.welcometothejungle.com/fr/companies/externatic",
+    icon: <PiIcons.PiShareNetwork />,
     cName: "nav-text",
   },
 ];
