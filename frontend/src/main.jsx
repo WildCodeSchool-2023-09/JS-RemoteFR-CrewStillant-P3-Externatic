@@ -5,6 +5,7 @@ import App from "./App";
 import HomePage from "./pages/HomePage";
 import CandidatePage from "./pages/CandidatePage";
 import UserProfil from "./components/user/UserProfil";
+import SignUp from "./pages/SignUp";
 import SearchPage from "./pages/SearchPage/SearchPage";
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
         path: "accueil",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+      {
+        path: "/inscription",
+        element: <SignUp />,
       },
       {
         path: "recherche",

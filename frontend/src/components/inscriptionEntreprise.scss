@@ -1,0 +1,38 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.grid .confirmButtonEnterprise {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 5em;
+}
+
+.signupEnterprise {
+  display: grid;
+  justify-items: end;
+}
+
+.signupEnterprise div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.signupEnterprise div p {
+  display: flex;
+  align-items: center;
+}
+
+.signupEnterprise div input {
+  height: 4em;
+  width: 10em;
+}
+
+.signupEnterprise div textarea {
+  height: 4em;
+  width: 10em;
+}
