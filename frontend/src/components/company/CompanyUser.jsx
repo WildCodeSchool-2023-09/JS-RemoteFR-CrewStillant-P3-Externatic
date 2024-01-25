@@ -1,21 +1,23 @@
 import { useOutletContext } from "react-router-dom";
 import style from "../../assets/styles/candidatePage.module.scss";
 
-function UserProfil() {
-  const { candidat } = useOutletContext();
+function CompanyUser() {
+  const { company } = useOutletContext();
 
   const [
     {
+      name,
       image,
-      lastname,
-      firstname,
-      email,
-      dateOfBirth,
-      registrationDate,
-      wantedSalary,
+      description,
+      website,
+      establishmentDate,
+      siret,
+      companySector,
       contactNumber,
+      registrationDate,
+      email,
     },
-  ] = candidat;
+  ] = company;
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -25,29 +27,25 @@ function UserProfil() {
   return (
     <div className={`${style.profilesection}`}>
       <div className={`${style.userimage}`}>
-        <img src={image} alt={firstname} className={`${style.profilepic}`} />
+        <img src={image} alt={name} className={`${style.profilepic}`} />
         <button type="button" className={`${style.buttonspace}`}>
           Changer votre photo
         </button>
       </div>
       <div className={`${style.userinfo}`}>
         <div>
-          <p> Nom: {lastname} </p>
-          <p> Prénom: {firstname} </p>
-          <p> E-mail: {email} </p>
-          <p> Date de naissance: {formatDateString(dateOfBirth)} </p>
-          <p> Date d'inscription: {formatDateString(registrationDate)} </p>
+          <p> Nom: {name} </p>
           <p> Téléphone: {contactNumber} </p>
-          <p> Salaire souhaité: {wantedSalary} euro/an</p>
+          <p> site internet: {website} </p>
+          <p> email: {email} </p>
+          <p> Date de création: {formatDateString(establishmentDate)} </p>
+          <p> Date d'inscription: {formatDateString(registrationDate)} </p>
+          <p> n° de siret: {siret} </p>
+          <p> Secteur d'activité: {companySector} </p>
+          <p> Description: {description} </p>
         </div>
 
         <hr />
-        <button type="button" className={`${style.buttonspace}`}>
-          Modifier votre CV
-        </button>
-        <button type="button" className={`${style.buttonspace}`}>
-          Supprimer votre CV
-        </button>
         <button type="button" className={`${style.buttonspace}`}>
           Modifier vos informations
         </button>
@@ -56,4 +54,4 @@ function UserProfil() {
   );
 }
 
-export default UserProfil;
+export default CompanyUser;
