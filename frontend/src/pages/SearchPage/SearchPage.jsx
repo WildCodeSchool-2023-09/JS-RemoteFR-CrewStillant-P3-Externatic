@@ -38,8 +38,8 @@ export default function SearchPage() {
             import.meta.env.VITE_BACKEND_URL
           }/job/searchPage?${filters.toString()}`
         )
-        .then((res) => setData(res.data))
-        .then(setIsValidate(false));
+        .then((res) => setData(res.data));
+      setIsValidate(false);
     }
   }, [isValidate]);
 
@@ -82,17 +82,6 @@ export default function SearchPage() {
     setType("none");
     setFilters(params);
     setIsValidate(true);
-    // try {
-    //   if (terms != null && terms !== "") {
-    //     axios
-    //       .get(
-    //         `${import.meta.env.VITE_BACKEND_URL}/job/searchPage?terms=${terms}`
-    //       )
-    //       .then((res) => setData(res.data));
-    //   }
-    // } catch (e) {
-    //   console.error(e);
-    // }
   };
 
   const clickOffer = (id) => {
@@ -185,56 +174,54 @@ export default function SearchPage() {
         </div>
         <div className={`${styles.offers}`}>
           <div className={`${styles.listOffers}`}>
-            {data
-              ? data.map((e) => (
-                  <div key={e.id}>
-                    <button type="button" onClick={() => clickOffer(e.id)}>
-                      <h4>{e.title}</h4>
-                    </button>
-                  </div>
-                ))
-              : ""}
+            {data ? (
+              data.map((e) => (
+                <div key={e.id}>
+                  <button type="button" onClick={() => clickOffer(e.id)}>
+                    <h4>{e.title}</h4>
+                  </button>
+                </div>
+              ))
+            ) : (
+              <h2>Commencez à recherchez une offre</h2>
+            )}
           </div>
         </div>
-        <div className={`${styles.detailledOffer}`}>
-          {offer ? (
-            <>
-              <h3>{offer.title}</h3>
-              <p>{offer.description}</p>
-              <div className={`${styles.smallInformations}`}>
-                <p>
-                  <b>Type de contrat :</b> {offer.type}
-                </p>
-                <p>
-                  <b>Salaire annuel :</b> {offer.salary} €
-                </p>
-                <p>
-                  <b>Heures hebdomadaires :</b> {offer.hours_worked}H
-                </p>
-                <p>
-                  <b>Lieu de travail :</b> {offer.place}
-                </p>
-                <p>
-                  <b>Adresse :</b> {replaceAll(offer.address)}
-                </p>
-                <p>
-                  <b>Ville :</b> {offer.city}
-                </p>
-              </div>
-              <iframe
-                title="Maps Embed Location"
-                width="450"
-                height="350"
-                style={{ border: 0 }}
-                src={`https://www.google.com/maps/embed/v1/place?key=${
-                  import.meta.env.VITE_GOOGLE_API
-                }&q=${offer.city}`}
-              />
-            </>
-          ) : (
-            <h2>Commencez à recherchez une offre</h2>
-          )}
-        </div>
+        {offer && (
+          <div className={`${styles.detailledOffer}`}>
+            <h3>{offer.title}</h3>
+            <p>{offer.description}</p>
+            <div className={`${styles.smallInformations}`}>
+              <p>
+                <b>Type de contrat :</b> {offer.type}
+              </p>
+              <p>
+                <b>Salaire annuel :</b> {offer.salary} €
+              </p>
+              <p>
+                <b>Heures hebdomadaires :</b> {offer.hours_worked}H
+              </p>
+              <p>
+                <b>Lieu de travail :</b> {offer.place}
+              </p>
+              <p>
+                <b>Adresse :</b> {replaceAll(offer.address)}
+              </p>
+              <p>
+                <b>Ville :</b> {offer.city}
+              </p>
+            </div>
+            <iframe
+              title="Maps Embed Location"
+              width="450"
+              height="350"
+              style={{ border: 0 }}
+              src={`https://www.google.com/maps/embed/v1/place?key=${
+                import.meta.env.VITE_GOOGLE_API
+              }&q=${offer.city}`}
+            />
+          </div>
+        )}
       </section>
     </main>
   );

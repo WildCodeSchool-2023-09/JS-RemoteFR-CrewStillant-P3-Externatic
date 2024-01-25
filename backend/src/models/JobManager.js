@@ -155,7 +155,6 @@ class JobManager extends AbstractManager {
 
     const values = where.map(({ value }) => value);
 
-    console.info(where.length);
     if (where.length !== 0) {
       // Je fais ma requête SQL préparée avec mon tableau d'objets.
       const [rows] = await this.database.query(

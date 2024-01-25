@@ -83,11 +83,13 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
   }
 
   .offers {
+    min-height: 50vh;
     display: flex;
     flex-direction: row;
-    margin: auto;
+    margin: auto 0 auto 1vw;
     border: 2px solid blue;
     border-radius: 1rem 0 0 1rem;
+    border-right: 2px groove;
     box-shadow: $box-shadow;
     -webkit-box-shadow: $box-shadowWB;
     -moz-box-shadow: $box-shadowMB;
@@ -120,17 +122,19 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
     display: none;
   }
   .detailledOffer {
-    min-width: 50vw;
-    width: fit-content;
+    width: 100%;
+    min-height: 50vh;
     border: 2px solid;
     border-left: 2px groove;
     border-radius: 0 1rem 1rem 0;
     padding: 1rem;
     margin: auto;
+    margin-left: 0;
     .smallInformations {
       display: flex;
       flex-flow: row wrap;
       justify-content: center;
+      align-items: center;
       margin: 3vh 8vw;
       p {
         margin: 1.5vh 1.5vw;
