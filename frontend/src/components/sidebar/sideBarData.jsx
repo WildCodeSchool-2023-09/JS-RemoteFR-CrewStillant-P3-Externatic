@@ -12,7 +12,7 @@ const sidebarData = [
   },
   {
     title: "Espace messagerie",
-    path: "/accueil",
+    path: "/candidate/message/",
     icon: <AiIcons.AiOutlineMessage />,
     cName: "nav-text",
   },
@@ -24,7 +24,7 @@ const sidebarData = [
   },
   {
     title: "Candidat",
-    path: "/candidat/profil/15",
+    path: "/candidat/profil",
     icon: <PiIcons.PiStudentLight />,
     cName: "nav-text",
   },

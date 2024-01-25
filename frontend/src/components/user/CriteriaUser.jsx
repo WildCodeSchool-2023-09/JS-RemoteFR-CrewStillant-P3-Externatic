@@ -10,9 +10,7 @@ function CriteriaUser({ criteria }) {
 
   return (
     <select value={selectedValue} onChange={handleSelectChange}>
-      <option value="" disabled>
-        Select a criteria
-      </option>
+      <option value="">Select a criteria</option>
       {criteria &&
         criteria.map((c) => (
           <option key={c.id} value={c.value}>

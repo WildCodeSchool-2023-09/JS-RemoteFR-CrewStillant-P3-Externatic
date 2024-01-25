@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import sidebarData from "./sideBarData";
 import styles from "./sideBar.module.scss";
 
-function SideBar({ sidebar, showSidebar, setAuth, auth }) {
+function SideBar({ sidebar, showSidebar, setAuth }) {
   return (
     <aside className={styles.aside}>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
@@ -32,19 +32,7 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
               </Link>
             </li>
           ))}
-          {!auth ? (
-            ""
-          ) : (
-            <li>
-              <Link
-                to="/accueil"
-                onClick={() => setAuth("")}
-                className={styles.disconnect}
-              >
-                Se déconnecter
-              </Link>
-            </li>
-          )}
+
           <li>
             <Link
               to="/accueil"
@@ -60,9 +48,17 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
   );
 }
 SideBar.propTypes = {
+  sidebarData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
+    icon: PropTypes.node.isRequired,
+    cName: PropTypes.string,
+  }).isRequired,
   showSidebar: PropTypes.func.isRequired,
   sidebar: PropTypes.bool.isRequired,
   setAuth: PropTypes.func.isRequired,
-  auth: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }).isRequired,
 };
 export default SideBar;

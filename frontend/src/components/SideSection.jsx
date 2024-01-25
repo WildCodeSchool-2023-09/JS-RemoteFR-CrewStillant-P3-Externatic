@@ -23,7 +23,7 @@ function SideSection({ user }) {
 
 SideSection.propTypes = {
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
   }).isRequired,
 };
 

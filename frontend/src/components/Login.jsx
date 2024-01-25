@@ -1,15 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { useState } from "react";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { auth, setAuth } = useOutletContext();
+  const { setAuth } = useOutletContext();
   const navigate = useNavigate();
-  const [err, setErr] = useState("");
   const {
     register,
     handleSubmit,
@@ -22,56 +21,41 @@ function Login() {
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => {
           setAuth(res.data);
-          navigate(`/candidat/profil/${auth.id}`);
+          navigate(`/accueil`);
         });
     } catch (error) {
-      setErr(error.response?.data?.message);
+      toast.error(error.response?.data?.message);
     }
   };
   return (
     <div className={`${style.profilesection} ${style.banner}`}>
-      <div className={{}}>
-        <h3 className={`${style.h3}`}>Bienvenu sur Externatic</h3>
+      <div>
+        <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
 
-        <p className={{}}>Connecte toi</p>
+        <p>Connecte toi</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={{}}>
+          <div>
             <input
-              className={{}}
               type="email"
               placeholder="Adresse mail"
-              {...register("email", { required: "L'e-mail est obligatioire" })}
+              {...register("email", { required: "L'e-mail est obligatoire" })}
             />
-            {errors.mail && (
-              <p role="alert" className={{}}>
-                {errors.mail?.message}
-              </p>
-            )}
+            {errors.mail && <p role="alert">{errors.mail?.message}</p>}
           </div>
 
-          <div className={{}}>
+          <div>
             <input
-              className={{}}
               type="password"
               placeholder="Mot de passe"
               {...register("password", {
                 required: "Le mot de passe est obligatoire",
               })}
             />
-            {errors.password && (
-              <p role="alert" className={{}}>
-                {errors.password?.message}
-              </p>
-            )}
-            {err ? (
-              <p role="alert" className={{}}>
-                {err}
-              </p>
-            ) : null}
+            {errors.password && <p role="alert">{errors.password?.message}</p>}
           </div>
 
-          <div className={{}}>
+          <div>
             <button type="submit" className={`${style.buttonspace}`}>
               Connexion
             </button>
@@ -79,8 +63,8 @@ function Login() {
         </form>
       </div>
 
-      <div className={{}}>
-        <span className={{}}>Tu n'as pas de compte? Inscris toi.</span>
+      <div>
+        <span>Tu n'as pas de compte? Inscris toi.</span>
 
         <button
           type="button"

@@ -10,12 +10,13 @@ function SkillsUser() {
 
   return (
     <div>
-      {skills.map((s) => (
-        <ul key={s.id}>
-          <li> {s.name} </li>
-          <li> {s.level} </li>
-        </ul>
-      ))}
+      {skills &&
+        skills.map((s) => (
+          <ul key={s.id}>
+            <li> {s.name} </li>
+            <li> {s.level} </li>
+          </ul>
+        ))}
     </div>
   );
 }

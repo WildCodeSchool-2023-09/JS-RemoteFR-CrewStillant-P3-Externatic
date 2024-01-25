@@ -12,6 +12,7 @@ import UserDiploma from "./components/user/UserDiploma";
 import UserExperience from "./components/user/UserExperience";
 import UserChoices from "./components/user/UserChoices";
 import Login from "./components/Login";
+import SignUp from "./pages/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
       {
-        path: "/login",
+        path: "/connexion",
         element: <Login />,
+      },
+      {
+        path: "/inscription",
+        element: <SignUp />,
       },
       {
         path: "/candidat",
@@ -67,15 +72,15 @@ const router = createBrowserRouter([
             element: <UserProfil />,
           },
           {
-            path: "diplôme/:id",
+            path: "diplome/:id",
             element: <UserDiploma />,
           },
           {
-            path: "expérience/:id",
+            path: "experience/:id",
             element: <UserExperience />,
           },
           {
-            path: "compétence/:id",
+            path: "competence/:id",
             element: <UserChoices />,
           },
           {
@@ -83,7 +88,7 @@ const router = createBrowserRouter([
             element: <UserMessage />,
           },
           {
-            path: "activités/:id",
+            path: "activites/:id",
             element: <UserActivity />,
           },
         ],

@@ -6,6 +6,7 @@ import Footer from "./components/footer/Footer";
 
 function App() {
   const [auth, setAuth] = useState();
+
   return (
     <div>
       <NavBar auth={auth} setAuth={setAuth} />
