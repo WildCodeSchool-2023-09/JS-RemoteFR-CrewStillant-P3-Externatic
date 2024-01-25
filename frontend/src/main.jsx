@@ -6,7 +6,6 @@ import App from "./App";
 import HomePage from "./pages/HomePage";
 import CandidatePage from "./pages/CandidatePage";
 import UserProfil from "./components/user/UserProfil";
-
 import SignUp from "./pages/SignUp";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import UserMessage from "./components/user/UserMessage";

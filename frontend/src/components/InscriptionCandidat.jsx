@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from "axios";
 import { React, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import "./inscriptionCandidat.scss";
@@ -96,6 +96,7 @@ export default function InscriptionCandidat() {
           <input
             type="text"
             placeholder="Doe"
+            autoComplete="true"
             {...register("lastname", {
               minLength: { value: 3, message: "Ce champ est obligatoire" },
             })}
@@ -110,6 +111,7 @@ export default function InscriptionCandidat() {
           <input
             type="text"
             placeholder="John"
+            autoComplete="true"
             {...register("firstname", {
               minLength: { value: 3, message: "Ce champ est obligatoire" },
             })}
@@ -124,6 +126,7 @@ export default function InscriptionCandidat() {
           <input
             type="email"
             placeholder="johndoe@gmail.com"
+            autoComplete="true"
             {...register("email", {
               pattern: {
                 value: /^[a-zA-Z0-9_.]+[@]{1}[a-z0-9]+[.][a-z]+$/i,
@@ -142,6 +145,7 @@ export default function InscriptionCandidat() {
           <input
             type={showPassword ? "text" : "password"}
             name="password"
+            autoComplete="true"
             {...register("password", {
               pattern: {
                 value:
@@ -163,12 +167,9 @@ export default function InscriptionCandidat() {
           <input
             type="password"
             name="confirmPassword"
-            autoComplete
+            autoComplete="true"
             {...register("confirmPassword", {
               required: "Vous devez confirmer votre mot de passe",
-              validate: (value) =>
-                value === useWatch("password") ||
-                "Mots de passe non identiques",
             })}
           />
           {errors.password && (
@@ -200,6 +201,7 @@ export default function InscriptionCandidat() {
           <input
             type="text"
             placeholder="0123456789"
+            autoComplete="true"
             {...register("contactNumber", {
               minLength: { value: 10, message: "Format invalide" },
               required: "Ce champ est obligatoire",
@@ -217,6 +219,7 @@ export default function InscriptionCandidat() {
           <input
             type="text"
             placeholder="Ville"
+            autoComplete="true"
             {...register("city", {
               minLength: {
                 value: 1,
@@ -235,6 +238,7 @@ export default function InscriptionCandidat() {
           <input
             type="text"
             placeholder="Pays"
+            autoComplete="true"
             {...register("country", {
               pattern: {
                 value: /France/gi,

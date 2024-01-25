@@ -31,5 +31,9 @@
   "lint-staged": {
     "*.sql": "prettier --check",
     "*.js": "eslint"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }

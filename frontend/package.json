@@ -41,5 +41,9 @@
   "lint-staged": {
     "*.{html,scss,css}": "prettier --check",
     "*.{jsx,js}": "eslint"
-  }
+  },
+  "peerDependencies": {
+   "react": ">=16.8.0",
+   "react-dom": ">=16.8.0"
+}
 }
