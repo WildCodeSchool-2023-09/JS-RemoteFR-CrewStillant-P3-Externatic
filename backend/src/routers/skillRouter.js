@@ -8,20 +8,21 @@ const {
   edit,
   add,
   remove,
-} = require("../controllers/degreeController");
+} = require("../controllers/skillController");
 
 // GET
 
 router.get("/", browse);
+
 router.get("/:id", read);
-
-// PUT
-
-router.put("/:id", edit);
 
 // POST
 
 router.post("/", add);
+
+// PUT
+
+router.put("/:id", edit);
 
 // DELETE
 

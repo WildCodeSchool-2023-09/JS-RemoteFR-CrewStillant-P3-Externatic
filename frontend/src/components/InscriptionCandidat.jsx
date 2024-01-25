@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from "axios";
-import React from "react";
+import { React, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,8 @@ export default function InscriptionCandidat() {
     formState: { errors },
   } = useForm();
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit = async (data) => {
     console.info(data);
     try {
@@ -22,7 +24,14 @@ export default function InscriptionCandidat() {
         { ...data, type }
       );
 
-      if (response.status === 201) {
+      const { insertId } = response.data;
+
+      const responseTwo = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/candidate`,
+        { ...data, insertId }
+      );
+
+      if (response.status === 201 && responseTwo === 201) {
         toast.success(response.data.message);
       }
     } catch (e) {
@@ -80,6 +89,28 @@ export default function InscriptionCandidat() {
         </div>
 
         <div className="formGrid">
+          <p>Password:</p>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            {...register("password", {
+              pattern: {
+                value:
+                  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/i,
+                message: "Doit contenir au minimum 8 - 16 caractères",
+              },
+              required: "Ce champ est obligatoire",
+            })}
+          />
+          {errors.password && (
+            <span className="text-red-500">{errors.password.message}</span>
+          )}
+          <button type="button" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? "😀" : "😎"}
+          </button>
+        </div>
+
+        <div className="formGrid">
           <p>Date de Naissance:</p>
           <input
             type="date"
@@ -93,6 +124,25 @@ export default function InscriptionCandidat() {
               },
             })}
           />
+          {errors.name && (
+            <span className="text-red-500">{errors.dateOfBirth.message}</span>
+          )}
+        </div>
+
+        <div className="formGrid">
+          <p>Phone Number:</p>
+          <input
+            type="text"
+            placeholder="0123456789"
+            {...register("contactNumber", {
+              minLength: { value: 10, message: "Ce champ est obligatoire" },
+            })}
+          />
+          {errors.contact_number && (
+            <span className="text-red-500">
+              {errors.contact_number.message}
+            </span>
+          )}
         </div>
 
         <div className="formGrid">
@@ -105,7 +155,7 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+            <span className="text-red-500">{errors.city.message}</span>
           )}
         </div>
 
@@ -122,6 +172,34 @@ export default function InscriptionCandidat() {
             <span className="text-red-500">{errors.country.message}</span>
           )}
         </div>
+
+        <label
+          htmlFor="smsNotification"
+          id="smsNotification"
+          className="smsNotification"
+        >
+          SMS Notification
+        </label>
+        <input
+          type="checkbox"
+          id="smsNotification"
+          className="smsNotification"
+          {...register("smsNotificationActive")}
+        />
+
+        <label
+          htmlFor="emailNotification"
+          id="emailNotification"
+          className="emailNotification"
+        >
+          E-mail Notification
+        </label>
+        <input
+          type="checkbox"
+          id="emailNotification"
+          className="emailNotification"
+          {...register("emailNotificationActive")}
+        />
       </section>
 
       <section className="confirmButtonCandidate">

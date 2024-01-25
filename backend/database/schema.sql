@@ -34,7 +34,7 @@ CREATE TABLE company (
     description TEXT  NOT NULL,
     website VARCHAR(255)  NOT NULL,
     establishment_date DATE  NOT NULL,
-    siret BIGINT NOT NULL,
+    siret BIGINT NOT NULL UNIQUE,
     company_sector_id INT  NOT NULL,
     user_id INT NOT NULL,
     CONSTRAINT company_pk PRIMARY KEY (id)
@@ -141,5 +141,6 @@ CREATE TABLE message(
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 subject VARCHAR(255) NOT NULL,
 text TEXT NOT NULL,
+recieved_date DATETIME NOT NULL DEFAULT NOW(),
 user_id INT NOT NULL
 );
