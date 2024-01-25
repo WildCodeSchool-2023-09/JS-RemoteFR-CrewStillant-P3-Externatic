@@ -28,6 +28,12 @@ const sidebarData = [
     icon: <PiIcons.PiStudentLight />,
     cName: "nav-text",
   },
+  {
+    title: "Recrutement interne",
+    path: "https://www.welcometothejungle.com/fr/companies/externatic",
+    icon: <PiIcons.PiShareNetwork />,
+    cName: "nav-text",
+  },
 ];
 
 export default sidebarData;
