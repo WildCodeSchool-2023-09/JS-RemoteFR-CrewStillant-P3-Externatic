@@ -12,6 +12,7 @@ const ExperienceManager = require("./models/ExperienceManager");
 const ActivityManager = require("./models/ActivityManager");
 const MessageManager = require("./models/MessageManger");
 const SectorManager = require("./models/SectorManager");
+const SkillManager = require("./models/SkillManager");
 
 const managers = [
   UserManager,
@@ -23,6 +24,7 @@ const managers = [
   ActivityManager,
   MessageManager,
   SectorManager,
+  SkillManager,
 ];
 
 // Create an empty object to hold data managers for different tables

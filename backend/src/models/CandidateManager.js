@@ -7,14 +7,14 @@ class CandidateManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT user.image, user.email, user.contact_number, candidate.firstname, candidate.lastname, candidate.date_of_birth, candidate.wanted_salary, user.registration_date FROM ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id`
+      `SELECT user.image, user.email, user.contact_number AS contactNumber, candidate.firstname, candidate.lastname, candidate.date_of_birth AS dateOfBirth, candidate.wanted_salary AS wantedSalary, user.registration_date AS registrationDate FROM ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id`
     );
     return result;
   }
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT user.image, user.email, user.contact_number, candidate.firstname, candidate.lastname, candidate.date_of_birth, candidate.wanted_salary, user.registration_date FROM ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id =?`,
+      `SELECT user.image, user.email, user.contact_number AS contactNumber, candidate.firstname, candidate.lastname, candidate.date_of_birth AS dateOfBirth, candidate.wanted_salary AS wantedSalary, user.registration_date AS registrationDate, candidate.id FROM ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id WHERE ${this.table}.id =?`,
       [id]
     );
     return result;

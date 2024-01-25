@@ -7,14 +7,14 @@ class UserManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT job.title, job.type, job.salary, job.description, activity.apply_date FROM ${this.table} LEFT JOIN job ON ${this.table}.job_id = job.id`
+      `SELECT job.title, job.type, job.salary, job.description, activity.apply_date AS applyDate FROM ${this.table} LEFT JOIN job ON ${this.table}.job_id = job.id`
     );
     return result;
   }
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT job.title, job.type, job.salary, job.description, activity.apply_date FROM ${this.table} LEFT JOIN job ON ${this.table}.job_id = job.id WHERE ${this.table}.id =?`,
+      `SELECT job.title, job.type, job.salary, job.description, activity.apply_date AS applyDate FROM ${this.table} LEFT JOIN job ON ${this.table}.job_id = job.id WHERE ${this.table}.user_id =?`,
       [id]
     );
     return result;

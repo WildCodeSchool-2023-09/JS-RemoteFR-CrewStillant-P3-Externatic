@@ -1,0 +1,23 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.profileMessage {
+  border: solid 0.25em;
+  border-radius: 0.75em;
+  display: flex;
+  gap: 2em;
+  padding: 3em 5em;
+  margin: 0 0 1em 0;
+}
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+}
+
+.message {
+  font: 120% jost;
+}
