@@ -28,10 +28,10 @@ class CandidateManager extends AbstractManager {
     return result;
   }
 
-  async create(firstname, lastname, dateOfBirth, wantedSalary, userId) {
+  async create(firstname, lastname, dateOfBirth, wantedSalary, insertId) {
     const [result] = await this.database.query(
       `INSERT INTO ${this.table} (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?,?,?,?,?)`,
-      [firstname, lastname, dateOfBirth, wantedSalary, userId]
+      [firstname, lastname, dateOfBirth, wantedSalary, insertId]
     );
     return result;
   }

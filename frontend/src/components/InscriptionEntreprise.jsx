@@ -101,11 +101,13 @@ export default function InscriptionEntreprise() {
             {errors.password && (
               <span className="text-red-500">{errors.password.message}</span>
             )}
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "😀" : "😎"}
+            </button>
           </div>
-
-          <button type="button" onClick={() => setShowPassword(!showPassword)}>
-            {showPassword ? "😀" : "😎"}
-          </button>
 
           <div>
             <p>Website:</p>
