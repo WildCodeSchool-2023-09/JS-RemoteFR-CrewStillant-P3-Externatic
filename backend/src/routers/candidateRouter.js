@@ -9,6 +9,7 @@ const {
   add,
   remove,
 } = require("../controllers/candidateController");
+const upload = require("../services/upload");
 
 // GET
 
@@ -22,7 +23,7 @@ router.put("/:id", edit);
 
 // POST
 
-router.post("/", add);
+router.post("/", upload, add);
 
 // DELETE
 

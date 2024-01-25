@@ -59,12 +59,14 @@ const edit = async (req, res, next) => {
 
 const add = async (req, res) => {
   const { firstname, lastname, dateOfBirth, wantedSalary, insertId } = req.body;
+  const { cv } = req.file;
   try {
     const addCandidate = await tables.candidate.create(
       firstname,
       lastname,
       dateOfBirth,
       wantedSalary,
+      cv,
       insertId
     );
     if (addCandidate) {

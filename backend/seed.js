@@ -77,12 +77,13 @@ const seed = async () => {
           ]
         ),
         database.query(
-          "INSERT INTO candidate (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?, ?, ?, ?, ?)",
+          "INSERT INTO candidate (firstname, lastname, date_of_birth, wanted_salary, curriculum, user_id) VALUES (?, ?, ?, ?, ?, ?)",
           [
             fakerFR.person.firstName(),
             fakerFR.person.lastName(),
             fakerFR.date.birthdate({ min: 18, max: 75, mode: "age" }),
             fakerFR.number.int({ min: 35000, max: 200000 }),
+            fakerFR.lorem.word(),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),

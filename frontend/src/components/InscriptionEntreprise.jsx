@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useState } from "react";
 import "./inscriptionEntreprise.scss";
 
@@ -15,7 +15,6 @@ export default function InscriptionEntreprise() {
   const [file, setFile] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  console.info(file);
   const onSubmit = async (data) => {
     try {
       const type = 2;
@@ -142,12 +141,10 @@ export default function InscriptionEntreprise() {
               name="confirmPassword"
               autoComplete
               {...register("confirmPassword", {
-                pattern: {
-                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-                  message:
-                    "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial",
-                },
-                required: "Ce champ est obligatoire",
+                required: "Vous devez confirmer votre mot de passe",
+                validate: (value) =>
+                  value === useWatch("password") ||
+                  "Mots de passe non identiques",
               })}
             />
             {errors.password && (
@@ -268,7 +265,7 @@ export default function InscriptionEntreprise() {
           </div>
 
           <div>
-            <p>Secteur:</p>
+            <p>Secteur d'activité :</p>
             <input
               type="text"
               placeholder="Secteur"

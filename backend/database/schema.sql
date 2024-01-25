@@ -14,6 +14,7 @@ CREATE TABLE candidate (
     lastname VARCHAR(80)  NOT NULL,
     date_of_birth DATE  NOT NULL,
     wanted_salary INT  NULL,
+    curriculum VARCHAR(255)  NULL,
     user_id INT  NOT NULL,
     CONSTRAINT candidate_pk PRIMARY KEY (id)
 );

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from "axios";
 import { React, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import "./inscriptionCandidat.scss";
@@ -13,25 +13,31 @@ export default function InscriptionCandidat() {
     formState: { errors },
   } = useForm();
 
+  const [file, setFile] = useState([]);
+  const [cv, setCv] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
-    console.info(data);
+    console.info("data", data);
+    console.info("avatar", file);
+    console.info("cv", cv);
     try {
       const type = 1;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
-        { ...data, type }
+        { ...data, file, type },
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       const { insertId } = response.data;
 
       const responseTwo = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/candidate`,
-        { ...data, insertId }
+        { ...data, cv, insertId },
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      if (response.status === 201 && responseTwo === 201) {
+      if (response.status === 201 && responseTwo.status === 201) {
         toast.success(response.data.message);
       }
     } catch (e) {
@@ -39,8 +45,51 @@ export default function InscriptionCandidat() {
     }
   };
 
+  const handleUpload = (e) => {
+    e.preventDefault();
+    setFile(e.target.files);
+  };
+  const handleUploadCV = (e) => {
+    e.preventDefault();
+    setCv(e.target.files);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {Boolean(file.length) && (
+        <img
+          className="avatar"
+          src={URL.createObjectURL(file[0])}
+          alt="avatar"
+        />
+      )}
+      <p>Téléchargez votre photo de profil (500ko max, format .jpeg/.png)</p>
+      <input
+        required
+        name="file"
+        type="file"
+        onChange={handleUpload}
+        accept="image/jpeg, image/png"
+      />
+      {Boolean(cv.length) && (
+        <a
+          className="curriculumVitae"
+          href={URL.createObjectURL(cv[0])}
+          target="_blank"
+          rel="noopener noreferrer"
+          alt="cv"
+        >
+          C.V.
+        </a>
+      )}
+      <p>Téléchargez votre CV (500ko max, format .pdf/.docx/.odt)</p>
+      <input
+        required
+        name="cv"
+        type="file"
+        onChange={handleUploadCV}
+        accept="file/pdf, file/odt, file/docx"
+      />
       <section className="signupCandidate">
         <div className="formGrid">
           <p>Nom:</p>
@@ -109,6 +158,23 @@ export default function InscriptionCandidat() {
             {showPassword ? "😀" : "😎"}
           </button>
         </div>
+        <div>
+          <p>Confirmez mot de passe :</p>
+          <input
+            type="password"
+            name="confirmPassword"
+            autoComplete
+            {...register("confirmPassword", {
+              required: "Vous devez confirmer votre mot de passe",
+              validate: (value) =>
+                value === useWatch("password") ||
+                "Mots de passe non identiques",
+            })}
+          />
+          {errors.password && (
+            <span className="text-red-500">{errors.password.message}</span>
+          )}
+        </div>
 
         <div className="formGrid">
           <p>Date de Naissance:</p>
@@ -130,12 +196,13 @@ export default function InscriptionCandidat() {
         </div>
 
         <div className="formGrid">
-          <p>Phone Number:</p>
+          <p>Numéro de téléphone :</p>
           <input
             type="text"
             placeholder="0123456789"
             {...register("contactNumber", {
-              minLength: { value: 10, message: "Ce champ est obligatoire" },
+              minLength: { value: 10, message: "Format invalide" },
+              required: "Ce champ est obligatoire",
             })}
           />
           {errors.contact_number && (
@@ -146,15 +213,19 @@ export default function InscriptionCandidat() {
         </div>
 
         <div className="formGrid">
-          <p>Ville:</p>
+          <p>Ville :</p>
           <input
             type="text"
-            placeholder="Detroit"
+            placeholder="Ville"
             {...register("city", {
-              minLength: { value: 3, message: "Ce champ est obligatoire" },
+              minLength: {
+                value: 1,
+                message: "Ce champ ne peut être vide",
+              },
+              required: "Ce champ est obligatoire",
             })}
           />
-          {errors.name && (
+          {errors.city && (
             <span className="text-red-500">{errors.city.message}</span>
           )}
         </div>
@@ -163,9 +234,13 @@ export default function InscriptionCandidat() {
           <p>Pays :</p>
           <input
             type="text"
-            placeholder="Trouver une offre"
+            placeholder="Pays"
             {...register("country", {
-              minLength: { value: 3, message: "Ce champ est obligatoire" },
+              pattern: {
+                value: /France/gi,
+                message: "Vous devez impérativement être localiser en France",
+              },
+              required: "Ce champ est obligatoire",
             })}
           />
           {errors.country && (
@@ -178,7 +253,7 @@ export default function InscriptionCandidat() {
           id="smsNotification"
           className="smsNotification"
         >
-          SMS Notification
+          Notifications SMS
         </label>
         <input
           type="checkbox"
@@ -192,7 +267,7 @@ export default function InscriptionCandidat() {
           id="emailNotification"
           className="emailNotification"
         >
-          E-mail Notification
+          Notifications par e-mail
         </label>
         <input
           type="checkbox"
@@ -203,14 +278,7 @@ export default function InscriptionCandidat() {
       </section>
 
       <section className="confirmButtonCandidate">
-        <button type="button">
-          Déposer
-          <br /> C.V.
-        </button>
-
-        <button type="submit">
-          Confirmer <br /> Inscription
-        </button>
+        <button type="submit">S'inscrire</button>
       </section>
     </form>
   );
