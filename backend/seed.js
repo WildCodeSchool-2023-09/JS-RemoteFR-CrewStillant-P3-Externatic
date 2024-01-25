@@ -51,14 +51,14 @@ const seed = async () => {
       "Bac+8",
     ];
 
-    // Random user type using an array & faker
+    // Random user type using an array
     const userType = ["candidat", "entreprise", "consultant", "administrateur"];
 
     // Random job type using an array & faker
     const jobType = [
       "Contrat à durée déterminée",
       "Contrat à durée indéterminée",
-      "Intérim",
+      "Stage",
       "Alternance",
     ];
 
@@ -150,7 +150,7 @@ const seed = async () => {
             fakerFR.word.adjective(),
             faker.helpers.arrayElement(skillLevel, 1),
             fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 1557 }),
           ]
         ),
 

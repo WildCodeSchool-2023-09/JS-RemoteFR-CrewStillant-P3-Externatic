@@ -1,6 +1,39 @@
 const tables = require("../tables");
 
-// GET
+// The B of BREAD - Browse (Read All) operation
+const browseFilters = async (req, res, next) => {
+  const {
+    terms = null,
+    location = null,
+    salary = null,
+    place = null,
+    sector = null,
+    type = null,
+    orderby = null,
+    limit = 20,
+  } = req.query;
+  try {
+    // Fetch all offers from the database
+    const offers = await tables.job.readAllFilters(
+      terms,
+      location,
+      salary,
+      place,
+      sector,
+      type,
+      orderby,
+      Number(limit)
+    );
+    if (offers !== null) {
+      res.json(offers);
+    } else {
+      res.send(401).json({ message: "Recherche non aboutie" });
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
 
 const browse = async (req, res) => {
   try {
@@ -117,4 +150,4 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { browse, read, edit, add, remove };
+module.exports = { browseFilters, browse, read, edit, add, remove };
