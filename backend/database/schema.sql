@@ -14,7 +14,6 @@ CREATE TABLE candidate (
     lastname VARCHAR(80)  NOT NULL,
     date_of_birth DATE  NOT NULL,
     wanted_salary INT  NULL,
-    curriculum VARCHAR(255)  NULL,
     user_id INT  NOT NULL,
     CONSTRAINT candidate_pk PRIMARY KEY (id)
 );
@@ -31,7 +30,7 @@ CREATE TABLE candidate_degree (
 CREATE TABLE company (
     id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(255)  NOT NULL,
-    image VARCHAR(255) NULL,
+    image VARCHAR(255)  NOT NULL,
     description TEXT  NOT NULL,
     website VARCHAR(255)  NOT NULL,
     establishment_date DATE  NOT NULL,
@@ -82,7 +81,7 @@ CREATE TABLE job (
     description TEXT  NOT NULL,
     hours_worked INT NOT NULL,
     created_date DATETIME NOT NULL DEFAULT NOW(),
-    is_active BOOL NULL,
+    is_active BOOL  NOT NULL,
     salary INT NOT NULL,
     place VARCHAR(10) NOT NULL,
     sector VARCHAR(100) NOT NULL,
@@ -120,7 +119,7 @@ CREATE TABLE user (
    id INT AUTO_INCREMENT NOT NULL,
     email VARCHAR(255)  NOT NULL UNIQUE,
     password VARCHAR(100)  NOT NULL,
-    is_active BOOL NULL,
+    is_active BOOL  NOT NULL,
     contact_number VARCHAR(20)  NOT NULL,
     sms_notification_active BOOL  NOT NULL,
     email_notification_active BOOL  NOT NULL,

@@ -3,6 +3,7 @@ import axios from "axios";
 import { React, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import "./inscriptionCandidat.module.scss";
 
@@ -13,6 +14,7 @@ export default function InscriptionCandidat() {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
@@ -147,6 +149,22 @@ export default function InscriptionCandidat() {
         </div>
 
         <div className="formGrid">
+          <p>Salaire annuel souhaité :</p>
+          <input
+            type="number"
+            placeholder="50000"
+            autoComplete="true"
+            {...register("salary", {
+              minLength: { value: 1, message: "Vous devez rentrer une valeur" },
+              required: "Ce champs est obligatoire",
+            })}
+          />
+          {errors.name && (
+            <span className="text-red-500">{errors.name.message}</span>
+          )}
+        </div>
+
+        <div className="formGrid">
           <p>Numéro de téléphone :</p>
           <input
             type="text"
@@ -232,7 +250,9 @@ export default function InscriptionCandidat() {
       </section>
 
       <section className="confirmButtonCandidate">
-        <button type="submit">S'inscrire</button>
+        <button type="submit" onClick={() => navigate("/connexion")}>
+          S'inscrire
+        </button>
       </section>
     </form>
   );

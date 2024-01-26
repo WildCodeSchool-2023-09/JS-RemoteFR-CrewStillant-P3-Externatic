@@ -25,7 +25,9 @@ function UserProfil() {
   return (
     <div className={`${style.profilesection}`}>
       <div className={`${style.userimage}`}>
-        <img src={image} alt={firstname} className={`${style.profilepic}`} />
+        {image && (
+          <img src={image} alt={firstname} className={`${style.profilepic}`} />
+        )}
         <button type="button" className={`${style.buttonspace}`}>
           Changer votre photo
         </button>

@@ -21,8 +21,8 @@ const read = async (req, res) => {
   const { id } = req.params;
   try {
     const getSkillId = await tables.skill.read(parseInt(id, 10));
-    if (getSkillId[0]) {
-      res.status(200).json(getSkillId);
+    if (getSkillId) {
+      res.status(200).json(getSkillId[0]);
     } else {
       res.sendStatus(404);
     }

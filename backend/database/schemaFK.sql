@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS=0;
 -- foreign keys
 -- Reference: candidate_degree
 ALTER TABLE candidate_degree ADD CONSTRAINT candidate_degree FOREIGN KEY candidate_degree (candidate_id)
@@ -23,6 +24,10 @@ ALTER TABLE company ADD CONSTRAINT company_user FOREIGN KEY company_user (user_i
 ALTER TABLE candidate_degree ADD CONSTRAINT degree_candidate FOREIGN KEY degree_candidate (degree_id)
     REFERENCES degree (id);
 
+-- Reference: candidate_activity
+ALTER TABLE activity ADD CONSTRAINT candidate_activity FOREIGN KEY candidate_activity (candidate_id)
+    REFERENCES candidate (id);
+
 -- Reference: job_activity
 ALTER TABLE activity ADD CONSTRAINT job_activity FOREIGN KEY job_activity (job_id)
     REFERENCES job (id);
@@ -43,10 +48,6 @@ ALTER TABLE skill ADD CONSTRAINT skill_candidate FOREIGN KEY skill_candidate (ca
 ALTER TABLE skill ADD CONSTRAINT skill_job FOREIGN KEY skill_job (job_id)
     REFERENCES job (id);
 
--- Reference: candidate_activity
-ALTER TABLE activity ADD CONSTRAINT candidate_activity FOREIGN KEY candidate_activity (candidate_id)
-    REFERENCES candidate (id);
-
 -- Reference: user_type
 ALTER TABLE user ADD CONSTRAINT user_type FOREIGN KEY user_type (user_type_id)
     REFERENCES user_type (id);
@@ -54,3 +55,5 @@ ALTER TABLE user ADD CONSTRAINT user_type FOREIGN KEY user_type (user_type_id)
     -- Reference: message
 ALTER TABLE message ADD CONSTRAINT message_user FOREIGN KEY user (user_id)
     REFERENCES user (id);
+
+SET FOREIGN_KEY_CHECKS=1;

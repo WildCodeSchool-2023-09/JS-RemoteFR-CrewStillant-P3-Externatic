@@ -58,7 +58,7 @@ const seed = async () => {
     const jobType = [
       "Contrat à durée déterminée",
       "Contrat à durée indéterminée",
-      "Stage",
+      "Intérim",
       "Alternance",
     ];
 
@@ -71,14 +71,6 @@ const seed = async () => {
     // Insert fake data into all tables in the same order
     for (let i = 0; i < 20; i += 1) {
       queries.push(
-        database.query(
-          "INSERT INTO activity (apply_date, job_id, user_id) values (?, ?, ?)",
-          [
-            fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        ),
         database.query(
           "INSERT INTO candidate (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?, ?, ?, ?, ?)",
           [
@@ -147,7 +139,7 @@ const seed = async () => {
           "INSERT INTO activity (apply_date, job_id, candidate_id) values (?, ?, ?)",
           [
             fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 1557 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
@@ -158,7 +150,7 @@ const seed = async () => {
             fakerFR.word.adjective(),
             faker.helpers.arrayElement(skillLevel, 1),
             fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 1557 }),
+            fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
 

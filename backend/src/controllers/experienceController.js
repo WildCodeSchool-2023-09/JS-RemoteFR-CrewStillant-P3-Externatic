@@ -20,7 +20,7 @@ const read = async (req, res) => {
   try {
     const getExperienceId = await tables.experience.read(parseInt(id, 10));
     if (getExperienceId) {
-      res.status(200).json(getExperienceId);
+      res.status(200).json(getExperienceId[0]);
     } else {
       res.sendStatus(404);
     }
