@@ -11,6 +11,7 @@ const DegreeManager = require("./models/DegreeManager");
 const ExperienceManager = require("./models/ExperienceManager");
 const ActivityManager = require("./models/ActivityManager");
 const MessageManager = require("./models/MessageManger");
+const SectorManager = require("./models/SectorManager");
 const SkillManager = require("./models/SkillManager");
 
 const managers = [
@@ -22,6 +23,7 @@ const managers = [
   ExperienceManager,
   ActivityManager,
   MessageManager,
+  SectorManager,
   SkillManager,
 ];
 

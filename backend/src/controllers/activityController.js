@@ -21,8 +21,8 @@ const read = async (req, res) => {
   const { id } = req.params;
   try {
     const getActivityId = await tables.activity.read(parseInt(id, 10));
-    if (getActivityId.length > 0) {
-      res.status(200).json(getActivityId);
+    if (getActivityId) {
+      res.status(200).json(getActivityId[0]);
     } else {
       res.sendStatus(404);
     }

@@ -12,18 +12,18 @@ const sidebarData = [
   },
   {
     title: "Espace messagerie",
-    path: "/candidate/message/",
+    path: "/candidat/messages",
     icon: <AiIcons.AiOutlineMessage />,
     cName: "nav-text",
   },
   {
     title: "Mes offres",
-    path: "/accueil",
+    path: "/candidat/activites",
     icon: <MdIcons.MdOutlineWorkOutline />,
     cName: "nav-text",
   },
   {
-    title: "Candidat",
+    title: "Mon Profil",
     path: "/candidat/profil",
     icon: <PiIcons.PiStudentLight />,
     cName: "nav-text",

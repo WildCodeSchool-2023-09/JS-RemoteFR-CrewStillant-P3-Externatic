@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ReactDOM from "react-dom/client";
 import axios from "axios";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import CandidatePage from "./pages/CandidatePage";
@@ -19,15 +19,25 @@ import CompanyUser from "./components/company/CompanyUser";
 import CompanyMessage from "./components/company/CompanyMessage";
 import CompanyOffers from "./components/company/CompanyOffers";
 import CandidatList from "./components/company/CandidatList";
+import NotFound from "./pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: "accueil",
+        path: "accueil/",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+      {
+        path: "/accueil/:id",
+        element: <HomePage />,
+        loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+      {
+        path: "inscription",
+        element: <SignUp />,
       },
       {
         path: "recherche",
@@ -38,14 +48,10 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/inscription",
-        element: <SignUp />,
-      },
-      {
         path: "/candidat",
         element: <CandidatePage />,
         loader: async ({ params }) => {
-          const candidat = await axios
+          const candidate = await axios
             .get(`${import.meta.env.VITE_BACKEND_URL}/candidate/${params.id}`)
             .then((res) => res.data);
           const messages = await axios
@@ -67,7 +73,7 @@ const router = createBrowserRouter([
             .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
             .then((res) => res.data);
           return {
-            candidat,
+            candidate,
             messages,
             activity,
             degrees,
@@ -144,6 +150,10 @@ const router = createBrowserRouter([
             element: <CandidatList />,
           },
         ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

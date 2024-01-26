@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import style from "../../assets/styles/candidatePage.module.scss";
 
 function UserProfil() {
-  const { candidat } = useOutletContext();
+  const { candidate } = useOutletContext();
 
   const [
     {
@@ -15,7 +15,7 @@ function UserProfil() {
       wantedSalary,
       contactNumber,
     },
-  ] = candidat;
+  ] = candidate;
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -25,7 +25,9 @@ function UserProfil() {
   return (
     <div className={`${style.profilesection}`}>
       <div className={`${style.userimage}`}>
-        <img src={image} alt={firstname} className={`${style.profilepic}`} />
+        {image && (
+          <img src={image} alt={firstname} className={`${style.profilepic}`} />
+        )}
         <button type="button" className={`${style.buttonspace}`}>
           Changer votre photo
         </button>

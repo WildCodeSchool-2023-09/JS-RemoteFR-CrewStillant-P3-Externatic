@@ -12,6 +12,7 @@ const degreeRouter = require("./routers/degreeRouter");
 const experienceRouter = require("./routers/experienceRouter");
 const activityRouter = require("./routers/activityRouter");
 const messageRouter = require("./routers/messageRouter");
+const sectorRouter = require("./routers/sectorRouter");
 const skillRouter = require("./routers/skillRouter");
 const authRouter = require("./routers/authRouter");
 
@@ -25,6 +26,7 @@ router.use("/degree", degreeRouter);
 router.use("/experience", experienceRouter);
 router.use("/activity", activityRouter);
 router.use("/message", messageRouter);
+router.use("/sector", sectorRouter);
 router.use("/skill", skillRouter);
 router.use("/login", authRouter);
 

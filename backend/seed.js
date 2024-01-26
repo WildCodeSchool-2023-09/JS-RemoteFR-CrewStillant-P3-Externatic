@@ -51,14 +51,14 @@ const seed = async () => {
       "Bac+8",
     ];
 
-    // Random user type using an array
-    const userType = ["candidat", "entreprise", "consultant", "administrateur"];
+    // Random user type using an array & faker
+    const userType = ["candidat", "entreprise", "administrateur"];
 
     // Random job type using an array & faker
     const jobType = [
       "Contrat à durée déterminée",
       "Contrat à durée indéterminée",
-      "Stage",
+      "Intérim",
       "Alternance",
     ];
 
@@ -78,7 +78,7 @@ const seed = async () => {
             fakerFR.person.lastName(),
             fakerFR.date.birthdate({ min: 18, max: 75, mode: "age" }),
             fakerFR.number.int({ min: 35000, max: 200000 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 1 }),
           ]
         ),
 
@@ -96,7 +96,7 @@ const seed = async () => {
             fakerFR.date.past({ years: 30 }),
             fakerFR.number.int({ min: 10000000000000, max: 99999999999999 }),
             fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 2, max: 2 }),
           ]
         ),
         database.query("INSERT INTO company_sector (sector) VALUES (?)", [
@@ -127,7 +127,7 @@ const seed = async () => {
             fakerFR.datatype.boolean(0.6),
             fakerFR.datatype.boolean(0.9),
             fakerFR.internet.avatar(),
-            fakerFR.number.int({ min: 1, max: 4 }),
+            fakerFR.number.int({ min: 1, max: 3 }),
           ]
         )
       );
@@ -136,10 +136,10 @@ const seed = async () => {
     for (let i = 0; i < 50; i += 1) {
       queries.push(
         database.query(
-          "INSERT INTO activity (apply_date, job_id, user_id) values (?, ?, ?)",
+          "INSERT INTO activity (apply_date, job_id, candidate_id) values (?, ?, ?)",
           [
             fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 1557 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
@@ -150,7 +150,7 @@ const seed = async () => {
             fakerFR.word.adjective(),
             faker.helpers.arrayElement(skillLevel, 1),
             fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 1557 }),
+            fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),
 

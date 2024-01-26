@@ -1,0 +1,43 @@
+.avatar {
+  height: 200px;
+  width: 150px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.grid .confirmButtonCompany {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 5em;
+}
+
+.signupCompany {
+  display: grid;
+  justify-items: end;
+}
+
+.signupCompany div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.signupCompany div p {
+  display: flex;
+  align-items: center;
+}
+
+.signupCompany div input {
+  height: 4em;
+  width: 10em;
+}
+
+.signupCompany div textarea {
+  height: 4em;
+  width: 10em;
+}

@@ -55,11 +55,10 @@ class UserManager extends AbstractManager {
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
-    image,
-    userTypeId
+    type
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?,?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, user_type_id) VALUES (?,?,?,?,?,?,?)`,
       [
         email,
         hashedPassword,
@@ -67,8 +66,7 @@ class UserManager extends AbstractManager {
         contactNumber,
         smsNotificationActive,
         emailNotificationActive,
-        image,
-        userTypeId,
+        type,
       ]
     );
     return result;
@@ -84,7 +82,7 @@ class UserManager extends AbstractManager {
 
   async readByEmail(email) {
     const [rows] = await this.database.query(
-      `SELECT id, email, password FROM ${this.table} WHERE email=?`,
+      `SELECT id, email, password, user_type_id AS userTypeId FROM ${this.table} WHERE email=?`,
       [email]
     );
 

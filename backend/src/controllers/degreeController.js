@@ -20,7 +20,7 @@ const read = async (req, res) => {
   try {
     const getDegreeId = await tables.degree.read(parseInt(id, 10));
     if (getDegreeId) {
-      res.status(200).json(getDegreeId);
+      res.status(200).json(getDegreeId[0]);
     } else {
       res.sendStatus(404);
     }
