@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./signUp.scss";
+import "./signUp.module.scss";
 import InscriptionCandidat from "../components/InscriptionCandidat";
 import InscriptionEntreprise from "../components/InscriptionEntreprise";
 import SearchBar from "../components/SearchBar/SearchBar";

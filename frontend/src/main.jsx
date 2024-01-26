@@ -19,13 +19,14 @@ import CompanyUser from "./components/company/CompanyUser";
 import CompanyMessage from "./components/company/CompanyMessage";
 import CompanyOffers from "./components/company/CompanyOffers";
 import CandidatList from "./components/company/CandidatList";
+import NotFound from "./pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: "accueil",
+        path: "accueil/",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
@@ -40,10 +41,6 @@ const router = createBrowserRouter([
       {
         path: "/connexion",
         element: <Login />,
-      },
-      {
-        path: "/inscription",
-        element: <SignUp />,
       },
       {
         path: "/candidat",
@@ -148,6 +145,10 @@ const router = createBrowserRouter([
             element: <CandidatList />,
           },
         ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

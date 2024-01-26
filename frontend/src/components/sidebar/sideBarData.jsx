@@ -12,7 +12,7 @@ const sidebarData = [
   },
   {
     title: "Espace messagerie",
-    path: "/candidate/message/",
+    path: "/candidat/message/",
     icon: <AiIcons.AiOutlineMessage />,
     cName: "nav-text",
   },

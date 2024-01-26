@@ -7,7 +7,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { setAuth } = useOutletContext();
+  const { setAuth, auth } = useOutletContext();
   const navigate = useNavigate();
   const {
     register,
@@ -21,7 +21,7 @@ function Login() {
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => {
           setAuth(res.data);
-          navigate(`/accueil`);
+          navigate(`/accueil/${auth.id}`);
         });
     } catch (error) {
       toast.error(error.response?.data?.message);
@@ -68,7 +68,7 @@ function Login() {
 
         <button
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/inscription")}
           className={`${style.buttonspace}`}
         >
           Inscription

@@ -4,7 +4,7 @@ import { React, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import "./inscriptionCandidat.scss";
+import "./inscriptionCandidat.module.scss";
 
 export default function InscriptionCandidat() {
   const {

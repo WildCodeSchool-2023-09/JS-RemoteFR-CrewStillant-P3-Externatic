@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import "./inscriptionEntreprise.scss";
+import "./inscriptionEntreprise.module.scss";
 
 export default function InscriptionEntreprise() {
   const {
