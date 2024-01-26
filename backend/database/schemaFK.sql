@@ -43,9 +43,9 @@ ALTER TABLE skill ADD CONSTRAINT skill_candidate FOREIGN KEY skill_candidate (ca
 ALTER TABLE skill ADD CONSTRAINT skill_job FOREIGN KEY skill_job (job_id)
     REFERENCES job (id);
 
--- Reference: user_activity
-ALTER TABLE activity ADD CONSTRAINT user_activity FOREIGN KEY user_activity (user_id)
-    REFERENCES user (id);
+-- Reference: candidate_activity
+ALTER TABLE activity ADD CONSTRAINT candidate_activity FOREIGN KEY candidate_activity (candidate_id)
+    REFERENCES candidate (id);
 
 -- Reference: user_type
 ALTER TABLE user ADD CONSTRAINT user_type FOREIGN KEY user_type (user_type_id)

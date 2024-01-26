@@ -5,6 +5,7 @@ import CriteriaUser from "./CriteriaUser";
 
 function UserChoices() {
   const { criteria, skills } = useOutletContext();
+
   return (
     <div>
       {skills && skills.length > 0 ? (

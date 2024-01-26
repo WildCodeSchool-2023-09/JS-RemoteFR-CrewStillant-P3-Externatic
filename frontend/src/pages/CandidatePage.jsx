@@ -4,7 +4,7 @@ import SideSection from "../components/SideSection";
 import style from "../assets/styles/candidatePage.module.scss";
 
 function CandidatePage() {
-  const candidat = useLoaderData();
+  const candidate = useLoaderData();
   const messages = useLoaderData();
   const activity = useLoaderData();
   return (
@@ -14,8 +14,8 @@ function CandidatePage() {
       </div>
 
       <div className={`${style.userpage}`}>
-        <SideSection candidat={candidat} />
-        <Outlet context={(candidat, messages, activity)} />
+        <SideSection candidate={candidate} />
+        <Outlet context={(candidate, messages, activity)} />
       </div>
     </div>
   );
