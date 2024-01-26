@@ -3,17 +3,28 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
-const CandidateManager = require("./models/CandidateManager");
 const CompanyManager = require("./models/CompanyManager");
-const UserManager = require("./models/UserManager");
 const JobManager = require("./models/JobManager");
+const UserManager = require("./models/UserManager");
+const CandidateManager = require("./models/CandidateManager");
+const DegreeManager = require("./models/DegreeManager");
+const ExperienceManager = require("./models/ExperienceManager");
+const ActivityManager = require("./models/ActivityManager");
+const MessageManager = require("./models/MessageManger");
+const SectorManager = require("./models/SectorManager");
+const SkillManager = require("./models/SkillManager");
 
 const managers = [
   UserManager,
   CompanyManager,
   CandidateManager,
   JobManager,
-  // Add other managers here
+  DegreeManager,
+  ExperienceManager,
+  ActivityManager,
+  MessageManager,
+  SectorManager,
+  SkillManager,
 ];
 
 // Create an empty object to hold data managers for different tables
