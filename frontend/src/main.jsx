@@ -29,6 +29,11 @@ const router = createBrowserRouter([
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
       {
+        path: "/accueil/:id",
+        element: <HomePage />,
+        loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+      },
+      {
         path: "/connexion",
         element: <Login />,
       },
@@ -40,7 +45,7 @@ const router = createBrowserRouter([
         path: "/candidat",
         element: <CandidatePage />,
         loader: async ({ params }) => {
-          const candidat = await axios
+          const candidate = await axios
             .get(`${import.meta.env.VITE_BACKEND_URL}/candidate/${params.id}`)
             .then((res) => res.data);
           const messages = await axios
@@ -62,7 +67,7 @@ const router = createBrowserRouter([
             .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
             .then((res) => res.data);
           return {
-            candidat,
+            candidate,
             messages,
             activity,
             degrees,

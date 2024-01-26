@@ -3,7 +3,7 @@ CREATE TABLE activity (
     id INT AUTO_INCREMENT NOT NULL,
     apply_date DATE  NOT NULL,
     job_id INT  NOT NULL,
-    user_id INT  NOT NULL,
+    candidate_id INT  NOT NULL,
     CONSTRAINT activity_pk PRIMARY KEY (id)
 );
 

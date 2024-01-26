@@ -7,7 +7,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { setAuth } = useOutletContext();
+  const { auth, setAuth } = useOutletContext();
   const navigate = useNavigate();
   const {
     register,
@@ -15,13 +15,14 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, e) => {
+    e.preventDefault();
     try {
       await axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => {
           setAuth(res.data);
-          navigate(`/accueil`);
+          navigate(`/accueil/${auth.id}`);
         });
     } catch (error) {
       toast.error(error.response?.data?.message);
