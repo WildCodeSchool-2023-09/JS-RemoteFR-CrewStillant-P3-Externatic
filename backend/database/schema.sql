@@ -3,8 +3,7 @@ CREATE TABLE activity (
     id INT AUTO_INCREMENT NOT NULL,
     apply_date DATE  NOT NULL,
     job_id INT  NOT NULL,
-    candidate_id INT  NOT NULL,
-    CONSTRAINT activity_pk PRIMARY KEY (id)
+    candidate_id INT  NOT NULL
 );
 
 -- Table: candidate
@@ -14,16 +13,14 @@ CREATE TABLE candidate (
     lastname VARCHAR(80)  NOT NULL,
     date_of_birth DATE  NOT NULL,
     wanted_salary INT  NULL,
-    user_id INT  NOT NULL,
-    CONSTRAINT candidate_pk PRIMARY KEY (id)
+    user_id INT  NOT NULL
 );
 
 -- Table: candidate_degree
 CREATE TABLE candidate_degree (
     id INT AUTO_INCREMENT NOT NULL,
     candidate_id INT  NOT NULL,
-    degree_id INT  NOT NULL,
-    CONSTRAINT candidate_degree_pk PRIMARY KEY (id)
+    degree_id INT  NOT NULL
 );
 
 -- Table: company
@@ -36,15 +33,13 @@ CREATE TABLE company (
     establishment_date DATE  NOT NULL,
     siret BIGINT NOT NULL UNIQUE,
     company_sector_id INT  NOT NULL,
-    user_id INT NOT NULL,
-    CONSTRAINT company_pk PRIMARY KEY (id)
+    user_id INT NOT NULL
 );
 
 -- Table: company_sector
 CREATE TABLE company_sector (
     id INT AUTO_INCREMENT NOT NULL,
-    sector VARCHAR(100)  NOT NULL,
-    CONSTRAINT company_sector_pk PRIMARY KEY (id)
+    sector VARCHAR(100)  NOT NULL
 );
 
 -- Table: degree
@@ -55,8 +50,7 @@ CREATE TABLE degree (
     starting_date DATE  NOT NULL,
     completion_date DATE  NULL,
     university VARCHAR(80)  NULL,
-    city VARCHAR(80)  NULL,
-    CONSTRAINT degree_pk PRIMARY KEY (id)
+    city VARCHAR(80)  NULL
 );
 
 -- Table: experience
@@ -69,8 +63,7 @@ CREATE TABLE experience (
     city VARCHAR(50)  NULL,
     country VARCHAR(50)  NULL,
     description TEXT NOT NULL,
-    candidate_id INT  NOT NULL,
-    CONSTRAINT experience_pk PRIMARY KEY (id)
+    candidate_id INT  NOT NULL 
 );
 
 -- Table: job
@@ -86,8 +79,7 @@ CREATE TABLE job (
     place VARCHAR(10) NOT NULL,
     sector VARCHAR(100) NOT NULL,
     location_id INT  NOT NULL,
-    company_id INT  NOT NULL,
-    CONSTRAINT job_pk PRIMARY KEY (id)
+    company_id INT  NOT NULL
 );
 
 -- Table: location
@@ -100,8 +92,7 @@ CREATE TABLE location (
     city VARCHAR(50)  NOT NULL,
     state VARCHAR(50)  NOT NULL,
     country VARCHAR(50)  NOT NULL,
-    zip VARCHAR(5)  NOT NULL,
-    CONSTRAINT location_pk PRIMARY KEY (id)
+    zip VARCHAR(5)  NOT NULL
 );
 
 -- Table: skill
@@ -110,8 +101,7 @@ CREATE TABLE skill (
     name VARCHAR(50)  NOT NULL,
     level VARCHAR(50)  NOT NULL,
     candidate_id INT  NOT NULL,
-    job_id INT  NOT NULL,
-    CONSTRAINT skill_pk PRIMARY KEY (id)
+    job_id INT  NOT NULL
 );
 
 -- Table: user
@@ -125,15 +115,13 @@ CREATE TABLE user (
     email_notification_active BOOL  NOT NULL,
     image VARCHAR(255)  NULL,
     registration_date DATETIME NOT NULL DEFAULT NOW(),
-    user_type_id INT  NOT NULL,
-    CONSTRAINT user_pk PRIMARY KEY (id)
+    user_type_id INT  NOT NULL
 );
 
 -- Table: user_type
 CREATE TABLE user_type (
     id INT AUTO_INCREMENT NOT NULL,
-    type VARCHAR(20)  NOT NULL,
-    CONSTRAINT user_type_pk PRIMARY KEY (id)
+    type VARCHAR(20)  NOT NULL
 );
 
 -- Table: messages
