@@ -37,21 +37,6 @@ app.use(
   })
 );
 
-// Don't change these lines:
-app.use("/public/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../", req.originalUrl));
-});
-
-app.use("*", (req, res) => {
-  if (req.originalUrl.includes("assets")) {
-    res.sendFile(
-      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
-    );
-  } else {
-    res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
-  }
-});
-
 /* ************************************************************************* */
 
 // Request Parsing: Understanding the purpose of this part
@@ -124,13 +109,28 @@ const reactBuildPath = `${__dirname}/../../frontend/dist`;
 
 // Serve react resources
 
-app.use(express.static(reactBuildPath));
-app.use("/", express.static(path.join(__dirname, "../src/images")));
+//app.use(express.static(reactBuildPath));
+//app.use("/", express.static(path.join(__dirname, "../src/images")));
 
 // Redirect unhandled requests to the react index file
 
-app.get("*", (req, res) => {
-  res.sendFile(`${reactBuildPath}/index.html`);
+//app.get("*", (req, res) => {
+//  res.sendFile(`${reactBuildPath}/index.html`);
+//});
+
+// Don't change these lines:
+app.use("/public/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../", req.originalUrl));
+});
+
+app.use("*", (req, res) => {
+  if (req.originalUrl.includes("assets")) {
+    res.sendFile(
+      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
+    );
+  } else {
+    res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
+  }
 });
 
 /* ************************************************************************* */
