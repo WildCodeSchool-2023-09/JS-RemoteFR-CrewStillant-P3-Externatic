@@ -2,7 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-const { read, edit, add, remove } = require("../controllers/userController");
+const {
+  browse,
+  read,
+  edit,
+  add,
+  remove,
+} = require("../controllers/userController");
 
 const { browseFilters } = require("../controllers/jobController");
 
@@ -11,6 +17,8 @@ const { hash } = require("../middlewares/hashPassword");
 // GET
 
 router.get("/search", browseFilters);
+
+router.get("/", browse);
 
 router.get("/:id", read);
 

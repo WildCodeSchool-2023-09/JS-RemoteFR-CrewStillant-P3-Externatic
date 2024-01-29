@@ -3,8 +3,9 @@ import { useOutletContext } from "react-router-dom";
 
 function UserExperience() {
   const { experience } = useOutletContext();
+  const experiences = [experience];
 
-  if (!experience || experience.length === 0) {
+  if (!experiences || experiences.length === 0) {
     return <p>Aucune expérience ajoutée.</p>;
   }
 
@@ -16,8 +17,8 @@ function UserExperience() {
   return (
     <div>
       <ul>
-        {experience &&
-          experience.map((e) => (
+        {experiences &&
+          experiences.map((e) => (
             <>
               <li> Poste: {e.jobTitle} </li>
               <li> Compagnie: {e.companyName} </li>

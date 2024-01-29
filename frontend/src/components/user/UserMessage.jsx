@@ -4,9 +4,10 @@ import style from "../../assets/styles/messagePage.module.scss";
 
 function UserMessage() {
   const { messages } = useOutletContext();
+  const message = [messages];
 
-  if (!messages || messages.length === 0) {
-    return <p>Aucun messages.</p>;
+  if (!message || message.length === 0) {
+    return <p>Aucun message.</p>;
   }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -16,8 +17,8 @@ function UserMessage() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {messages &&
-          messages.map((m) => (
+        {message &&
+          message.map((m) => (
             <>
               <NavLink>
                 <h3>{m.subject}</h3>
@@ -29,8 +30,8 @@ function UserMessage() {
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {messages &&
-          messages.map((m) => (
+        {message &&
+          message.map((m) => (
             <>
               <h2>{m.subject}</h2>
               <h4>{m.email}</h4>

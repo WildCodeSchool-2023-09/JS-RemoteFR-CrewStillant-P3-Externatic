@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,7 @@ function Banner({ job, setFilter }) {
     const { value } = e.target;
     setFilter(value.trim().toLowerCase());
   };
+
   return (
     <section
       className={`d-flex flex-column justify-content-center align-items-center ${styles.bannerSection}`}
@@ -20,14 +22,16 @@ function Banner({ job, setFilter }) {
       >
         <input
           onInput={handleInput}
-          className="p-10 flex-fill"
+          className={`p-10 flex-fill ${styles.search}`}
           type="text"
           placeholder="Recherche"
         />
         <div className="d-flex justify-content-center align-items-center">
-          <i>
-            <FontAwesomeIcon icon={faSearch} />
-          </i>
+          <NavLink to="/recherche">
+            <i>
+              <FontAwesomeIcon icon={faSearch} />
+            </i>
+          </NavLink>
         </div>
       </div>
     </section>
