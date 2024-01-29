@@ -8,6 +8,10 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 .results {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   margin: auto;
   max-height: 60vh;
   display: flex;
@@ -55,12 +59,11 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
       input[type="range"] {
         margin-bottom: 0;
       }
-      .jobPlace label {
-        margin-top: 4rem;
+      .jobPlace {
+        margin-top: 2rem;
       }
       .Rsalary {
         margin-top: 0;
-        margin-bottom: 1rem;
       }
     }
 
@@ -70,6 +73,7 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
     }
 
     button {
+      display: flex;
       position: relative;
       width: fit-content;
       border: 1px solid;
@@ -83,9 +87,10 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
   }
 
   .offers {
-    min-height: 50vh;
+    height: 100%;
+    max-height: 60vh;
+    min-width: 25vw;
     display: flex;
-    flex-direction: row;
     margin: auto 0 auto 1vw;
     border: 2px solid blue;
     border-radius: 1rem 0 0 1rem;
@@ -96,30 +101,55 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
     overflow: scroll;
     position: relative;
     border-right: 1px groove;
-    overflow-x: hidden;
 
     .listOffers {
-      width: 20vw;
+      width: 25vw;
       display: flex;
       flex-direction: column;
-      padding: 1rem;
 
-      div {
-        margin-bottom: 1rem;
+      button {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 1rem;
+        background: none;
+      }
+      .singleOffer {
+        display: flex;
+        justify-content: flex-start;
+        margin: 1vh 1vw;
         border: 1px solid;
         border-radius: 1rem;
-        button {
-          width: 100%;
-          height: 100%;
-          border: none;
-          border-radius: 1rem;
-          background: white;
+        transition: all 300ms ease-in-out;
+        &:hover {
+          transform: scale(1.05);
+        }
+        &:visited {
+          background-color: lightgray;
+        }
+        h5 {
+          font-size: medium;
+          margin-top: 1vh;
+          margin-bottom: 0;
+        }
+        p {
+          font-size: small;
+          padding: 0 0.5vw 0 0.5vw;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
   }
   .offers::-webkit-scrollbar {
     display: none;
+  }
+  .blur {
+    filter: blur(4px);
+  }
+  .iblur {
+    filter: blur(8px);
   }
   .detailledOffer {
     width: 100%;
@@ -128,8 +158,8 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
     border-left: 2px groove;
     border-radius: 0 1rem 1rem 0;
     padding: 1rem;
-    margin: auto;
-    margin-left: 0;
+    // margin: auto;
+    // margin-left: 0;
     .smallInformations {
       display: flex;
       flex-flow: row wrap;
@@ -140,6 +170,12 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
         margin: 1.5vh 1.5vw;
       }
     }
+  }
+  .blank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }
 @media (max-width: 900px) or (max-height: 810px) {
