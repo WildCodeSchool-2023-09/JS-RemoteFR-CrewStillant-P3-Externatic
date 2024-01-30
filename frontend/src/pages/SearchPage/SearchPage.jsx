@@ -1,4 +1,8 @@
-import { useOutletContext, useSearchParams } from "react-router-dom";
+import {
+  useNavigate,
+  useOutletContext,
+  useSearchParams,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -8,6 +12,7 @@ import styles from "./searchpage.module.scss";
 import src from "../../assets/images/map.png";
 
 export default function SearchPage() {
+  const navigate = useNavigate();
   const { auth } = useOutletContext();
 
   // Mes différents états lier à mon GET & les potentiels filtres via les query.
@@ -103,24 +108,24 @@ export default function SearchPage() {
             <h3>Filtres recherche</h3>
           </div>
           <div className={`${styles.form}`}>
-            <label htmlFor="city">Ville</label>
-            <input
-              type="text"
-              value={city}
-              onChange={(e) => {
-                setCity(formatString(e.target.value));
-              }}
-            />
-            <div>
-              <span>
-                <label htmlFor="salary">Salaire</label>
-              </span>
+            <div className={`${styles.city}`}>
+              <label htmlFor="city">Ville</label>
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => {
+                  setCity(formatString(e.target.value));
+                }}
+              />
+            </div>
+            <div className={`${styles.salary}`}>
+              <label htmlFor="salary">Salaire</label>
               <input
                 type="range"
                 min="0"
                 max="200000"
                 step="10000"
-                value={salary}
+                defaultValue={salary}
                 onChange={(e) => {
                   setSalary(e.target.value);
                 }}
@@ -216,6 +221,17 @@ export default function SearchPage() {
                 <p>
                   <b>Ville :</b> {offer.city}
                 </p>
+              </div>
+              <div>
+                {!auth && (
+                  <button
+                    className={`${styles.visualize}`}
+                    type="button"
+                    onClick={() => navigate("/connexion")}
+                  >
+                    <u>CONNECTEZ VOUS POUR VISUALISER PLUS D’INFORMATIONS</u>
+                  </button>
+                )}
               </div>
               {auth ? (
                 <iframe
