@@ -68,6 +68,10 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
           -webkit-box-shadow: $box-shadowWB;
           -moz-box-shadow: $box-shadowMB;
         }
+        .city {
+          display: flex;
+          flex-direction: column;
+        }
         .salary {
           display: flex;
           flex-direction: column;
@@ -249,15 +253,18 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
           div {
             width: 70%;
             align-items: center;
+            margin: 2vh 0;
           }
           label {
             width: 100%;
+            margin: 1vh 0;
           }
           input,
           select {
-            max-width: 40vw;
+            max-width: 45vw;
+            background-color: #f0f0f0a6;
             justify-content: space-between;
-            margin: 2rem;
+            margin: 1vh;
             border: none;
             border-radius: 0.5rem;
             padding: 0.5rem 0 0.5rem 1.5rem;
@@ -268,7 +275,7 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
           input[type="range"] {
             padding: 0;
             box-shadow: none;
-            margin: 0 0 0 1vw;
+            margin: 1vh 0 0 1vw;
           }
           .city {
             width: 80%;
@@ -285,17 +292,25 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
             flex-direction: column;
           }
           .jobPlace {
+            display: flex;
             flex-direction: column;
             align-self: center;
             margin-top: 3vh;
           }
+          .jobTypes {
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+          }
           .Rsalary {
-            margin-top: 0;
+            margin: 0;
           }
           .buttons {
             width: 100%;
             button {
               margin: 2vh 1vw 2vh 1vw;
+              border-radius: 0.5rem;
+              background-color: white;
             }
           }
         }

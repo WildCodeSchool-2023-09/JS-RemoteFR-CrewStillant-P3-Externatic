@@ -9,9 +9,16 @@ class JobManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, location.additional_adress AS additionalAdress, location.number_adress AS numberAdress, location.number_attribute AS numberAttribute, location.address, location.city, location.zip, location.state, location.country, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id`
+      `SELECT job.id, job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, location.additional_adress AS additionalAdress, location.number_adress AS numberAdress, location.number_attribute AS numberAttribute, location.address, location.city, location.zip, location.state, location.country, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id`
     );
     return result;
+  }
+
+  async readCount() {
+    const [result] = await this.database.query(
+      `SELECT COUNT(*) AS OffersAvailable FROM ${this.table}`
+    );
+    return result[0];
   }
 
   async read(id) {

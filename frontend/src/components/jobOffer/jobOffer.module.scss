@@ -6,9 +6,6 @@
     img {
       transform: scale(1.1);
     }
-    .jobOfferTitle {
-      color: var(--primary);
-    }
   }
 }
 
@@ -24,7 +21,7 @@
 }
 .jobOfferTitle {
   color: var(--gray-2);
-  background-color: var(--secondary);
+  background-color: #ca2061;
   height: 150px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;

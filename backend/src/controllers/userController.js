@@ -90,7 +90,9 @@ const add = async (req, res, next) => {
       type
     );
     if (addUser) {
-      res.status(201).json(addUser);
+      res
+        .status(201)
+        .json({ addUser, message: "Votre utilisateur a bien été créer." });
     } else {
       res.sendStatus(404);
     }

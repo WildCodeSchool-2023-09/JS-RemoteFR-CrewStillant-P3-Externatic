@@ -37,6 +37,7 @@ export default function InscriptionCandidat() {
       }
     } catch (e) {
       console.error(e);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
     }
   };
 
@@ -250,7 +251,14 @@ export default function InscriptionCandidat() {
       </section>
 
       <section className="confirmButtonCandidate">
-        <button type="submit" onClick={() => navigate("/connexion")}>
+        <button
+          type="submit"
+          onClick={() =>
+            setTimeout(() => {
+              navigate("/connexion");
+            }, 2000)
+          }
+        >
           S'inscrire
         </button>
       </section>

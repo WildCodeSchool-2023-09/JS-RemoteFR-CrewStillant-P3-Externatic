@@ -4,8 +4,10 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import "./inscriptionEntreprise.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function InscriptionEntreprise() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -44,6 +46,7 @@ export default function InscriptionEntreprise() {
       }
     } catch (e) {
       console.error(e);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
     }
   };
 
@@ -304,7 +307,16 @@ export default function InscriptionEntreprise() {
         </section>
 
         <div className="confirmButtonCompany">
-          <button type="submit">Confirmer Inscription</button>
+          <button
+            type="submit"
+            onClick={() =>
+              setTimeout(() => {
+                navigate("/connexion");
+              }, 2000)
+            }
+          >
+            Confirmer Inscription
+          </button>
         </div>
       </section>
     </form>

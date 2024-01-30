@@ -13,7 +13,7 @@ import src from "../../assets/images/map.png";
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { auth } = useOutletContext();
+  const { auth, search } = useOutletContext();
 
   // Mes différents états lier à mon GET & les potentiels filtres via les query.
   const [data, setData] = useState("");
@@ -48,8 +48,16 @@ export default function SearchPage() {
         )
         .then((res) => setData(res.data));
       setIsValidate(false);
+    } else {
+      axios
+        .get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/job/searchPage?${filters.toString()}`
+        )
+        .then((res) => setData(res.data));
     }
-  }, [isValidate]);
+  }, [isValidate, search]);
 
   /**
    * Fonction qui vient appliquer les filtres.
@@ -78,7 +86,7 @@ export default function SearchPage() {
    */
   const handleReset = () => {
     const params = new URLSearchParams(filters);
-    params.delete("city");
+    params.delete("location");
     setCity("");
     params.delete("salary");
     setSalary(0);
@@ -125,7 +133,7 @@ export default function SearchPage() {
                 min="0"
                 max="200000"
                 step="10000"
-                defaultValue={salary}
+                value={salary}
                 onChange={(e) => {
                   setSalary(e.target.value);
                 }}

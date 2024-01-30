@@ -28,12 +28,28 @@ const router = createBrowserRouter([
       {
         path: "accueil/",
         element: <HomePage />,
-        loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+        loader: async () => {
+          const job = await axios
+            .get(`${import.meta.env.VITE_BACKEND_URL}/job`)
+            .then((res) => res.data);
+          const count = await axios
+            .get(`${import.meta.env.VITE_BACKEND_URL}/job/count`)
+            .then((res) => res.data);
+          return { job, count };
+        },
       },
       {
         path: "/accueil/:id",
         element: <HomePage />,
-        loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
+        loader: async () => {
+          const job = await axios
+            .get(`${import.meta.env.VITE_BACKEND_URL}/job`)
+            .then((res) => res.data);
+          const count = await axios
+            .get(`${import.meta.env.VITE_BACKEND_URL}/job/count`)
+            .then((res) => res.data);
+          return { job, count };
+        },
       },
       {
         path: "inscription",
@@ -42,6 +58,12 @@ const router = createBrowserRouter([
       {
         path: "recherche",
         element: <SearchPage />,
+        // loader: async ({ query }) => {
+        //   const job = await axios
+        //     .get(`${import.meta.env.VITE_BACKEND_URL}/searchPage?term=${query}`)
+        //     .then((res) => res.data);
+        //   return job;
+        // },
       },
       {
         path: "/connexion",
