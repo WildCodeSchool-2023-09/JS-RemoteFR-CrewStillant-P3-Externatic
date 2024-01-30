@@ -11,6 +11,7 @@ import styles from "./navBar.module.scss";
 function NavBar({ auth, setAuth }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+
   return (
     <div className={`${styles.navBar}`}>
       <nav className="d-flex justify-content-space-between align-items-center ">

@@ -8,6 +8,7 @@ import style from "../assets/styles/login.module.scss";
 
 function Login() {
   const { auth, setAuth } = useOutletContext();
+
   const navigate = useNavigate();
   const {
     register,
@@ -27,6 +28,7 @@ function Login() {
       toast.error(error.response?.data?.message);
     }
   };
+
   return (
     <div className={`${style.profileconnexion}`}>
       <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
