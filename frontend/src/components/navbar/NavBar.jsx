@@ -21,7 +21,7 @@ function NavBar({ auth, setAuth }) {
           {auth ? (
             <ul className=" d-flex align-items-center mr-30">
               <li>
-                <p>Hello {auth.email}!</p>
+                <p>Hello {auth.mail}!</p>
               </li>
               <li className="d-flex justify-content-space-center align-items-center">
                 <img src={externaticLogo2} alt="logo" />
@@ -56,7 +56,7 @@ function NavBar({ auth, setAuth }) {
 
 NavBar.propTypes = {
   auth: PropTypes.shape({
-    email: PropTypes.string.isRequired,
+    mail: PropTypes.string.isRequired,
   }).isRequired,
   setAuth: PropTypes.func.isRequired,
 };

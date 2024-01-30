@@ -80,7 +80,7 @@ const add = async (req, res, next) => {
     type,
   } = req.body;
   try {
-    const addUser = await tables.user.create(
+    const insertId = await tables.user.create(
       email,
       hashedPassword,
       isActive,
@@ -89,10 +89,10 @@ const add = async (req, res, next) => {
       emailNotificationActive ? 1 : 0,
       type
     );
-    if (addUser) {
+    if (insertId) {
       res
         .status(201)
-        .json({ addUser, message: "Votre utilisateur a bien été créer." });
+        .json({ insertId, message: "Votre utilisateur a bien été créer." });
     } else {
       res.sendStatus(404);
     }

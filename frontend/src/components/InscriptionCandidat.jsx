@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from "axios";
-import { React, useState } from "react";
+import { React, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +11,14 @@ export default function InscriptionCandidat() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
+  const passwordRef = useRef({});
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  passwordRef.current = watch("password", "");
 
   const onSubmit = async (data) => {
     try {
@@ -34,6 +37,9 @@ export default function InscriptionCandidat() {
 
       if (response.status === 201 && responseTwo.status === 201) {
         toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/connexion");
+        }, 2000);
       }
     } catch (e) {
       console.error(e);
@@ -54,8 +60,8 @@ export default function InscriptionCandidat() {
               minLength: { value: 3, message: "Ce champ est obligatoire" },
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+          {errors.lastname && (
+            <span className="text-red-500">{errors.lastname?.message}</span>
           )}
         </div>
 
@@ -69,8 +75,8 @@ export default function InscriptionCandidat() {
               minLength: { value: 3, message: "Ce champ est obligatoire" },
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+          {errors.firstname && (
+            <span className="text-red-500">{errors.firstname?.message}</span>
           )}
         </div>
 
@@ -89,7 +95,7 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.email && (
-            <span className="text-red-500">{errors.email.message}</span>
+            <span className="text-red-500">{errors.email?.message}</span>
           )}
         </div>
 
@@ -109,7 +115,7 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+            <span className="text-red-500">{errors.password?.message}</span>
           )}
           <button type="button" onClick={() => setShowPassword(!showPassword)}>
             {showPassword ? "😀" : "😎"}
@@ -123,10 +129,15 @@ export default function InscriptionCandidat() {
             autoComplete="true"
             {...register("confirmPassword", {
               required: "Vous devez confirmer votre mot de passe",
+              validate: (value) =>
+                value === passwordRef.current ||
+                "Les mots de passe ne correspondent pas",
             })}
           />
-          {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+          {errors.confirmPassword && (
+            <span className="text-red-500">
+              {errors.confirmPassword?.message}
+            </span>
           )}
         </div>
 
@@ -144,8 +155,8 @@ export default function InscriptionCandidat() {
               },
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.dateOfBirth.message}</span>
+          {errors.dateOfBirth && (
+            <span className="text-red-500">{errors.dateOfBirth?.message}</span>
           )}
         </div>
 
@@ -160,8 +171,8 @@ export default function InscriptionCandidat() {
               required: "Ce champs est obligatoire",
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+          {errors.salary && (
+            <span className="text-red-500">{errors.salary?.message}</span>
           )}
         </div>
 
@@ -176,9 +187,9 @@ export default function InscriptionCandidat() {
               required: "Ce champ est obligatoire",
             })}
           />
-          {errors.contact_number && (
+          {errors.contactNumber && (
             <span className="text-red-500">
-              {errors.contact_number.message}
+              {errors.contactNumber?.message}
             </span>
           )}
         </div>
@@ -198,7 +209,7 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.city && (
-            <span className="text-red-500">{errors.city.message}</span>
+            <span className="text-red-500">{errors.city?.message}</span>
           )}
         </div>
 
@@ -217,7 +228,7 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.country && (
-            <span className="text-red-500">{errors.country.message}</span>
+            <span className="text-red-500">{errors.country?.message}</span>
           )}
         </div>
 
@@ -251,16 +262,7 @@ export default function InscriptionCandidat() {
       </section>
 
       <section className="confirmButtonCandidate">
-        <button
-          type="submit"
-          onClick={() =>
-            setTimeout(() => {
-              navigate("/connexion");
-            }, 2000)
-          }
-        >
-          S'inscrire
-        </button>
+        <button type="submit">S'inscrire</button>
       </section>
     </form>
   );

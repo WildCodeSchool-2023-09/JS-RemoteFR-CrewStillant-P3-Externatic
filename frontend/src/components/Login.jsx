@@ -15,15 +15,21 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data, e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
       await axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => {
           setAuth(res.data);
-          navigate(`/accueil/${auth.id}`);
+          console.info(auth);
         });
+      if (auth.userTypeId === 1) {
+        navigate(`/candidat/profil}`);
+      } else if (auth.userTypeId === 2) {
+        navigate(`/entreprise/profil`);
+      } else if (auth.userTypeId === 3) {
+        navigate(`/admin/profil`);
+      }
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
@@ -40,9 +46,9 @@ function Login() {
             <input
               type="email"
               placeholder="Adresse mail"
-              {...register("email", { required: "L'e-mail est obligatoire" })}
+              {...register("email", { required: "Le mail est obligatoire" })}
             />
-            {errors.mail && <p role="alert">{errors.mail?.message}</p>}
+            {errors.email && <p role="alert">{errors.email?.message}</p>}
           </div>
 
           <div>

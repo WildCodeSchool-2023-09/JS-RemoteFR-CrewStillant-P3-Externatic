@@ -11,21 +11,16 @@ const {
 } = require("../controllers/skillController");
 
 // GET
-
 router.get("/", browse);
-
 router.get("/:id", read);
 
 // POST
-
 router.post("/", add);
 
 // PUT
-
 router.put("/:id", edit);
 
 // DELETE
-
 router.delete("/:id", remove);
 
 module.exports = router;

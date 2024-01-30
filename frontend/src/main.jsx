@@ -58,75 +58,65 @@ const router = createBrowserRouter([
       {
         path: "recherche",
         element: <SearchPage />,
-        // loader: async ({ query }) => {
-        //   const job = await axios
-        //     .get(`${import.meta.env.VITE_BACKEND_URL}/searchPage?term=${query}`)
-        //     .then((res) => res.data);
-        //   return job;
-        // },
       },
       {
         path: "/connexion",
         element: <Login />,
       },
       {
-        path: "/candidat",
+        path: "/candidat/",
         element: <CandidatePage />,
-        loader: async ({ params }) => {
-          const candidate = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/candidate/${params.id}`)
-            .then((res) => res.data);
-          const messages = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/message/${params.id}`)
-            .then((res) => res.data);
-          const activity = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/activity/${params.id}`)
-            .then((res) => res.data);
-          const degrees = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/degree/${params.id}`)
-            .then((res) => res.data);
-          const experience = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/experience/${params.id}`)
-            .then((res) => res.data);
-          const skills = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/skill/${params.id}`)
-            .then((res) => res.data);
-          const criteria = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
-            .then((res) => res.data);
-          return {
-            candidate,
-            messages,
-            activity,
-            degrees,
-            experience,
-            skills,
-            criteria,
-          };
-        },
+        // loader: async ({ params }) => {
+        // const messages = await axios
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/message/${params.id}`)
+        //   .then((res) => res.data);
+        // const activity = await axios
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/activity/${params.id}`)
+        //   .then((res) => res.data);
+        // const degrees = await axios
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/degree/${params.id}`)
+        //   .then((res) => res.data);
+        // const experience = await axios
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/experience/${params.id}`)
+        //   .then((res) => res.data);
+        // const skills = await axios
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/${params.id}`)
+        //   .then((res) => res.data);
+        // const criteria = await axios
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
+        //   .then((res) => res.data);
+        // return {
+        //   messages,
+        //   activity,
+        //   degrees,
+        //   experience,
+        //   skills,
+        //   criteria,
+        // };
+        // },
         children: [
           {
-            path: "profil/:id",
+            path: "profil/",
             element: <UserProfil />,
           },
           {
-            path: "diplome/:id",
+            path: "diplome/",
             element: <UserDiploma />,
           },
           {
-            path: "experience/:id",
+            path: "experience/",
             element: <UserExperience />,
           },
           {
-            path: "competence/:id",
+            path: "competence/",
             element: <UserChoices />,
           },
           {
-            path: "messages/:id",
+            path: "messages/",
             element: <UserMessage />,
           },
           {
-            path: "activites/:id",
+            path: "activites/",
             element: <UserActivity />,
           },
         ],
@@ -156,19 +146,19 @@ const router = createBrowserRouter([
         },
         children: [
           {
-            path: "profil/:id",
+            path: "profil/",
             element: <CompanyUser />,
           },
           {
-            path: "messages/:id",
+            path: "messages/",
             element: <CompanyMessage />,
           },
           {
-            path: "offres/:id",
+            path: "offres/",
             element: <CompanyOffers />,
           },
           {
-            path: "candidats/:id",
+            path: "candidats/",
             element: <CandidatList />,
           },
         ],

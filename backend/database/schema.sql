@@ -30,7 +30,7 @@ CREATE TABLE candidate_degree (
 CREATE TABLE company (
     id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(255)  NOT NULL,
-    image VARCHAR(255)  NOT NULL,
+    image VARCHAR(255)  NULL,
     description TEXT  NOT NULL,
     website VARCHAR(255)  NOT NULL,
     establishment_date DATE  NOT NULL,

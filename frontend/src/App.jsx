@@ -7,13 +7,25 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.scss";
 
 function App() {
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState("");
   const [search, setSearch] = useState("");
 
   return (
     <div>
       <NavBar auth={auth} setAuth={setAuth} />
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition:Bounce
+      />
       <Outlet context={{ auth, setAuth, search, setSearch }} />
       <Footer />
     </div>

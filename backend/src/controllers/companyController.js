@@ -70,7 +70,7 @@ const add = async (req, res) => {
     insertId: userId,
   } = req.body;
   try {
-    const addCompany = await tables.company.create(
+    const insertId = await tables.company.create(
       name,
       description,
       website,
@@ -79,8 +79,10 @@ const add = async (req, res) => {
       companySectorId,
       userId
     );
-    if (addCompany) {
-      res.status(201).json(addCompany);
+    if (insertId) {
+      res
+        .status(201)
+        .json({ insertId, message: "Votre entreprise a bien été crée." });
     } else {
       res.sendStatus(404);
     }

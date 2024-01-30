@@ -12,25 +12,23 @@ const {
 
 const { browseFilters } = require("../controllers/jobController");
 
-const { hash } = require("../middlewares/hashPassword");
+const { hash, verifyToken } = require("../middlewares/hashPassword");
 
 // GET
-
 router.get("/", browse);
 router.get("/search", browseFilters);
-
 router.get("/:id", read);
 
 // POST
-
 router.post("/", hash, add);
 
-// PUT
+// LOGIN WALL
+router.use(verifyToken);
 
+// PUT
 router.put("/:id", hash, edit);
 
 // DELETE
-
 router.delete("/:id", remove);
 
 module.exports = router;

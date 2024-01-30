@@ -11,7 +11,6 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // DELETE
-
 router.delete("/:id", remove);
 
 module.exports = router;

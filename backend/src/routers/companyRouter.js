@@ -9,6 +9,7 @@ const {
   add,
   remove,
 } = require("../controllers/companyController");
+const { verifyToken } = require("../middlewares/hashPassword");
 
 // GET
 
@@ -24,8 +25,10 @@ router.put("/:id", edit);
 
 router.post("/", add);
 
-// DELETE
+// LOGIN WALL
+router.use(verifyToken);
 
+// DELETE
 router.delete("/:id", remove);
 
 module.exports = router;

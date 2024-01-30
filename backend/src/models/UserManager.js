@@ -69,7 +69,7 @@ class UserManager extends AbstractManager {
         type,
       ]
     );
-    return result;
+    return result.insertId;
   }
 
   async delete(id) {
@@ -85,7 +85,6 @@ class UserManager extends AbstractManager {
       `SELECT id, email, password, user_type_id AS userTypeId FROM ${this.table} WHERE email=?`,
       [email]
     );
-
     return rows[0];
   }
 }

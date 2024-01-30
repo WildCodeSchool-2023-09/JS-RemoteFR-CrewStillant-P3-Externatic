@@ -18,11 +18,13 @@ const browse = async (req, res) => {
 // GET BY ID
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
+  console.info(req.auth);
   try {
-    const getCandidateId = await tables.candidate.read(parseInt(id, 10));
+    const getCandidateId = await tables.candidate.read(parseInt(sub, 10));
+    console.info(getCandidateId[0]);
     if (getCandidateId[0]) {
-      res.status(200).json(getCandidateId);
+      res.status(200).json(getCandidateId[0]);
     } else {
       res.sendStatus(404);
     }
