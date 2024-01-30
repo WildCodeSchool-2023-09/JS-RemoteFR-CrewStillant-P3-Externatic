@@ -73,12 +73,11 @@ const add = async (req, res, next) => {
   const {
     email,
     hashedPassword,
-    isActive,
+    isActive = 1,
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
-    image,
-    userTypeId,
+    type,
   } = req.body;
   try {
     const addUser = await tables.user.create(
@@ -86,10 +85,9 @@ const add = async (req, res, next) => {
       hashedPassword,
       isActive,
       contactNumber,
-      smsNotificationActive,
-      emailNotificationActive,
-      image,
-      userTypeId
+      smsNotificationActive ? 1 : 0,
+      emailNotificationActive ? 1 : 0,
+      type
     );
     if (addUser) {
       res.status(201).json(addUser);

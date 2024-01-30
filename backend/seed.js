@@ -139,7 +139,7 @@ const seed = async () => {
           "INSERT INTO activity (apply_date, job_id, candidate_id) values (?, ?, ?)",
           [
             fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
+            fakerFR.number.int({ min: 1, max: 1557 }),
             fakerFR.number.int({ min: 1, max: 20 }),
           ]
         ),

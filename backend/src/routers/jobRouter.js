@@ -4,6 +4,7 @@ const router = express.Router();
 
 const {
   browse,
+  browseFilters,
   read,
   edit,
   add,
@@ -13,6 +14,7 @@ const {
 // GET
 
 router.get("/", browse);
+router.get("/searchPage", browseFilters);
 
 router.get("/:id", read);
 

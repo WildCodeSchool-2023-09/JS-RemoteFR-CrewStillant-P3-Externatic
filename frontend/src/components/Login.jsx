@@ -69,7 +69,7 @@ function Login() {
 
         <button
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/inscription")}
           className={`${style.buttonspace}`}
         >
           Inscription

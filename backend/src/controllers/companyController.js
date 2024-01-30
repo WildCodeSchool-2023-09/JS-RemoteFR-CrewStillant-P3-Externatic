@@ -59,20 +59,19 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
+  console.info("company:", req.body);
   const {
     name,
-    image,
     description,
     website,
     establishmentDate,
     siret,
-    companySectorId,
-    userId,
+    insertId2: companySectorId,
+    insertId: userId,
   } = req.body;
   try {
     const addCompany = await tables.company.create(
       name,
-      image,
       description,
       website,
       establishmentDate,

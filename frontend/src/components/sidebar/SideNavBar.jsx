@@ -39,7 +39,6 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
               )}
             </li>
           ))}
-
           <li>
             <Link
               to="/accueil"
@@ -67,6 +66,7 @@ SideBar.propTypes = {
   auth: PropTypes.shape({
     email: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+    type: PropTypes.number.isRequired,
   }).isRequired,
 };
 export default SideBar;

@@ -1,11 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import axios from "axios";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import HomePage from "./pages/HomePage";
 import CandidatePage from "./pages/CandidatePage";
 import UserProfil from "./components/user/UserProfil";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import UserMessage from "./components/user/UserMessage";
 import UserActivity from "./components/user/UserActivity";
 import UserDiploma from "./components/user/UserDiploma";
@@ -18,13 +19,14 @@ import CompanyUser from "./components/company/CompanyUser";
 import CompanyMessage from "./components/company/CompanyMessage";
 import CompanyOffers from "./components/company/CompanyOffers";
 import CandidatList from "./components/company/CandidatList";
+import NotFound from "./pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: "/accueil",
+        path: "accueil/",
         element: <HomePage />,
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
@@ -34,12 +36,16 @@ const router = createBrowserRouter([
         loader: () => fetch(`${import.meta.env.VITE_BACKEND_URL}/job`),
       },
       {
-        path: "/connexion",
-        element: <Login />,
+        path: "inscription",
+        element: <SignUp />,
       },
       {
-        path: "/inscription",
-        element: <SignUp />,
+        path: "recherche",
+        element: <SearchPage />,
+      },
+      {
+        path: "/connexion",
+        element: <Login />,
       },
       {
         path: "/candidat",
@@ -144,6 +150,10 @@ const router = createBrowserRouter([
             element: <CandidatList />,
           },
         ],
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
