@@ -21,6 +21,7 @@ function UserActivity() {
               </NavLink>
               <h4>{a.type}</h4>
               <h4>{formatDateString(a.applyDate)}</h4>
+              <hr />
             </>
           ))}
       </div>

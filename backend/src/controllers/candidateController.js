@@ -58,13 +58,13 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
-  const { firstname, lastname, dateOfBirth, wantedSalary, insertId } = req.body;
+  const { firstname, lastname, dateOfBirth, salary, insertId } = req.body;
   try {
     const addCandidate = await tables.candidate.create(
       firstname,
       lastname,
       dateOfBirth,
-      wantedSalary,
+      salary,
       insertId
     );
     if (addCandidate) {

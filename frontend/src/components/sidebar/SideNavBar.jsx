@@ -26,23 +26,19 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
           </li>
           {sidebarData.map((item) => (
             <li key={item.title} className={item.cName}>
-              <Link to={`${item.path}${auth.id}`}>
-                {item.icon}
-                <span>{item.title}</span>
-              </Link>
+              {item.title === "Recrutement interne" ? (
+                <Link to={item.path}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              ) : (
+                <Link to={`${item.path}/${auth.id}`}>
+                  {item.icon}
+                  <span>{item.title}</span>
+                </Link>
+              )}
             </li>
           ))}
-          {auth.type === 4 && (
-            <li>
-              <Link
-                to="/administration"
-                onClick={() => setAuth("")}
-                className="nav-text"
-              >
-                Administration
-              </Link>
-            </li>
-          )}
           <li>
             <Link
               to="/accueil"

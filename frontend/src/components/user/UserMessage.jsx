@@ -5,6 +5,9 @@ import style from "../../assets/styles/messagePage.module.scss";
 function UserMessage() {
   const { messages } = useOutletContext();
 
+  if (!messages || messages.length === 0) {
+    return <p>Aucun messages.</p>;
+  }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
