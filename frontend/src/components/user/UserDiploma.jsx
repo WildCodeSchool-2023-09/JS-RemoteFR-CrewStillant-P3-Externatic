@@ -3,8 +3,9 @@ import { useOutletContext } from "react-router-dom";
 
 function UserDiploma() {
   const { degrees } = useOutletContext();
+  const userDegree = [degrees];
 
-  if (!degrees || degrees.length === 0) {
+  if (!userDegree.length === 0) {
     return <p>Aucun diplôme ajouté.</p>;
   }
   const formatDateString = (dateString) => {
@@ -15,8 +16,8 @@ function UserDiploma() {
   return (
     <div>
       <ul>
-        {degrees &&
-          degrees.map((d) => (
+        {userDegree &&
+          userDegree.map((d) => (
             <>
               <li> Diplôme: {d.degree} </li>
               <li> Niveau: {d.level} </li>

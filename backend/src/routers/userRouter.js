@@ -8,22 +8,26 @@ const { browseFilters } = require("../controllers/jobController");
 
 const { hash } = require("../middlewares/hashPassword");
 
+const { validateUserData } = require("../middlewares/validateUser");
+
+const { verifyToken } = require("../middlewares/verifyToken");
+
 // GET
 
 router.get("/search", browseFilters);
 
-router.get("/:id", read);
+router.get("/:id", verifyToken, read);
 
 // POST
 
-router.post("/", hash, add);
+router.post("/", validateUserData, hash, add);
 
 // PUT
 
-router.put("/:id", hash, edit);
+router.put("/:id", validateUserData, verifyToken, hash, edit);
 
 // DELETE
 
-router.delete("/:id", remove);
+router.delete("/:id", verifyToken, remove);
 
 module.exports = router;

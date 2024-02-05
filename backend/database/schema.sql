@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `activity`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `activity` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `apply_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `job_id` int NOT NULL,
-  `candidate_id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `apply_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `job_id` INT NOT NULL,
+  `candidate_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_activity` (`candidate_id`),
   KEY `job_activity` (`job_id`),
@@ -53,14 +53,14 @@ DROP TABLE IF EXISTS `candidate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `candidate` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `firstname` VARCHAR(80) NOT NULL,
   `lastname` VARCHAR(80) NOT NULL,
   `date_of_birth` date NOT NULL,
-  `wanted_salary` int DEFAULT NULL,
+  `wanted_salary` INT DEFAULT NULL,
   `city` VARCHAR(255) NOT NULL,
   `country` VARCHAR(255) NOT NULL,
-  `user_id` int NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_user` (`user_id`),
   CONSTRAINT `candidate_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -73,7 +73,7 @@ CREATE TABLE `candidate` (
 
 LOCK TABLES `candidate` WRITE;
 /*!40000 ALTER TABLE `candidate` DISABLE KEYS */;
-INSERT INTO `candidate` VALUES (1,'Malissia','Cardenas','1994-03-27',90700,1),(2,'Chen','Mitroshinov','1994-03-23',94998,3),(3,'Conny','Ledwidge','1988-03-16',154241,4),(4,'Merle','Evamy','1998-11-03',61372,5),(5,'Kattie','Treppas','2000-08-02',114084,9),(6,'Frederico','Peyro','1993-11-10',172207,11),(7,'Lefty','Westmore','1996-07-25',61985,12),(8,'Puff','Dablin','1991-09-21',170898,13);
+INSERT INTO `candidate` VALUES (1,'Malissia','Cardenas','1994-03-27',90700,'Lille','France',1),(2,'Chen','Mitroshinov','1994-03-23',94998,'Marseille','France',3),(3,'Conny','Ledwidge','1988-03-16',154241,'Nantes','France',4),(4,'Merle','Evamy','1998-11-03',61372,'Bordeaux','France',5),(5,'Kattie','Treppas','2000-08-02',114084,'Paris','France',9),(6,'Frederico','Peyro','1993-11-10',172207,'Nice','France',11),(7,'Lefty','Westmore','1996-07-25',61985,'Montpellier','France',12),(8,'Puff','Dablin','1991-09-21',170898,'Lyon','France',13);
 /*!40000 ALTER TABLE `candidate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,9 +85,9 @@ DROP TABLE IF EXISTS `candidate_degree`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `candidate_degree` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `candidate_id` int NOT NULL,
-  `degree_id` int NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `candidate_id` INT NOT NULL,
+  `degree_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_degree` (`candidate_id`),
   KEY `degree_candidate` (`degree_id`),
@@ -114,15 +114,15 @@ DROP TABLE IF EXISTS `company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `company` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `image` VARCHAR(255) NOT NULL,
-  `description` text NOT NULL,
+  `description` TEXT NOT NULL,
   `website` VARCHAR(255) NOT NULL,
-  `establishment_date` date NOT NULL,
-  `siret` bigint NOT NULL,
-  `company_sector_id` int NOT NULL,
-  `user_id` int NOT NULL,
+  `establishment_date` DATE NOT NULL,
+  `siret` BIGINT NOT NULL,
+  `company_sector_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `siret` (`siret`),
   KEY `company_sector` (`company_sector_id`),
@@ -150,7 +150,7 @@ DROP TABLE IF EXISTS `company_sector`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `company_sector` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `sector` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -174,11 +174,11 @@ DROP TABLE IF EXISTS `degree`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `degree` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(80) NOT NULL,
   `level` VARCHAR(80) NOT NULL,
-  `starting_date` date NOT NULL,
-  `completion_date` date DEFAULT NULL,
+  `starting_date` DATE NOT NULL,
+  `completion_date` DATE DEFAULT NULL,
   `university` VARCHAR(80) DEFAULT NULL,
   `city` VARCHAR(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -203,15 +203,15 @@ DROP TABLE IF EXISTS `experience`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `experience` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `start_date` date NOT NULL,
-  `end_date` date DEFAULT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE DEFAULT NULL,
   `job_title` VARCHAR(50) NOT NULL,
   `company_name` VARCHAR(100) DEFAULT NULL,
   `city` VARCHAR(50) DEFAULT NULL,
   `country` VARCHAR(50) DEFAULT NULL,
-  `description` text NOT NULL,
-  `candidate_id` int NOT NULL,
+  `description` TEXT NOT NULL,
+  `candidate_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_experience` (`candidate_id`),
   CONSTRAINT `candidate_experience` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`)
@@ -236,18 +236,18 @@ DROP TABLE IF EXISTS `job`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NOT NULL,
   `type` VARCHAR(30) NOT NULL,
-  `description` text NOT NULL,
-  `hours_worked` int NOT NULL,
-  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_active` tinyint(1) NOT NULL,
-  `salary` int NOT NULL,
+  `description` TEXT NOT NULL,
+  `hours_worked` INT NOT NULL,
+  `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_active` TINYINT(1) NOT NULL,
+  `salary` INT NOT NULL,
   `place` VARCHAR(10) NOT NULL,
   `sector` VARCHAR(100) NOT NULL,
-  `location_id` int NOT NULL,
-  `company_id` int NOT NULL,
+  `location_id` INT NOT NULL,
+  `company_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `job_location` (`location_id`),
   KEY `job_post_company` (`company_id`),
@@ -274,9 +274,9 @@ DROP TABLE IF EXISTS `location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `location` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `additional_adress` VARCHAR(100) DEFAULT NULL,
-  `number_adress` int DEFAULT NULL,
+  `number_adress` INT DEFAULT NULL,
   `number_attribute` VARCHAR(10) DEFAULT NULL,
   `address` VARCHAR(100) NOT NULL,
   `city` VARCHAR(50) NOT NULL,
@@ -305,11 +305,11 @@ DROP TABLE IF EXISTS `message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `subject` VARCHAR(255) NOT NULL,
-  `text` text NOT NULL,
-  `recieved_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int NOT NULL,
+  `text` TEXT NOT NULL,
+  `recieved_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `message_user` (`user_id`),
   CONSTRAINT `message_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -334,11 +334,11 @@ DROP TABLE IF EXISTS `skill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `level` VARCHAR(50) NOT NULL,
-  `candidate_id` int NOT NULL,
-  `job_id` int NOT NULL,
+  `candidate_id` INT NOT NULL,
+  `job_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `skill_candidate` (`candidate_id`),
   KEY `skill_job` (`job_id`),
@@ -365,16 +365,16 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  `is_active` tinyint(1) NOT NULL,
+  `is_active` TINYINT(1) NOT NULL,
   `contact_number` VARCHAR(20) NOT NULL,
-  `sms_notification_active` tinyint(1) NOT NULL,
-  `email_notification_active` tinyint(1) NOT NULL,
+  `sms_notification_active` TINYINT(1) NOT NULL,
+  `email_notification_active` TINYINT(1) NOT NULL,
   `image` VARCHAR(255) DEFAULT NULL,
-  `registration_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_type_id` int NOT NULL,
+  `registration_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_type_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `user_type` (`user_type_id`),
@@ -400,7 +400,7 @@ DROP TABLE IF EXISTS `user_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_type` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

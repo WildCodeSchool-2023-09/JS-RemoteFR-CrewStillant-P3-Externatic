@@ -4,6 +4,7 @@ import style from "../../assets/styles/activityPage.module.scss";
 
 function UserActivity() {
   const { activity } = useOutletContext();
+  const activityUser = [activity];
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -13,8 +14,8 @@ function UserActivity() {
   return (
     <div className={`${style.profileActivity}`}>
       <div id="1" className={`${style.sideActivity}`}>
-        {activity &&
-          activity.map((a) => (
+        {activityUser &&
+          activityUser.map((a) => (
             <>
               <NavLink>
                 <h3>{a.title}</h3>
@@ -27,8 +28,8 @@ function UserActivity() {
       </div>
       <hr />
       <div id="2" className={`${style.selectedActivity}`}>
-        {activity &&
-          activity.map((a) => (
+        {activityUser &&
+          activityUser.map((a) => (
             <>
               <h2>{a.title}</h2>
               <h4>{a.type}</h4>

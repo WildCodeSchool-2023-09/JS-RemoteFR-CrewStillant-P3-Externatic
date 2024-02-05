@@ -8,6 +8,8 @@ const userSchema = z.object({
   date_of_birth: z.date(),
   wanted_salary: z.number().int().positive(),
   contact_number: z.string().min(10).max(15),
+  city: z.string().min(3).max(255),
+  country: z.string().min(3).max(255),
   sms_notification_active: z.boolean(),
   email_notification_active: z.boolean(),
 });

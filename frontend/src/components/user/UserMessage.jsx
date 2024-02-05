@@ -4,8 +4,9 @@ import style from "../../assets/styles/messagePage.module.scss";
 
 function UserMessage() {
   const { messages } = useOutletContext();
+  const userMessage = [messages];
 
-  if (!messages || messages.length === 0) {
+  if (!userMessage || userMessage.length === 0) {
     return <p>Aucun messages.</p>;
   }
   const formatDateString = (dateString) => {
@@ -16,8 +17,8 @@ function UserMessage() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {messages &&
-          messages.map((m) => (
+        {userMessage &&
+          userMessage.map((m) => (
             <>
               <NavLink>
                 <h3>{m.subject}</h3>
@@ -29,8 +30,8 @@ function UserMessage() {
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {messages &&
-          messages.map((m) => (
+        {userMessage &&
+          userMessage.map((m) => (
             <>
               <h2>{m.subject}</h2>
               <h4>{m.email}</h4>
