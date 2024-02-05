@@ -1,30 +1,48 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import style from "../assets/styles/candidatePage.module.scss";
 
-function SideSection({ candidate }) {
-  console.info(candidate);
+function SideSection({ auth }) {
+  const navigate = useNavigate();
+
+  if (!auth.token) {
+    navigate("/accueil");
+  }
   return (
     <section className={`${style.sidesection}`}>
-      <NavLink to={`/candidat/${candidate.id}/profil/`}>Compte</NavLink>
-      <NavLink to={`/candidat/${candidate.id}/diplome/`}>Mes diplômes</NavLink>
-      <NavLink to={`/candidat/${candidate.id}/experience/`}>
-        Mes expérience
-      </NavLink>
-      <NavLink to={`/candidat/${candidate.id}/competence/`}>
-        Mes critères et compétences
-      </NavLink>
-      <NavLink to={`/candidat/${candidate.id}/messages/`}> Messages</NavLink>
-      <NavLink to={`/candidat/${candidate.id}/activites/`}>
-        Historique de candidatures
-      </NavLink>
+      <NavLink to="/monespace/profil">Profil</NavLink>
+      <NavLink to="/monespace/messages">Messages</NavLink>
+      {auth.userTypeId === 1 && (
+        <>
+          <NavLink to="/monespace/diplome">Mes diplômes</NavLink>
+          <NavLink to="/monespace/experience">Mes expérience</NavLink>
+          <NavLink to="/monespace/competence">
+            Mes critères et compétences
+          </NavLink>
+          <NavLink to="/monespace/activites">
+            Historique de candidatures
+          </NavLink>
+        </>
+      )}
+      {auth.userTypeId === 2 && (
+        <>
+          <NavLink to="/monespace/offres">Mes offres</NavLink>
+          <NavLink to="/monespace/nouvelle-offre">Créer une offre</NavLink>
+          <NavLink to="/monespace/candidats">Liste des candidats</NavLink>
+        </>
+      )}
+      {auth.userTypeId === 3 && (
+        <>
+          <NavLink to="/admin/candidats/">Candidats</NavLink>
+          <NavLink to="/admin/entreprises/">Entreprises</NavLink>
+          <NavLink to="/admin/offres/">Offres</NavLink>
+        </>
+      )}
     </section>
   );
 }
 
-SideSection.propTypes = {
-  candidate: PropTypes.shape.isRequired,
-};
-
 export default SideSection;
+
+SideSection.propTypes = { auth: PropTypes.shape.isRequired };

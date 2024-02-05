@@ -20,7 +20,7 @@ router.get("/count", browseCount);
 router.get("/searchPage", browseFilters);
 router.get("/:id", read);
 
-// LOGIN WALL
+// TOKEN WALL
 router.use(verifyToken);
 
 // POST

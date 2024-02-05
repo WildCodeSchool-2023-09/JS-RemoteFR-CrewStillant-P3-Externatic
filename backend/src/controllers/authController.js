@@ -27,13 +27,13 @@ const login = async (req, res, next) => {
       delete user.password;
 
       const token = await jwt.sign(
-        { sub: id, role: userTypeId },
+        { sub: id, role: userTypeId, email: mail },
         process.env.APP_SECRET,
         {
           expiresIn: "1h",
         }
       );
-      res.json({ token, mail, userTypeId });
+      res.status(200).json({ token, userTypeId, mail });
     }
   } catch (error) {
     next(error);

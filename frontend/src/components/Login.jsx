@@ -7,7 +7,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { auth, setAuth } = useOutletContext();
+  const { setAuth } = useOutletContext();
   const navigate = useNavigate();
   const {
     register,
@@ -19,17 +19,9 @@ function Login() {
     try {
       await axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
-        .then((res) => {
-          setAuth(res.data);
-          console.info(auth);
-        });
-      if (auth.userTypeId === 1) {
-        navigate(`/candidat/profil}`);
-      } else if (auth.userTypeId === 2) {
-        navigate(`/entreprise/profil`);
-      } else if (auth.userTypeId === 3) {
-        navigate(`/admin/profil`);
-      }
+        .then((res) => setAuth(res.data))
+        .then(navigate("/accueil"));
+      toast.success("Connexion réussie, bienvenue !");
     } catch (error) {
       toast.error(error.response?.data?.message);
     }

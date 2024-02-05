@@ -9,7 +9,7 @@ function JobOffers({ job }) {
     >
       <h1 className="my-30">Nos dernières offres</h1>
       <section className={` p-20 ${styles.jobOffers}`}>
-        {job.slice(0, 9).map((j) => (
+        {job.map((j) => (
           <JobOffer key={j.id} job={j} />
         ))}
       </section>

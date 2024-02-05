@@ -5,9 +5,7 @@ const router = express.Router();
 const { browse, read, remove } = require("../controllers/activityController");
 
 // GET
-
 router.get("/", browse);
-
 router.get("/:id", read);
 
 // DELETE

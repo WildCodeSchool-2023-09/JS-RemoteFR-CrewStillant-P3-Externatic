@@ -16,9 +16,9 @@ const browse = async (req, res) => {
 };
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getDegreeId = await tables.degree.read(parseInt(id, 10));
+    const getDegreeId = await tables.degree.read(parseInt(sub, 10));
     if (getDegreeId) {
       res.status(200).json(getDegreeId[0]);
     } else {
@@ -34,7 +34,7 @@ const read = async (req, res) => {
 const edit = async (req, res, next) => {
   const { name, level, startingDate, completionDate, university, city } =
     req.body;
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
     const editDegree = await tables.degree.update(
       name,
@@ -43,7 +43,7 @@ const edit = async (req, res, next) => {
       completionDate,
       university,
       city,
-      parseInt(id, 10)
+      parseInt(sub, 10)
     );
 
     if (editDegree.length > 0) {
@@ -83,9 +83,9 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.params;
   try {
-    const deleteDegree = await tables.degree.delete(parseInt(id, 10));
+    const deleteDegree = await tables.degree.delete(parseInt(sub, 10));
     if (deleteDegree) {
       res
         .status(200)

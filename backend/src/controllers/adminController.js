@@ -17,19 +17,17 @@ const browse = async (req, res) => {
 
 // GET BY ID
 
-const read = async (req, res, next) => {
-  const { sub } = req.auth;
+const read = async (req, res) => {
+  const { id } = req.params;
   try {
-    const user = await tables.user.read(parseInt(sub, 10));
-    const company = await tables.company.read(parseInt(sub, 10));
-    if (user[0] && company[0]) {
-      console.info("cctrl", [user[0], company[0]]);
-      res.status(200).json([user[0], company[0]]);
+    const getCompanyId = await tables.company.read(parseInt(id, 10));
+    if (getCompanyId[0]) {
+      res.status(200).json(getCompanyId);
     } else {
       res.sendStatus(404);
     }
   } catch (err) {
-    next(err);
+    console.error(err);
   }
 };
 

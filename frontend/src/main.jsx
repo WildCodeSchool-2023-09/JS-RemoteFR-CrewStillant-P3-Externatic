@@ -13,20 +13,24 @@ import UserDiploma from "./components/user/UserDiploma";
 import UserExperience from "./components/user/UserExperience";
 import UserChoices from "./components/user/UserChoices";
 import Login from "./components/Login";
-import SignUp from "./pages/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 import CompanyPage from "./pages/CompanyPage";
 import CompanyUser from "./components/company/CompanyUser";
 import CompanyMessage from "./components/company/CompanyMessage";
 import CompanyOffers from "./components/company/CompanyOffers";
 import CandidatList from "./components/company/CandidatList";
 import NotFound from "./pages/NotFound/NotFound";
+// import ProfilPage from "./pages/ProfilPage/ProfilPage";
+import MessagesPage from "./pages/MessagesPage/MessagesPage";
+import MySpace from "./pages/MySpace/MySpace";
+import CreateOffer from "./components/createOffer/CreateOffer";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: "accueil/",
+        path: "/accueil",
         element: <HomePage />,
         loader: async () => {
           const job = await axios
@@ -39,24 +43,11 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/accueil/:id",
-        element: <HomePage />,
-        loader: async () => {
-          const job = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/job`)
-            .then((res) => res.data);
-          const count = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/job/count`)
-            .then((res) => res.data);
-          return { job, count };
-        },
-      },
-      {
-        path: "inscription",
+        path: "/inscription",
         element: <SignUp />,
       },
       {
-        path: "recherche",
+        path: "/recherche",
         element: <SearchPage />,
       },
       {
@@ -64,23 +55,71 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/candidat/",
+        path: "/monespace",
+        element: <MySpace />,
+        children: [
+          {
+            path: "profil",
+            element: <UserProfil />,
+          },
+          {
+            path: "diplome",
+            element: <UserDiploma />,
+            // element: <DiplomaPage />,
+          },
+          {
+            path: "experience",
+            element: <UserExperience />,
+            // element: <ExperiencePage />,
+          },
+          {
+            path: "competence",
+            element: <UserChoices />,
+            // element: <ChoicesPage />,
+          },
+          {
+            path: "messages",
+            element: <MessagesPage />,
+          },
+          {
+            path: "activites",
+            element: <UserActivity />,
+            // element: <ActivityPage />,
+          },
+          {
+            path: "offres",
+            element: <CompanyOffers />,
+            // element: <OffersPage />,
+          },
+          {
+            path: "candidats",
+            element: <CandidatList />,
+            // element: <CandidatListPage />,
+          },
+          {
+            path: "nouvelle-offre",
+            element: <CreateOffer />,
+          },
+        ],
+      },
+      {
+        path: "/candidat",
         element: <CandidatePage />,
         // loader: async ({ params }) => {
         // const messages = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/message/${params.id}`)
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/message/`)
         //   .then((res) => res.data);
         // const activity = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/activity/${params.id}`)
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/activity/`)
         //   .then((res) => res.data);
         // const degrees = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/degree/${params.id}`)
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/degree/`)
         //   .then((res) => res.data);
         // const experience = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/experience/${params.id}`)
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`)
         //   .then((res) => res.data);
         // const skills = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/${params.id}`)
+        //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
         //   .then((res) => res.data);
         // const criteria = await axios
         //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
@@ -96,27 +135,27 @@ const router = createBrowserRouter([
         // },
         children: [
           {
-            path: "profil/",
+            path: "profil",
             element: <UserProfil />,
           },
           {
-            path: "diplome/",
+            path: "diplome",
             element: <UserDiploma />,
           },
           {
-            path: "experience/",
+            path: "experience",
             element: <UserExperience />,
           },
           {
-            path: "competence/",
+            path: "competence",
             element: <UserChoices />,
           },
           {
-            path: "messages/",
+            path: "messages",
             element: <UserMessage />,
           },
           {
-            path: "activites/",
+            path: "activites",
             element: <UserActivity />,
           },
         ],
@@ -146,19 +185,19 @@ const router = createBrowserRouter([
         },
         children: [
           {
-            path: "profil/",
+            path: "profil",
             element: <CompanyUser />,
           },
           {
-            path: "messages/",
+            path: "messages",
             element: <CompanyMessage />,
           },
           {
-            path: "offres/",
+            path: "offres",
             element: <CompanyOffers />,
           },
           {
-            path: "candidats/",
+            path: "candidats",
             element: <CandidatList />,
           },
         ],

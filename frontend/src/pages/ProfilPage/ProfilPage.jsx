@@ -1,13 +1,9 @@
 import { Outlet, useOutletContext } from "react-router-dom";
-// import { useState } from "react";
-import SideSection from "../components/SideSection";
-import style from "../assets/styles/candidatePage.module.scss";
+import SideSection from "../../components/SideSection";
+import style from "../../assets/styles/candidatePage.module.scss";
 
-function CandidatePage() {
-  // const { messages, activity, degrees, experience, skills, criteria } =
-  //   useLoaderData();
+export default function ProfilPage() {
   const { auth, user, type } = useOutletContext();
-  // const [authCandidate, setAuthCandidate] = useState(auth);
 
   return (
     <div>
@@ -28,5 +24,3 @@ function CandidatePage() {
     </div>
   );
 }
-
-export default CandidatePage;

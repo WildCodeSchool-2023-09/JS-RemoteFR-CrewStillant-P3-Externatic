@@ -2,22 +2,15 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  browse,
-  read,
-  edit,
-  add,
-  remove,
-} = require("../controllers/userController");
+const { add, read, edit } = require("../controllers/userController");
 
-const { browseFilters } = require("../controllers/jobController");
+// const { browseFilters } = require("../controllers/jobController");
 
 const { hash, verifyToken } = require("../middlewares/hashPassword");
 
 // GET
-router.get("/", browse);
-router.get("/search", browseFilters);
-router.get("/:id", read);
+router.get("/", read);
+// router.get("/search", browseFilters);
 
 // POST
 router.post("/", hash, add);
@@ -26,9 +19,6 @@ router.post("/", hash, add);
 router.use(verifyToken);
 
 // PUT
-router.put("/:id", hash, edit);
-
-// DELETE
-router.delete("/:id", remove);
+router.put("/", hash, edit);
 
 module.exports = router;

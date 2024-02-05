@@ -2,18 +2,20 @@ const express = require("express");
 
 const router = express.Router();
 
-// Imports
-
 const {
   browse,
   read,
+  edit,
   add,
   remove,
-} = require("../controllers/messageController");
+} = require("../controllers/adminController");
 
 // GET
 router.get("/", browse);
 router.get("/:id", read);
+
+// PUT
+router.put("/:id", edit);
 
 // POST
 router.post("/", add);
