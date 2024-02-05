@@ -34,7 +34,8 @@ const read = async (req, res) => {
 // PUT
 
 const edit = async (req, res, next) => {
-  const { firstname, lastname, dateOfBirth, wantedSalary } = req.body;
+  const { firstname, lastname, dateOfBirth, wantedSalary, city, country } =
+    req.body;
   const { id } = req.params;
   try {
     const editCandidate = await tables.candidate.update(
@@ -42,6 +43,8 @@ const edit = async (req, res, next) => {
       lastname,
       dateOfBirth,
       wantedSalary,
+      city,
+      country,
       parseInt(id, 10)
     );
 
@@ -58,13 +61,16 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
-  const { firstname, lastname, dateOfBirth, salary, insertId } = req.body;
+  const { firstname, lastname, dateOfBirth, salary, city, country, insertId } =
+    req.body;
   try {
     const addCandidate = await tables.candidate.create(
       firstname,
       lastname,
       dateOfBirth,
       salary,
+      city,
+      country,
       insertId
     );
     if (addCandidate) {
