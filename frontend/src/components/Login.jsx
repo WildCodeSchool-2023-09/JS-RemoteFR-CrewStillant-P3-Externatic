@@ -30,52 +30,62 @@ function Login() {
       toast.error(error.response?.data?.message);
     }
   };
+
   return (
-    <div className={`${style.profilesection} ${style.banner}`}>
-      <div>
-        <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
+    <div className={`${style.profileconnexion}`}>
+      <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
+      <div className={`${style.connexion}`}>
+        <div>
+          <p>Connecte toi</p>
 
-        <p>Connecte toi</p>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <input
+                type="email"
+                placeholder="Adresse mail"
+                {...register("email", { required: "Le mail est obligatoire" })}
+              />
+              {errors.email && <p role="alert">{errors.email?.message}</p>}
+            </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <input
-              type="email"
-              placeholder="Adresse mail"
-              {...register("email", { required: "Le mail est obligatoire" })}
-            />
-            {errors.email && <p role="alert">{errors.email?.message}</p>}
-          </div>
+            <div>
+              <input
+                className={`${style.input}`}
+                type="password"
+                placeholder="Mot de passe"
+                {...register("password", {
+                  required: "Le mot de passe est obligatoire",
+                })}
+              />
+              {errors.password && (
+                <p role="alert">{errors.password?.message}</p>
+              )}
+            </div>
 
-          <div>
-            <input
-              type="password"
-              placeholder="Mot de passe"
-              {...register("password", {
-                required: "Le mot de passe est obligatoire",
-              })}
-            />
-            {errors.password && <p role="alert">{errors.password?.message}</p>}
-          </div>
+            <div>
+              <button type="submit" className={`${style.buttonspace}`}>
+                Connexion
+              </button>
+            </div>
+          </form>
+          <hr />
+          <span>Tu n'as pas de compte? Inscris toi.</span>
+          <button
+            type="button"
+            onClick={() => navigate("/inscription")}
+            className={`${style.buttonspace}`}
+          >
+            Inscription
+          </button>
+        </div>
 
-          <div>
-            <button type="submit" className={`${style.buttonspace}`}>
-              Connexion
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div>
-        <span>Tu n'as pas de compte? Inscris toi.</span>
-
-        <button
-          type="button"
-          onClick={() => navigate("/inscription")}
-          className={`${style.buttonspace}`}
-        >
-          Inscription
-        </button>
+        <div>
+          <img
+            className={`${style.loginPicture}`}
+            src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
+            alt="login"
+          />
+        </div>
       </div>
     </div>
   );
