@@ -4,18 +4,26 @@ import { React, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
 import "./inscriptionCandidat.module.scss";
 
 export default function InscriptionCandidat() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+
+  const uploader = Uploader({
+    apiKey: "free",
+  });
+
+  const options = { multi: true };
 
   const onSubmit = async (data) => {
     try {
@@ -34,6 +42,7 @@ export default function InscriptionCandidat() {
 
       if (response.status === 201 && responseTwo.status === 201) {
         toast.success(response.data.message);
+        navigate("/connexion");
       }
     } catch (e) {
       console.error(e);
@@ -247,12 +256,26 @@ export default function InscriptionCandidat() {
           className="emailNotification"
           {...register("emailNotificationActive")}
         />
+        <div>
+          <UploadButton
+            uploader={uploader}
+            options={options}
+            onComplete={(image) => {
+              const fileUrls = image.map((x) => x.fileUrl).join("\n");
+              setValue("image", fileUrls);
+            }}
+          >
+            {({ onClick }) => (
+              <button type="button" onClick={onClick}>
+                Photo de profil
+              </button>
+            )}
+          </UploadButton>
+        </div>
       </section>
 
       <section className="confirmButtonCandidate">
-        <button type="submit" onClick={() => navigate("/connexion")}>
-          S'inscrire
-        </button>
+        <button type="submit">S'inscrire</button>
       </section>
     </form>
   );
