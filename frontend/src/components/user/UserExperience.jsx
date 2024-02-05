@@ -11,10 +11,6 @@ function UserExperience() {
     navigate("/accueil");
   }
 
-  if (!experienceUser) {
-    return <p>Aucune expérience ajoutée.</p>;
-  }
-
   useEffect(() => {
     if (auth.token) {
       axios
@@ -25,6 +21,9 @@ function UserExperience() {
     }
   }, [auth.token]);
 
+  if (!experienceUser) {
+    return <p>Aucune expérience ajoutée.</p>;
+  }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);

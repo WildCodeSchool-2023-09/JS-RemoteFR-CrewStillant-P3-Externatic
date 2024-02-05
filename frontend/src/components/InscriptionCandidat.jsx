@@ -20,13 +20,13 @@ export default function InscriptionCandidat() {
   const passwordRef = useRef({});
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  passwordRef.current = watch("password", "");
 
   const uploader = Uploader({
     apiKey: "free",
   });
 
   const options = { multi: true };
+  passwordRef.current = watch("password", "");
 
   const onSubmit = async (data) => {
     console.info(data);
