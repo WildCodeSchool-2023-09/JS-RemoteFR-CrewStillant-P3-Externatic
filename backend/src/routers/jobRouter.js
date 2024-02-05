@@ -18,7 +18,7 @@ const { verifyToken } = require("../middlewares/hashPassword");
 router.get("/", browse);
 router.get("/count", browseCount);
 router.get("/searchPage", browseFilters);
-router.get("/:id", read);
+router.get("/companyoffers", read);
 
 // TOKEN WALL
 router.use(verifyToken);

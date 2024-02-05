@@ -1,14 +1,26 @@
 const tables = require("../tables");
 
-// GET BY ID
+const browse = async (req, res) => {
+  try {
+    const getCandidate = await tables.candidate.readAll();
+    if (getCandidate) {
+      res.status(200).json(getCandidate);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
+// GET BY ID
 const read = async (req, res, next) => {
   const { sub } = req.auth;
   try {
     const user = await tables.user.read(parseInt(sub, 10));
     const candidate = await tables.candidate.read(parseInt(sub, 10));
     if (user[0] && candidate[0]) {
-      console.info("cctrl", [user[0], candidate[0]]);
+      console.info("candidateCtrl", [user[0], candidate[0]]);
       res.status(200).json([user[0], candidate[0]]);
     } else {
       res.sendStatus(404);
@@ -17,7 +29,6 @@ const read = async (req, res, next) => {
     next(err);
   }
 };
-
 // PUT
 
 const edit = async (req, res, next) => {
@@ -96,4 +107,4 @@ const add = async (req, res) => {
   }
 };
 
-module.exports = { read, edit, add };
+module.exports = { browse, read, edit, add };

@@ -8,16 +8,15 @@ const { add, read, edit } = require("../controllers/userController");
 
 const { hash, verifyToken } = require("../middlewares/hashPassword");
 
-// GET
-router.get("/", read);
-// router.get("/search", browseFilters);
-
 // POST
 router.post("/", hash, add);
 
 // LOGIN WALL
 router.use(verifyToken);
 
+// GET
+router.get("/", read);
+// router.get("/search", browseFilters);
 // PUT
 router.put("/", hash, edit);
 

@@ -3,8 +3,6 @@ import SideSection from "../../components/SideSection";
 import style from "../../assets/styles/candidatePage.module.scss";
 
 export default function MySpace() {
-  // const { messages, activity, degrees, experience, skills, criteria } =
-  //   useLoaderData();
   const navigate = useNavigate();
   const { auth, user, type } = useOutletContext();
   console.info("myspace", user, type);

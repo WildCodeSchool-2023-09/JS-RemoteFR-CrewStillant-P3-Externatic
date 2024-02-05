@@ -1,9 +1,26 @@
-import React from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 export default function MessagesPage() {
-  const { messages } = useOutletContext();
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [messages, setMessages] = useState("");
+
+  if (!auth.token) {
+    navigate("/accueil");
+  }
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/message/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setMessages(res.data[0]));
+    }
+  }, [auth]);
 
   if (!messages || messages.length === 0) {
     return <p>Aucun messages.</p>;

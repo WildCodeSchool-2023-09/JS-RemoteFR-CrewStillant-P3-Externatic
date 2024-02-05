@@ -38,7 +38,7 @@ export default function InscriptionCandidat() {
       if (response.status === 201 && responseTwo.status === 201) {
         toast.success(response.data.message);
         setTimeout(() => {
-          navigate("/connexion");
+          navigate("/accueil");
         }, 2000);
       }
     } catch (e) {
@@ -164,6 +164,7 @@ export default function InscriptionCandidat() {
           <p>Salaire annuel souhaité :</p>
           <input
             type="number"
+            min="0"
             placeholder="50000"
             autoComplete="true"
             {...register("salary", {

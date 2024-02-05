@@ -20,7 +20,11 @@ function Login() {
       await axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => setAuth(res.data))
-        .then(navigate("/accueil"));
+        .then(
+          setTimeout(() => {
+            navigate("/accueil");
+          }, 1000)
+        );
       toast.success("Connexion réussie, bienvenue !");
     } catch (error) {
       toast.error(error.response?.data?.message);

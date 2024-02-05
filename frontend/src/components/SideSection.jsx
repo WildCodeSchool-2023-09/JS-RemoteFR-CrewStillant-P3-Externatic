@@ -16,10 +16,6 @@ function SideSection({ auth }) {
       {auth.userTypeId === 1 && (
         <>
           <NavLink to="/monespace/diplome">Mes diplômes</NavLink>
-          <NavLink to="/monespace/experience">Mes expérience</NavLink>
-          <NavLink to="/monespace/competence">
-            Mes critères et compétences
-          </NavLink>
           <NavLink to="/monespace/activites">
             Historique de candidatures
           </NavLink>

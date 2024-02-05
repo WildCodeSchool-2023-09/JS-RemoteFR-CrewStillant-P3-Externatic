@@ -2,11 +2,10 @@ const express = require("express");
 
 const router = express.Router();
 
-const { browse, read, remove } = require("../controllers/activityController");
+const { read, remove } = require("../controllers/activityController");
 
 // GET
-router.get("/", browse);
-router.get("/:id", read);
+router.get("/", read);
 
 // DELETE
 router.delete("/:id", remove);

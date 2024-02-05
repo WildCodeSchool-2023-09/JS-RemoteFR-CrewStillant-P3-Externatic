@@ -1,12 +1,29 @@
-import React from "react";
-import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function UserExperience() {
-  const { experience } = useOutletContext();
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [experience, setExperience] = useState();
+
+  if (!auth.token) {
+    navigate("/accueil");
+  }
 
   if (!experience || experience.length === 0) {
     return <p>Aucune expérience ajoutée.</p>;
   }
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setExperience(res.data[0]));
+    }
+  }, [auth]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };

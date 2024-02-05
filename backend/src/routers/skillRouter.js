@@ -12,7 +12,7 @@ const {
 
 // GET
 router.get("/", browse);
-router.get("/:id", read);
+router.get("/candidate", read);
 
 // POST
 router.post("/", add);

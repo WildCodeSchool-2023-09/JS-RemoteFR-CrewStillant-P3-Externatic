@@ -4,26 +4,18 @@ import axios from "axios";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import HomePage from "./pages/HomePage";
-import CandidatePage from "./pages/CandidatePage";
 import UserProfil from "./components/user/UserProfil";
 import SearchPage from "./pages/SearchPage/SearchPage";
-import UserMessage from "./components/user/UserMessage";
 import UserActivity from "./components/user/UserActivity";
 import UserDiploma from "./components/user/UserDiploma";
-import UserExperience from "./components/user/UserExperience";
 import UserChoices from "./components/user/UserChoices";
 import Login from "./components/Login";
 import SignUp from "./pages/SignUp/SignUp";
-import CompanyPage from "./pages/CompanyPage";
-import CompanyUser from "./components/company/CompanyUser";
-import CompanyMessage from "./components/company/CompanyMessage";
 import CompanyOffers from "./components/company/CompanyOffers";
 import CandidatList from "./components/company/CandidatList";
 import NotFound from "./pages/NotFound/NotFound";
-// import ProfilPage from "./pages/ProfilPage/ProfilPage";
 import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import MySpace from "./pages/MySpace/MySpace";
-import CreateOffer from "./components/createOffer/CreateOffer";
 
 const router = createBrowserRouter([
   {
@@ -65,17 +57,10 @@ const router = createBrowserRouter([
           {
             path: "diplome",
             element: <UserDiploma />,
-            // element: <DiplomaPage />,
-          },
-          {
-            path: "experience",
-            element: <UserExperience />,
-            // element: <ExperiencePage />,
           },
           {
             path: "competence",
             element: <UserChoices />,
-            // element: <ChoicesPage />,
           },
           {
             path: "messages",
@@ -84,113 +69,6 @@ const router = createBrowserRouter([
           {
             path: "activites",
             element: <UserActivity />,
-            // element: <ActivityPage />,
-          },
-          {
-            path: "offres",
-            element: <CompanyOffers />,
-            // element: <OffersPage />,
-          },
-          {
-            path: "candidats",
-            element: <CandidatList />,
-            // element: <CandidatListPage />,
-          },
-          {
-            path: "nouvelle-offre",
-            element: <CreateOffer />,
-          },
-        ],
-      },
-      {
-        path: "/candidat",
-        element: <CandidatePage />,
-        // loader: async ({ params }) => {
-        // const messages = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/message/`)
-        //   .then((res) => res.data);
-        // const activity = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/activity/`)
-        //   .then((res) => res.data);
-        // const degrees = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/degree/`)
-        //   .then((res) => res.data);
-        // const experience = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`)
-        //   .then((res) => res.data);
-        // const skills = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
-        //   .then((res) => res.data);
-        // const criteria = await axios
-        //   .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`)
-        //   .then((res) => res.data);
-        // return {
-        //   messages,
-        //   activity,
-        //   degrees,
-        //   experience,
-        //   skills,
-        //   criteria,
-        // };
-        // },
-        children: [
-          {
-            path: "profil",
-            element: <UserProfil />,
-          },
-          {
-            path: "diplome",
-            element: <UserDiploma />,
-          },
-          {
-            path: "experience",
-            element: <UserExperience />,
-          },
-          {
-            path: "competence",
-            element: <UserChoices />,
-          },
-          {
-            path: "messages",
-            element: <UserMessage />,
-          },
-          {
-            path: "activites",
-            element: <UserActivity />,
-          },
-        ],
-      },
-      {
-        path: "/entreprise",
-        element: <CompanyPage />,
-        loader: async ({ params }) => {
-          const company = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/company/${params.id}`)
-            .then((res) => res.data);
-          const messages = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/message/${params.id}`)
-            .then((res) => res.data);
-          const job = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/job/${params.id}`)
-            .then((res) => res.data);
-          const candidats = await axios
-            .get(`${import.meta.env.VITE_BACKEND_URL}/candidate`)
-            .then((res) => res.data);
-          return {
-            company,
-            messages,
-            job,
-            candidats,
-          };
-        },
-        children: [
-          {
-            path: "profil",
-            element: <CompanyUser />,
-          },
-          {
-            path: "messages",
-            element: <CompanyMessage />,
           },
           {
             path: "offres",

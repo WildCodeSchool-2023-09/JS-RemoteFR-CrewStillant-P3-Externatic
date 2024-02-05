@@ -14,6 +14,8 @@ function App() {
   const [user, setUser] = useState();
   const [type, setType] = useState();
 
+  console.info("auth", auth);
+  console.info("user&type", user, type);
   useEffect(() => {
     if (auth.userTypeId === 1) {
       axios

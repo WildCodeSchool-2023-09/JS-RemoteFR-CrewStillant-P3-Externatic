@@ -4,16 +4,10 @@ const router = express.Router();
 
 // Imports
 
-const {
-  browse,
-  read,
-  add,
-  remove,
-} = require("../controllers/messageController");
+const { read, add, remove } = require("../controllers/messageController");
 
 // GET
-router.get("/", browse);
-router.get("/:id", read);
+router.get("/", read);
 
 // POST
 router.post("/", add);

@@ -23,11 +23,11 @@ const { verifyToken } = require("./middlewares/hashPassword");
 router.use("/user", userRouter);
 router.use("/job", jobRouter);
 router.use("/login", authRouter);
+router.use("/candidate", candidateRouter);
 
 // Token identification wall, protecting routers below.
 router.use(verifyToken);
 
-router.use("/candidate", candidateRouter);
 router.use("/company", companyRouter);
 router.use("/admin", adminRouter);
 router.use("/activity", activityRouter);
