@@ -14,33 +14,27 @@ function App() {
   const [user, setUser] = useState();
   const [type, setType] = useState();
 
-  console.info("auth", auth);
-  console.info("user&type", user, type);
   useEffect(() => {
     if (auth.userTypeId === 1) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/candidate/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setUser(res.data[0]) || setType(res.data[1]))
-        .then(console.info("useEffect user done"));
+        .then((res) => setUser(res.data[0]) || setType(res.data[1]));
     } else if (auth.userTypeId === 2) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/company/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setUser(res.data[0]) || setType(res.data[1]))
-        .then(console.info("useEffect company done"));
+        .then((res) => setUser(res.data[0]) || setType(res.data[1]));
     } else if (auth.userTypeId === 3) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/admin/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setUser(res.data[0]) || setType(res.data[1]))
-        .then(console.info("useEffect admin done"));
+        .then((res) => setUser(res.data[0]) || setType(res.data[1]));
     }
   }, [auth]);
-  console.info("app", user, type);
 
   return (
     <div>

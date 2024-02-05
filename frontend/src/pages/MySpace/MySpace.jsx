@@ -5,7 +5,6 @@ import style from "../../assets/styles/candidatePage.module.scss";
 export default function MySpace() {
   const navigate = useNavigate();
   const { auth, user, type } = useOutletContext();
-  console.info("myspace", user, type);
 
   if (!auth.token) {
     navigate("/accueil");

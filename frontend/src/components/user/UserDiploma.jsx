@@ -6,7 +6,7 @@ function UserDiploma() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
   const [userDegree, setUserDegree] = useState();
-  console.info(userDegree);
+
   if (!auth.token) {
     navigate("/accueil");
   }

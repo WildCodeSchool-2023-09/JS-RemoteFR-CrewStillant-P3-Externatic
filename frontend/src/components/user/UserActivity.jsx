@@ -21,7 +21,7 @@ function UserActivity() {
         .then((res) => setActivityUser([res.data]));
     }
   }, [auth]);
-  console.info(activityUser);
+
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);

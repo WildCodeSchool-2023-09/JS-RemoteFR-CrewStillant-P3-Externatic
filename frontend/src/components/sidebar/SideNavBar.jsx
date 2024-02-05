@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import * as AiIcons from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import sidebarData from "./sideBarData";
 import styles from "./sideBar.module.scss";
 
@@ -14,6 +15,9 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
   const handleSignOut = () => {
     setAuth(null);
     navigate("/accueil");
+    setTimeout(() => {
+      toast.success("Déconnexion réussie, à bientôt !");
+    }, 1000);
   };
 
   return (
