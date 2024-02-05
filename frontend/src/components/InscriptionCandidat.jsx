@@ -4,13 +4,15 @@ import { React, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
 import style from "./inscriptionCandidat.module.scss";
 
 export default function InscriptionCandidat() {
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm();
@@ -19,6 +21,12 @@ export default function InscriptionCandidat() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   passwordRef.current = watch("password", "");
+
+  const uploader = Uploader({
+    apiKey: "free",
+  });
+
+  const options = { multi: true };
 
   const onSubmit = async (data) => {
     console.info(data);
@@ -267,6 +275,22 @@ export default function InscriptionCandidat() {
             className="emailNotification"
             {...register("emailNotificationActive")}
           />
+        </div>
+        <div>
+          <UploadButton
+            uploader={uploader}
+            options={options}
+            onComplete={(image) => {
+              const fileUrls = image.map((x) => x.fileUrl).join("\n");
+              setValue("image", fileUrls);
+            }}
+          >
+            {({ onClick }) => (
+              <button type="button" onClick={onClick}>
+                Photo de profil
+              </button>
+            )}
+          </UploadButton>
         </div>
       </section>
 

@@ -40,9 +40,10 @@ function Login() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <input
+              className={`${style.input}`}
               type="email"
               placeholder="Adresse mail"
-              {...register("email", { required: "Le mail est obligatoire" })}
+              {...register("email", { required: "L'e-mail est obligatoire" })}
             />
             {errors.email && <p role="alert">{errors.email?.message}</p>}
           </div>
@@ -76,6 +77,14 @@ function Login() {
         >
           Inscription
         </button>
+      </div>
+
+      <div>
+        <img
+          className={`${style.loginPicture}`}
+          src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
+          alt="login"
+        />
       </div>
     </div>
   );

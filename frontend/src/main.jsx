@@ -20,6 +20,8 @@ import UserMessage from "./components/user/UserMessage";
 const router = createBrowserRouter([
   {
     element: <App />,
+    loader: ({ params }) =>
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/user/${params.id}`),
     children: [
       {
         path: "/accueil",

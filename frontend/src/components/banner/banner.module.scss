@@ -2,6 +2,10 @@
   height: 35rem;
   background: url("../../assets/images/bgImgBanner.png") center;
   background-size: cover;
+  @media (max-width: 768px) {
+    background-size: auto;
+    background-position: left;
+  }
   h1 {
     font-size: 3rem;
     color: #fff;
@@ -17,7 +21,7 @@
     div {
       background-color: #ca2061;
       padding: 2rem;
-      height: 6.3rem;
+      height: 7rem;
       border-top-right-radius: 1rem;
       border-bottom-right-radius: 1rem;
       box-shadow: 0 0 0.5px 0.3px rgba(0, 0, 0, 0.15);
@@ -28,7 +32,7 @@
       }
     }
 
-    input {
+    .search {
       outline: 0;
       border: 0;
       padding: 2rem;
@@ -37,6 +41,46 @@
       border-bottom-left-radius: 1rem;
       font-size: 2rem;
       width: 100%;
+    }
+  }
+
+  @media (max-width: 900px) {
+    h1 {
+      font-size: 2rem;
+      color: #fff;
+      letter-spacing: 0.3rem;
+      span {
+        color: #ca2061;
+      }
+    }
+
+    .searchBar {
+      width: 80%;
+      border: 0px solid #ffffff94;
+      border-radius: 2rem;
+      div {
+        padding: 2rem;
+        height: 6.2rem;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        box-shadow: 0 0 0.5px 0.3px rgba(0, 0, 0, 0.15);
+
+        i {
+          color: #fff;
+          font-size: 3rem;
+        }
+      }
+
+      .search {
+        outline: 0;
+        border: 0;
+        padding: 2rem;
+        background-color: #f0f0f0a6;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        font-size: 1.5rem;
+        width: 90%;
+      }
     }
   }
 }

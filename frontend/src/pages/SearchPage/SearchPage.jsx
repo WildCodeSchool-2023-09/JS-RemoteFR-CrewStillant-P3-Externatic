@@ -206,7 +206,7 @@ export default function SearchPage() {
               <p>{offer.description}</p>
               <div
                 className={
-                  auth
+                  auth.token
                     ? `${styles.smallInformations}`
                     : `${styles.smallInformations} ${styles.blur}`
                 }

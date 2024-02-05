@@ -11,7 +11,7 @@ function UserExperience() {
     navigate("/accueil");
   }
 
-  if (!experienceUser || experienceUser.length === 0) {
+  if (!experienceUser) {
     return <p>Aucune expérience ajoutée.</p>;
   }
 
@@ -21,9 +21,9 @@ function UserExperience() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setExperienceUser(res.data[0]));
+        .then((res) => setExperienceUser([res.data]));
     }
-  }, [auth]);
+  }, [auth.token]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };

@@ -11,7 +11,6 @@ function UserActivity() {
   if (!auth.token) {
     navigate("/accueil");
   }
-
   useEffect(() => {
     if (auth.token) {
       axios
@@ -20,7 +19,11 @@ function UserActivity() {
         })
         .then((res) => setActivityUser([res.data]));
     }
-  }, [auth]);
+  }, [auth.token]);
+
+  if (!activityUser) {
+    return <p>Vous n'avez pas de candidature pour le moment.</p>;
+  }
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
