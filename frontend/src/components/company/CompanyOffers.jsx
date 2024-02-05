@@ -8,7 +8,7 @@ function CompanyOffers() {
   const navigate = useNavigate();
   const [job, setJob] = useState();
 
-  if (!auth.token) {
+  if (!auth.token || auth.userTypeId === "entreprise") {
     navigate("/accueil");
   }
 

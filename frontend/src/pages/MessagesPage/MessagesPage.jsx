@@ -18,10 +18,10 @@ export default function MessagesPage() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/message/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setMessages(res.data[0]));
+        .then((res) => setMessages([res.data]));
     }
   }, [auth]);
-
+  console.info(messages);
   if (!messages || messages.length === 0) {
     return <p>Aucun messages.</p>;
   }

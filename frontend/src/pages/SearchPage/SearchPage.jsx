@@ -231,7 +231,7 @@ export default function SearchPage() {
                 </p>
               </div>
               <div>
-                {!auth && (
+                {!auth.token && (
                   <button
                     className={`${styles.visualize}`}
                     type="button"
@@ -241,7 +241,7 @@ export default function SearchPage() {
                   </button>
                 )}
               </div>
-              {auth ? (
+              {auth.token ? (
                 <iframe
                   title="Maps Embed Location"
                   width="450"

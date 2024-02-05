@@ -18,10 +18,10 @@ function UserActivity() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/activity/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setActivityUser(res.data[0]));
+        .then((res) => setActivityUser([res.data]));
     }
   }, [auth]);
-
+  console.info(activityUser);
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);

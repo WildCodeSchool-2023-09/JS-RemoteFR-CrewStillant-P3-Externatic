@@ -14,8 +14,8 @@ import SignUp from "./pages/SignUp/SignUp";
 import CompanyOffers from "./components/company/CompanyOffers";
 import CandidatList from "./components/company/CandidatList";
 import NotFound from "./pages/NotFound/NotFound";
-import MessagesPage from "./pages/MessagesPage/MessagesPage";
 import MySpace from "./pages/MySpace/MySpace";
+import UserMessage from "./components/user/UserMessage";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
           },
           {
             path: "messages",
-            element: <MessagesPage />,
+            element: <UserMessage />,
           },
           {
             path: "activites",
