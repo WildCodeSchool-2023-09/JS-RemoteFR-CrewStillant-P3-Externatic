@@ -54,10 +54,12 @@ DROP TABLE IF EXISTS `candidate`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `candidate` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(80) NOT NULL,
-  `lastname` varchar(80) NOT NULL,
+  `firstname` VARCHAR(80) NOT NULL,
+  `lastname` VARCHAR(80) NOT NULL,
   `date_of_birth` date NOT NULL,
   `wanted_salary` int DEFAULT NULL,
+  `city` VARCHAR(255) NOT NULL,
+  `country` VARCHAR(255) NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_user` (`user_id`),
@@ -113,10 +115,10 @@ DROP TABLE IF EXISTS `company`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `company` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `image` VARCHAR(255) NOT NULL,
   `description` text NOT NULL,
-  `website` varchar(255) NOT NULL,
+  `website` VARCHAR(255) NOT NULL,
   `establishment_date` date NOT NULL,
   `siret` bigint NOT NULL,
   `company_sector_id` int NOT NULL,
@@ -149,7 +151,7 @@ DROP TABLE IF EXISTS `company_sector`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `company_sector` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `sector` varchar(100) NOT NULL,
+  `sector` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -173,12 +175,12 @@ DROP TABLE IF EXISTS `degree`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `degree` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(80) NOT NULL,
-  `level` varchar(80) NOT NULL,
+  `name` VARCHAR(80) NOT NULL,
+  `level` VARCHAR(80) NOT NULL,
   `starting_date` date NOT NULL,
   `completion_date` date DEFAULT NULL,
-  `university` varchar(80) DEFAULT NULL,
-  `city` varchar(80) DEFAULT NULL,
+  `university` VARCHAR(80) DEFAULT NULL,
+  `city` VARCHAR(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -204,10 +206,10 @@ CREATE TABLE `experience` (
   `id` int NOT NULL AUTO_INCREMENT,
   `start_date` date NOT NULL,
   `end_date` date DEFAULT NULL,
-  `job_title` varchar(50) NOT NULL,
-  `company_name` varchar(100) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
-  `country` varchar(50) DEFAULT NULL,
+  `job_title` VARCHAR(50) NOT NULL,
+  `company_name` VARCHAR(100) DEFAULT NULL,
+  `city` VARCHAR(50) DEFAULT NULL,
+  `country` VARCHAR(50) DEFAULT NULL,
   `description` text NOT NULL,
   `candidate_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -235,15 +237,15 @@ DROP TABLE IF EXISTS `job`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `type` varchar(30) NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
+  `type` VARCHAR(30) NOT NULL,
   `description` text NOT NULL,
   `hours_worked` int NOT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(1) NOT NULL,
   `salary` int NOT NULL,
-  `place` varchar(10) NOT NULL,
-  `sector` varchar(100) NOT NULL,
+  `place` VARCHAR(10) NOT NULL,
+  `sector` VARCHAR(100) NOT NULL,
   `location_id` int NOT NULL,
   `company_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -273,14 +275,14 @@ DROP TABLE IF EXISTS `location`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `location` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `additional_adress` varchar(100) DEFAULT NULL,
+  `additional_adress` VARCHAR(100) DEFAULT NULL,
   `number_adress` int DEFAULT NULL,
-  `number_attribute` varchar(10) DEFAULT NULL,
-  `address` varchar(100) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `state` varchar(50) NOT NULL,
-  `country` varchar(50) NOT NULL,
-  `zip` varchar(5) NOT NULL,
+  `number_attribute` VARCHAR(10) DEFAULT NULL,
+  `address` VARCHAR(100) NOT NULL,
+  `city` VARCHAR(50) NOT NULL,
+  `state` VARCHAR(50) NOT NULL,
+  `country` VARCHAR(50) NOT NULL,
+  `zip` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -304,7 +306,7 @@ DROP TABLE IF EXISTS `message`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `message` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `subject` varchar(255) NOT NULL,
+  `subject` VARCHAR(255) NOT NULL,
   `text` text NOT NULL,
   `recieved_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int NOT NULL,
@@ -333,8 +335,8 @@ DROP TABLE IF EXISTS `skill`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `level` varchar(50) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
+  `level` VARCHAR(50) NOT NULL,
   `candidate_id` int NOT NULL,
   `job_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -364,13 +366,13 @@ DROP TABLE IF EXISTS `user`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(100) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
-  `contact_number` varchar(20) NOT NULL,
+  `contact_number` VARCHAR(20) NOT NULL,
   `sms_notification_active` tinyint(1) NOT NULL,
   `email_notification_active` tinyint(1) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` VARCHAR(255) DEFAULT NULL,
   `registration_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_type_id` int NOT NULL,
   PRIMARY KEY (`id`),
@@ -399,7 +401,7 @@ DROP TABLE IF EXISTS `user_type`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_type` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `type` varchar(20) NOT NULL,
+  `type` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
