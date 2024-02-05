@@ -6,158 +6,333 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
 * {
   font-family: "Jost";
 }
-
-.results {
-  margin: auto;
-  max-height: 60vh;
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  margin: 1rem;
-  min-height: fit-content;
-  border: 1px solid red;
-
-  .filters {
-    min-height: 50vh;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    justify-items: center;
-    border: 2px solid;
-    border-radius: 1rem;
-    box-shadow: $box-shadow;
-    -webkit-box-shadow: $box-shadowWB;
-    -moz-box-shadow: $box-shadowMB;
-
-    .title {
-      width: 100%;
-      margin: 2vh 0rem;
-    }
-
-    .form {
-      display: flex;
-      flex-direction: column;
-      margin: 3vh 1vw 1vh 1vw;
-
-      label {
-        margin-top: 1rem;
-      }
-      label:first-child {
-        margin-top: 0;
-      }
-      input,
-      select {
-        border-radius: 0.5rem;
-        margin-bottom: 3vh;
-      }
-      input[type="range"] {
-        margin-bottom: 0;
-      }
-      .jobPlace label {
-        margin-top: 4rem;
-      }
-      .Rsalary {
-        margin-top: 0;
-        margin-bottom: 1rem;
-      }
-    }
-
-    select:last-child {
-      display: flex;
-      justify-items: center;
-    }
-
-    button {
-      position: relative;
-      width: fit-content;
-      border: 1px solid;
-      border-radius: 0.5rem;
-      margin: 0.5rem;
-      box-shadow: $box-shadow;
-      background: white;
-      -webkit-box-shadow: $box-shadowWB;
-      -moz-box-shadow: $box-shadowMB;
-    }
-  }
-
-  .offers {
-    min-height: 50vh;
+@media (min-width: 901px) and (min-height: 811px) {
+  .results {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: auto;
+    max-height: 60vh;
     display: flex;
     flex-direction: row;
-    margin: auto 0 auto 1vw;
-    border: 2px solid blue;
-    border-radius: 1rem 0 0 1rem;
-    border-right: 2px groove;
-    box-shadow: $box-shadow;
-    -webkit-box-shadow: $box-shadowWB;
-    -moz-box-shadow: $box-shadowMB;
-    overflow: scroll;
-    position: relative;
-    border-right: 1px groove;
-    overflow-x: hidden;
-
-    .listOffers {
-      width: 20vw;
+    text-align: center;
+    margin: 1rem;
+    margin-bottom: 5rem;
+    min-height: fit-content;
+    .filters {
+      min-height: 50vh;
+      width: fit-content;
       display: flex;
       flex-direction: column;
-      padding: 1rem;
-
-      div {
-        margin-bottom: 1rem;
+      align-items: center;
+      justify-content: flex-start;
+      justify-items: center;
+      border: 2px solid;
+      border-radius: 1rem;
+      box-shadow: $box-shadow;
+      -webkit-box-shadow: $box-shadowWB;
+      -moz-box-shadow: $box-shadowMB;
+      .title {
+        width: 100%;
+        margin: 2vh 0rem;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        margin: 2vh 1vw 1vh 1vw;
+        label {
+          margin-top: 1rem;
+        }
+        label:first-child {
+          margin-top: 0;
+        }
+        input,
+        select {
+          background-color: #f0f0f0a6;
+          border-radius: 0.5rem;
+          margin-bottom: 3vh;
+          border: none;
+          padding: 0.5rem 0 0.5rem 1.5rem;
+          box-shadow: $box-shadow;
+          -webkit-box-shadow: $box-shadowWB;
+          -moz-box-shadow: $box-shadowMB;
+        }
+        input[type="range"] {
+          padding: 0;
+          box-shadow: none;
+          margin: 0 0 0 1vw;
+        }
+        select {
+          box-shadow: $box-shadow;
+          -webkit-box-shadow: $box-shadowWB;
+          -moz-box-shadow: $box-shadowMB;
+        }
+        .city {
+          display: flex;
+          flex-direction: column;
+        }
+        .salary {
+          display: flex;
+          flex-direction: column;
+        }
+        .jobPlace {
+          align-self: center;
+          margin-top: 3vh;
+        }
+        .Rsalary {
+          margin-top: 0;
+        }
+      }
+      select:last-child {
+        display: flex;
+        justify-items: center;
+      }
+      .buttons {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      button {
+        display: flex;
+        width: fit-content;
         border: 1px solid;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
+        margin: 1vh 0 1vh 0;
+        box-shadow: $box-shadow;
+        background: white;
+        -webkit-box-shadow: $box-shadowWB;
+        -moz-box-shadow: $box-shadowMB;
+      }
+    }
+    .offers {
+      min-height: 50vh;
+      max-height: 60vh;
+      min-width: fit-content;
+      display: flex;
+      padding: 1rem;
+      margin-left: 1vw;
+      border: 2px solid black;
+      border-radius: 1rem 0 0 1rem;
+      border-right: 2px groove;
+      box-shadow: $box-shadow;
+      -webkit-box-shadow: $box-shadowWB;
+      -moz-box-shadow: $box-shadowMB;
+      overflow: scroll;
+      position: relative;
+      border-right: 1px groove;
+      .listOffers {
+        width: 25vw;
+        display: flex;
+        flex-direction: column;
         button {
           width: 100%;
           height: 100%;
           border: none;
           border-radius: 1rem;
-          background: white;
+          background: none;
+        }
+        .singleOffer {
+          display: flex;
+          justify-content: flex-start;
+          margin: 1vh 1vw;
+          border: 1px solid;
+          border-radius: 1rem;
+          transition: all 300ms ease-in-out;
+          box-shadow: $box-shadow;
+          -webkit-box-shadow: $box-shadowWB;
+          -moz-box-shadow: $box-shadowMB;
+          &:hover {
+            transform: scale(1.05);
+          }
+          &:visited {
+            background-color: lightgray;
+          }
+          h5 {
+            font-size: medium;
+            margin-top: 1vh;
+            margin-bottom: 0;
+          }
+          p {
+            font-size: small;
+            padding: 0 0.5vw 0 0.5vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
       }
     }
-  }
-  .offers::-webkit-scrollbar {
-    display: none;
-  }
-  .detailledOffer {
-    width: 100%;
-    min-height: 50vh;
-    border: 2px solid;
-    border-left: 2px groove;
-    border-radius: 0 1rem 1rem 0;
-    padding: 1rem;
-    margin: auto;
-    margin-left: 0;
-    .smallInformations {
+    .offers::-webkit-scrollbar {
+      display: none;
+    }
+    .detailledOffer::-webkit-scrollbar {
+      display: none;
+    }
+    .blur {
+      filter: blur(4px);
+    }
+    .iblur {
+      filter: blur(8px);
+    }
+    .detailledOffer {
+      width: 100%;
+      min-height: 50vh;
+      border: 2px solid;
+      border-left: 2px groove;
+      border-radius: 0 1rem 1rem 0;
+      padding: 1rem;
+      overflow: scroll;
+      position: relative;
+      box-shadow: $box-shadow;
+      -webkit-box-shadow: $box-shadowWB;
+      -moz-box-shadow: $box-shadowMB;
+      .visualize {
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: all 50ms ease-in-out;
+        &:hover {
+          font-weight: bold;
+        }
+      }
+      .smallInformations {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 3vh 8vw;
+        p {
+          margin: 1.5vh 1.5vw;
+        }
+      }
+    }
+    .blank {
       display: flex;
-      flex-flow: row wrap;
       justify-content: center;
       align-items: center;
-      margin: 3vh 8vw;
-      p {
-        margin: 1.5vh 1.5vw;
-      }
+      text-align: center;
     }
   }
 }
+
 @media (max-width: 900px) or (max-height: 810px) {
-  .results {
-    flex-direction: column;
-    .filters {
-      max-height: max-content;
-      margin: auto;
+  main {
+    min-height: 100vh;
+    min-width: 100vw;
+    margin-bottom: 10vh;
+    .results {
+      display: flex;
       flex-direction: column;
-      .form {
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: auto;
-        height: auto;
-        justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: auto;
+      .filters {
+        display: flex;
+        border: 2px solid black;
+        border-radius: 1rem;
+        width: 90vw;
+        max-height: 80vh;
+        flex-direction: column;
+        min-height: 40vh;
+        .title {
+          display: block;
+          margin: 2vh;
+        }
+        .form {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-self: center;
+          margin-top: 1vh;
+
+          div {
+            width: 70%;
+            align-items: center;
+            margin: 2vh 0;
+          }
+          label {
+            width: 100%;
+            margin: 1vh 0;
+          }
+          input,
+          select {
+            max-width: 45vw;
+            background-color: #f0f0f0a6;
+            justify-content: space-between;
+            margin: 1vh;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            box-shadow: $box-shadow;
+            -webkit-box-shadow: $box-shadowWB;
+            -moz-box-shadow: $box-shadowMB;
+          }
+          input[type="range"] {
+            padding: 0;
+            box-shadow: none;
+            margin: 1vh 0 0 1vw;
+          }
+          .city {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            input {
+              background-color: #f0f0f0a6;
+              border: none;
+              border-radius: 0.5rem;
+            }
+          }
+          .salary {
+            display: flex;
+            flex-direction: column;
+          }
+          .jobPlace {
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            margin-top: 3vh;
+          }
+          .jobTypes {
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+          }
+          .Rsalary {
+            margin: 0;
+          }
+          .buttons {
+            width: 100%;
+            button {
+              margin: 2vh 1vw 2vh 1vw;
+              border-radius: 0.5rem;
+              background-color: white;
+            }
+          }
+        }
       }
-      button {
-        height: fit-content;
+      .offers {
+        display: flex;
+        flex-direction: row;
+        border: 2px solid black;
+        border-bottom: 2px groove;
+        border-radius: 1rem 1rem 0 0;
+        width: 90vw;
+        min-height: 10vh;
+        flex-wrap: wrap;
+        margin-top: 2vh;
+
+        .detailledOffer {
+          width: 90vw;
+          height: 30vh;
+          border: 2px solid black;
+          border-top: 2px groove;
+          border-radius: 0 0 1rem 1rem;
+        }
       }
     }
   }

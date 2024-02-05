@@ -1,13 +1,29 @@
-import React from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function UserMessage() {
-  const { messages } = useOutletContext();
-  const message = [messages];
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [messages, setMessages] = useState("");
 
-  if (!message || message.length === 0) {
-    return <p>Aucun message.</p>;
+  if (!auth.token) {
+    navigate("/accueil");
+  }
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/message/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setMessages([res.data]));
+    }
+  }, [auth.token]);
+
+  if (!messages || messages.length === 0) {
+    return <p>Aucun messages.</p>;
   }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -17,8 +33,8 @@ function UserMessage() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {message &&
-          message.map((m) => (
+        {messages &&
+          messages.map((m) => (
             <>
               <NavLink>
                 <h3>{m.subject}</h3>
@@ -30,8 +46,8 @@ function UserMessage() {
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {message &&
-          message.map((m) => (
+        {messages &&
+          messages.map((m) => (
             <>
               <h2>{m.subject}</h2>
               <h4>{m.email}</h4>

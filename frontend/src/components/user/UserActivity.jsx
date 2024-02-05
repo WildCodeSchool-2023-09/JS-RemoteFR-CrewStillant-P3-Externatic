@@ -1,14 +1,26 @@
-import React from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import style from "../../assets/styles/activityPage.module.scss";
 
 function UserActivity() {
-  const { activity } = useOutletContext();
-  const activities = [activity];
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [activityUser, setActivityUser] = useState();
 
-  if (!activities || activities.length === 0) {
-    return <p>Vous n'avez pas de candidature pour le moment.</p>;
+  if (!auth.token) {
+    navigate("/accueil");
   }
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/activity/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setActivityUser([res.data]));
+    }
+  }, [auth]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -18,8 +30,8 @@ function UserActivity() {
   return (
     <div className={`${style.profileActivity}`}>
       <div id="1" className={`${style.sideActivity}`}>
-        {activities &&
-          activities.map((a) => (
+        {activityUser &&
+          activityUser.map((a) => (
             <>
               <NavLink>
                 <h3>{a.title}</h3>
@@ -32,8 +44,8 @@ function UserActivity() {
       </div>
       <hr />
       <div id="2" className={`${style.selectedActivity}`}>
-        {activities &&
-          activities.map((a) => (
+        {activityUser &&
+          activityUser.map((a) => (
             <>
               <h2>{a.title}</h2>
               <h4>{a.type}</h4>

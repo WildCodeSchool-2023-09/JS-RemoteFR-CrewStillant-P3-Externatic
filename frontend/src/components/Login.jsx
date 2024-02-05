@@ -7,8 +7,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { auth, setAuth } = useOutletContext();
-
+  const { setAuth } = useOutletContext();
   const navigate = useNavigate();
   const {
     register,
@@ -20,10 +19,13 @@ function Login() {
     try {
       await axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
-        .then((res) => {
-          setAuth(res.data);
-          navigate(`/accueil/${auth.id}`);
-        });
+        .then((res) => setAuth(res.data))
+        .then(
+          setTimeout(() => {
+            navigate("/accueil");
+          }, 1000)
+        );
+      toast.success("Connexion réussie, bienvenue !");
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
@@ -39,12 +41,11 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
-                className={`${style.input}`}
                 type="email"
                 placeholder="Adresse mail"
-                {...register("email", { required: "L'e-mail est obligatoire" })}
+                {...register("email", { required: "Le mail est obligatoire" })}
               />
-              {errors.mail && <p role="alert">{errors.mail?.message}</p>}
+              {errors.email && <p role="alert">{errors.email?.message}</p>}
             </div>
 
             <div>

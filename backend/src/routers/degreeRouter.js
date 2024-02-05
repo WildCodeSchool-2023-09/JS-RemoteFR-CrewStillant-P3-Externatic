@@ -2,18 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  browse,
-  read,
-  edit,
-  add,
-  remove,
-} = require("../controllers/degreeController");
+const { read, edit, add, remove } = require("../controllers/degreeController");
 
 // GET
 
-router.get("/", browse);
-router.get("/:id", read);
+router.get("/", read);
 
 // PUT
 

@@ -9,20 +9,14 @@ function JobOffers({ job }) {
     >
       <h1 className="my-30">Nos dernières offres</h1>
       <section className={` p-20 ${styles.jobOffers}`}>
-        {job.slice(0, 9).map((j) => (
-          <JobOffer
-            key={j.id}
-            title={j.title}
-            image={j.image}
-            type={j.type}
-            city={j.state}
-          />
+        {job.map((j) => (
+          <JobOffer key={j.id} job={j} />
         ))}
       </section>
     </div>
   );
 }
 JobOffers.propTypes = {
-  job: PropTypes.arrayOf(PropTypes.string).isRequired,
+  job: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 export default JobOffers;

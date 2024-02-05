@@ -18,9 +18,9 @@ const browse = async (req, res) => {
 // GET BY ID
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getMessageId = await tables.message.read(parseInt(id, 10));
+    const getMessageId = await tables.message.read(parseInt(sub, 10));
     if (getMessageId) {
       res.status(200).json(getMessageId[0]);
     } else {
@@ -34,9 +34,14 @@ const read = async (req, res) => {
 // POST
 
 const add = async (req, res) => {
-  const { subject, text, userId } = req.body;
+  const { subject, text } = req.body;
+  const { sub } = req.auth;
   try {
-    const addMessage = await tables.message.create(subject, text, userId);
+    const addMessage = await tables.message.create(
+      subject,
+      text,
+      parseInt(sub, 10)
+    );
     if (addMessage) {
       res.status(201).json(addMessage);
     } else {
@@ -50,9 +55,9 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const deleteMessage = await tables.message.delete(parseInt(id, 10));
+    const deleteMessage = await tables.message.delete(parseInt(sub, 10));
     if (deleteMessage[0]) {
       res
         .status(200)

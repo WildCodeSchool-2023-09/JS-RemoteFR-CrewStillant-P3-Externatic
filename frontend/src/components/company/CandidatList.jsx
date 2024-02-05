@@ -1,9 +1,26 @@
-import React from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function CandidatList() {
-  const { candidats } = useOutletContext();
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [candidates, setCandidates] = useState();
+
+  if (!auth.token) {
+    navigate("/accueil");
+  }
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/candidate/all`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setCandidates(res.data[0]));
+    }
+  }, [auth]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -13,8 +30,8 @@ function CandidatList() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {candidats &&
-          candidats.map((c) => (
+        {candidates &&
+          candidates.map((c) => (
             <>
               <NavLink>
                 <h3>
@@ -29,8 +46,8 @@ function CandidatList() {
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {candidats &&
-          candidats.map((c) => (
+        {candidates &&
+          candidates.map((c) => (
             <>
               <img src={c.image} alt={c.firstname} />
               <h2>

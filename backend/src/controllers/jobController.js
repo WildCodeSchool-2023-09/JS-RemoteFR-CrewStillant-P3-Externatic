@@ -48,12 +48,25 @@ const browse = async (req, res) => {
   }
 };
 
+const browseCount = async (req, res) => {
+  try {
+    const getJob = await tables.job.readCount();
+    if (getJob) {
+      res.status(200).json(getJob);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // GET BY ID
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getJobId = await tables.job.read(parseInt(id, 10));
+    const getJobId = await tables.job.read(parseInt(sub, 10));
     if (getJobId.length > 0) {
       res.status(200).json(getJobId);
     } else {
@@ -150,4 +163,12 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { browseFilters, browse, read, edit, add, remove };
+module.exports = {
+  browseFilters,
+  browseCount,
+  browse,
+  read,
+  edit,
+  add,
+  remove,
+};

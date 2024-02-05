@@ -18,9 +18,9 @@ const browse = async (req, res) => {
 // GET BY ID
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getActivityId = await tables.activity.read(parseInt(id, 10));
+    const getActivityId = await tables.activity.read(parseInt(sub, 10));
     if (getActivityId) {
       res.status(200).json(getActivityId[0]);
     } else {
@@ -34,9 +34,9 @@ const read = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const deleteActivity = await tables.activity.delete(parseInt(id, 10));
+    const deleteActivity = await tables.activity.delete(parseInt(sub, 10));
     if (deleteActivity.length > 0) {
       res
         .status(200)

@@ -1,10 +1,25 @@
 import PropTypes from "prop-types";
 import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import sidebarData from "./sideBarData";
 import styles from "./sideBar.module.scss";
 
 function SideBar({ sidebar, showSidebar, setAuth, auth }) {
+  const navigate = useNavigate();
+
+  if (!auth.token) {
+    navigate("/accueil");
+  }
+
+  const handleSignOut = () => {
+    setAuth(null);
+    navigate("/accueil");
+    setTimeout(() => {
+      toast.success("Déconnexion réussie, à bientôt !");
+    }, 1000);
+  };
+
   return (
     <aside className={styles.aside}>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
@@ -26,27 +41,20 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
           </li>
           {sidebarData.map((item) => (
             <li key={item.title} className={item.cName}>
-              {item.title === "Recrutement interne" ? (
-                <Link to={item.path}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </Link>
-              ) : (
-                <Link to={`${item.path}/${auth.id}`}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </Link>
-              )}
+              <Link to={item.path}>
+                {item.icon}
+                <span>{item.title}</span>
+              </Link>
             </li>
           ))}
           <li>
-            <Link
-              to="/accueil"
-              onClick={() => setAuth("")}
+            <button
+              type="button"
+              onClick={handleSignOut}
               className={styles.disconnect}
             >
               Se déconnecter
-            </Link>
+            </button>
           </li>
         </ul>
       </nav>
@@ -64,6 +72,7 @@ SideBar.propTypes = {
   sidebar: PropTypes.bool.isRequired,
   setAuth: PropTypes.func.isRequired,
   auth: PropTypes.shape({
+    token: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     type: PropTypes.number.isRequired,

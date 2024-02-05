@@ -15,14 +15,13 @@ const browse = async (req, res, next) => {
   }
 };
 
-// GET BY ID
-
 const read = async (req, res, next) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getUserId = await tables.user.read(parseInt(id, 10));
-    if (getUserId.length > 0) {
-      res.status(200).json(getUserId);
+    const user = await tables.user.read(parseInt(sub, 10));
+    if (user[0]) {
+      console.info("userCtrl", user[0]);
+      res.status(200).json(user[0]);
     } else {
       res.sendStatus(404);
     }
@@ -30,44 +29,6 @@ const read = async (req, res, next) => {
     next(err);
   }
 };
-
-// PUT
-
-const edit = async (req, res, next) => {
-  const {
-    email,
-    hashedPassword,
-    isActive,
-    contactNumber,
-    smsNotificationActive,
-    emailNotificationActive,
-    image,
-    userTypeId,
-  } = req.body;
-  const { id } = req.params;
-  try {
-    const editUser = await tables.user.edit(
-      email,
-      hashedPassword,
-      isActive,
-      contactNumber,
-      smsNotificationActive,
-      emailNotificationActive,
-      image,
-      userTypeId,
-      parseInt(id, 10)
-    );
-    if (editUser.length > 0) {
-      res.status(200).json(editUser);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
-// POST
 
 const add = async (req, res, next) => {
   const {
@@ -80,7 +41,7 @@ const add = async (req, res, next) => {
     type,
   } = req.body;
   try {
-    const addUser = await tables.user.create(
+    const insertId = await tables.user.create(
       email,
       hashedPassword,
       isActive,
@@ -89,26 +50,10 @@ const add = async (req, res, next) => {
       emailNotificationActive ? 1 : 0,
       type
     );
-    if (addUser) {
-      res.status(201).json(addUser);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    next(err);
-  }
-};
-
-// DELETE
-
-const remove = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const deleteUser = await tables.user.delete(parseInt(id, 10));
-    if (deleteUser.length > 0) {
+    if (insertId) {
       res
-        .status(200)
-        .json("user has been successefully deleted from your table");
+        .status(201)
+        .json({ insertId, message: "Votre utilisateur a bien été créer." });
     } else {
       res.sendStatus(404);
     }
@@ -117,4 +62,38 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { browse, read, edit, add, remove };
+// PUT
+const edit = async (req, res, next) => {
+  const {
+    email,
+    hashedPassword,
+    isActive,
+    contactNumber,
+    smsNotificationActive,
+    emailNotificationActive,
+    image,
+  } = req.body;
+  const { sub, userTypeId } = req.auth;
+  try {
+    const editUser = await tables.user.edit(
+      email,
+      hashedPassword,
+      isActive,
+      contactNumber,
+      smsNotificationActive,
+      emailNotificationActive,
+      image,
+      userTypeId,
+      parseInt(sub, 10)
+    );
+    if (editUser.length > 0) {
+      res.status(200).json(editUser);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { browse, read, edit, add };
