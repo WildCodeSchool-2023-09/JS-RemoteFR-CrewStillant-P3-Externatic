@@ -21,6 +21,7 @@ export default function InscriptionCandidat() {
   passwordRef.current = watch("password", "");
 
   const onSubmit = async (data) => {
+    console.info(data);
     try {
       const type = 1;
       const response = await axios.post(
@@ -106,11 +107,8 @@ export default function InscriptionCandidat() {
             name="password"
             autoComplete="true"
             {...register("password", {
-              pattern: {
-                value:
-                  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/i,
-                message: "Doit contenir au minimum 8 - 16 caractères",
-              },
+              minLength: { value: 8, message: "Minimum 8 caractères" },
+              maxLength: { value: 16, message: "Maximum 16 caractères" },
               required: "Ce champ est obligatoire",
             })}
           />

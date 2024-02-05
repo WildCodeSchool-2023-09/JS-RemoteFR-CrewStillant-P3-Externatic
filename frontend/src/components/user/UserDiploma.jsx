@@ -6,7 +6,7 @@ function UserDiploma() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
   const [userDegree, setUserDegree] = useState();
-
+  console.info(userDegree);
   if (!auth.token) {
     navigate("/accueil");
   }
@@ -17,11 +17,11 @@ function UserDiploma() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/degree/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setUserDegree(res.data[0]));
+        .then((res) => setUserDegree([res.data]));
     }
   }, [auth]);
 
-  if (!userDegree.length === 0) {
+  if (!userDegree) {
     return <p>Aucun diplôme ajouté.</p>;
   }
   const formatDateString = (dateString) => {
@@ -37,8 +37,16 @@ function UserDiploma() {
             <>
               <li> Diplôme: {d.degree} </li>
               <li> Niveau: {d.level} </li>
-              <li> Début de formation: {formatDateString(d.startingDate)} </li>
-              <li> Fin de formation: {formatDateString(d.completionDate)} </li>
+              <li>
+                {" "}
+                Début de formation:{" "}
+                {d.startingDate && formatDateString(d.startingDate)}{" "}
+              </li>
+              <li>
+                {" "}
+                Fin de formation:{" "}
+                {d.completionDate && formatDateString(d.completionDate)}{" "}
+              </li>
               <li> Université: {d.university} </li>
               <li> Ville: {d.city} </li>
               <hr />

@@ -38,7 +38,7 @@ class CandidateManager extends AbstractManager {
     insertId
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (firstname, lastname, date_of_birth, wanted_salary, city, country, user_id) VALUES (?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (firstname, lastname, date_of_birth, wanted_salary, city, country, user_id) VALUES (?,?,?,?,?,?,?)`,
       [firstname, lastname, dateOfBirth, salary, city, country, insertId]
     );
     return result;
