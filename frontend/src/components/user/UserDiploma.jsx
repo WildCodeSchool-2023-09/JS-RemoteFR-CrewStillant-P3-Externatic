@@ -5,7 +5,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 function UserDiploma() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
-  const [degrees, setDegrees] = useState();
+  const [userDegree, setUserDegree] = useState();
 
   if (!auth.token) {
     navigate("/accueil");
@@ -17,11 +17,11 @@ function UserDiploma() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/degree/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setDegrees(res.data[0]));
+        .then((res) => setUserDegree(res.data[0]));
     }
   }, [auth]);
 
-  if (!degrees || degrees.length === 0) {
+  if (!userDegree.length === 0) {
     return <p>Aucun diplôme ajouté.</p>;
   }
   const formatDateString = (dateString) => {
@@ -32,8 +32,8 @@ function UserDiploma() {
   return (
     <div>
       <ul>
-        {degrees &&
-          degrees.map((d) => (
+        {userDegree &&
+          userDegree.map((d) => (
             <>
               <li> Diplôme: {d.degree} </li>
               <li> Niveau: {d.level} </li>

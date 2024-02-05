@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-import "./inscriptionCandidat.module.scss";
+import style from "./inscriptionCandidat.module.scss";
 
 export default function InscriptionCandidat() {
   const {
@@ -49,8 +49,8 @@ export default function InscriptionCandidat() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="signupCandidate">
-        <div className="formGrid">
+      <section className={`${style.signupCandidate}`}>
+        <div className={`${style.formGrid}`}>
           <p>Nom:</p>
           <input
             type="text"
@@ -65,7 +65,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Prénom:</p>
           <input
             type="text"
@@ -80,7 +80,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>E-mail:</p>
           <input
             type="email"
@@ -99,7 +99,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGridPassWord}`}>
           <p>Password:</p>
           <input
             type={showPassword ? "text" : "password"}
@@ -117,11 +117,15 @@ export default function InscriptionCandidat() {
           {errors.password && (
             <span className="text-red-500">{errors.password?.message}</span>
           )}
-          <button type="button" onClick={() => setShowPassword(!showPassword)}>
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className={`${style.showPassword}`}
+          >
             {showPassword ? "😀" : "😎"}
           </button>
         </div>
-        <div>
+        <div className={`${style.formGrid}`}>
           <p>Confirmez mot de passe :</p>
           <input
             type="password"
@@ -141,7 +145,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Date de Naissance:</p>
           <input
             type="date"
@@ -160,7 +164,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Salaire annuel souhaité :</p>
           <input
             type="number"
@@ -177,7 +181,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Numéro de téléphone :</p>
           <input
             type="text"
@@ -195,7 +199,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Ville :</p>
           <input
             type="text"
@@ -214,7 +218,7 @@ export default function InscriptionCandidat() {
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Pays :</p>
           <input
             type="text"
@@ -232,34 +236,40 @@ export default function InscriptionCandidat() {
             <span className="text-red-500">{errors.country?.message}</span>
           )}
         </div>
+      </section>
 
-        <label
-          htmlFor="smsNotification"
-          id="smsNotification"
-          className="smsNotification"
-        >
-          Notifications SMS
-        </label>
-        <input
-          type="checkbox"
-          id="smsNotification"
-          className="smsNotification"
-          {...register("smsNotificationActive")}
-        />
+      <section>
+        <div className={`${style.notification}`}>
+          <label
+            htmlFor="smsNotification"
+            id="smsNotification"
+            className="smsNotification"
+          >
+            Notifications SMS :
+          </label>
+          <input
+            type="checkbox"
+            id="smsNotification"
+            className="smsNotification"
+            {...register("smsNotificationActive")}
+          />
+        </div>
 
-        <label
-          htmlFor="emailNotification"
-          id="emailNotification"
-          className="emailNotification"
-        >
-          Notifications par e-mail
-        </label>
-        <input
-          type="checkbox"
-          id="emailNotification"
-          className="emailNotification"
-          {...register("emailNotificationActive")}
-        />
+        <div className={`${style.notification}`}>
+          <label
+            htmlFor="emailNotification"
+            id="emailNotification"
+            className="emailNotification"
+          >
+            Notifications par e-mail :
+          </label>
+          <input
+            type="checkbox"
+            id="emailNotification"
+            className="emailNotification"
+            {...register("emailNotificationActive")}
+          />
+        </div>
       </section>
 
       <section className="confirmButtonCandidate">

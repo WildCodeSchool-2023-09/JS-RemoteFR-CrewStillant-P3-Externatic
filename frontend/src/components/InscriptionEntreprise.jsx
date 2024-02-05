@@ -3,8 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
-import "./inscriptionEntreprise.module.scss";
 import { useNavigate } from "react-router-dom";
+import style from "./inscriptionEntreprise.module.scss";
 
 export default function InscriptionEntreprise() {
   const navigate = useNavigate();
@@ -59,9 +59,9 @@ export default function InscriptionEntreprise() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="grid">
-        <section className="signupCompany">
-          <div>
+      <section className={`${style.grid}`}>
+        <section className={`${style.signupCompany}`}>
+          <div className={`${style.formGrid}`}>
             <p>Nom:</p>
             <input
               type="text"
@@ -77,7 +77,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>E-mail:</p>
             <input
               type="email"
@@ -96,7 +96,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGridPassword}`}>
             <p>Mot de passe :</p>
             <input
               type={showPassword ? "text" : "password"}
@@ -122,7 +122,7 @@ export default function InscriptionEntreprise() {
             </button>
           </div>
 
-          <div>
+          <div className={`${style.formGridPassword}`}>
             <p>Confirmez mot de passe :</p>
             <input
               type="password"
@@ -142,7 +142,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Site internet :</p>
             <input
               type="text"
@@ -157,7 +157,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Numéro de téléphone :</p>
             <input
               type="text"
@@ -175,7 +175,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Ville :</p>
             <input
               type="text"
@@ -194,7 +194,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Pays :</p>
             <input
               type="text"
@@ -213,7 +213,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>N° SIRET :</p>
             <input
               type="text"
@@ -230,7 +230,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div className="formGrid">
+          <div className={`${style.formGrid}`}>
             <p>Date de Création:</p>
             <input
               type="date"
@@ -251,7 +251,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Secteur d'activité :</p>
             <input
               type="text"
@@ -266,7 +266,7 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Description:</p>
             <textarea
               type="text"
@@ -286,35 +286,35 @@ export default function InscriptionEntreprise() {
           <label
             htmlFor="smsNotification"
             id="smsNotification"
-            className="smsNotification"
+            className={`${style.smsNotification}`}
           >
             SMS Notification
           </label>
           <input
             type="checkbox"
             id="smsNotification"
-            className="smsNotification"
+            className={`${style.smsNotification}`}
             {...register("smsNotificationActive")}
           />
 
           <label
             htmlFor="emailNotification"
             id="emailNotification"
-            className="emailNotification"
+            className={`${style.emailNotification}`}
           >
             E-mail Notification
           </label>
           <input
             type="checkbox"
             id="emailNotification"
-            className="emailNotification"
+            className={`${style.emailNotification}`}
             {...register("emailNotificationActive")}
           />
-        </section>
 
-        <div className="confirmButtonCompany">
-          <button type="submit">Confirmer Inscription</button>
-        </div>
+          <div className={`${style.confirmButtonCompany}`}>
+            <button type="submit">Confirmer Inscription</button>
+          </div>
+        </section>
       </section>
     </form>
   );

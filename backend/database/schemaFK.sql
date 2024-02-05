@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 -- foreign keys
 -- Reference: candidate_degree
+SET FOREIGN_KEY_CHECKS=0;
 ALTER TABLE candidate_degree ADD CONSTRAINT candidate_degree FOREIGN KEY candidate_degree (candidate_id)
     REFERENCES candidate (id);
 
@@ -41,7 +42,7 @@ ALTER TABLE job ADD CONSTRAINT job_post_company FOREIGN KEY job_post_company (co
     REFERENCES company (id);
 
 -- Reference: skill_candidate
-ALTER TABLE skill ADD CONSTRAINT skill_candidate FOREIGN KEY skill_candidate (candidate_id)
+ALTER TABLE skill ADD CONSTRAINT skill_candidate FOREIGN KEY (candidate_id)
     REFERENCES candidate (id);
 
 -- Reference: skill_job

@@ -6,7 +6,7 @@ import style from "../../assets/styles/activityPage.module.scss";
 function UserActivity() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
-  const [activity, setActivity] = useState();
+  const [activityUser, setActivityUser] = useState();
 
   if (!auth.token) {
     navigate("/accueil");
@@ -18,7 +18,7 @@ function UserActivity() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/activity/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setActivity(res.data[0]));
+        .then((res) => setActivityUser(res.data[0]));
     }
   }, [auth]);
 
@@ -30,8 +30,8 @@ function UserActivity() {
   return (
     <div className={`${style.profileActivity}`}>
       <div id="1" className={`${style.sideActivity}`}>
-        {activity &&
-          activity.map((a) => (
+        {activityUser &&
+          activityUser.map((a) => (
             <>
               <NavLink>
                 <h3>{a.title}</h3>
@@ -44,8 +44,8 @@ function UserActivity() {
       </div>
       <hr />
       <div id="2" className={`${style.selectedActivity}`}>
-        {activity &&
-          activity.map((a) => (
+        {activityUser &&
+          activityUser.map((a) => (
             <>
               <h2>{a.title}</h2>
               <h4>{a.type}</h4>

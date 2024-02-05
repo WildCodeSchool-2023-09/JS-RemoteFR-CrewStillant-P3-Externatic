@@ -3,28 +3,29 @@
   width: 150px;
 }
 
-.grid {
+.signupCompany {
+  flex-direction: column;
+  align-content: space-around;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.signupCompany .formGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
 }
 
-.grid .confirmButtonCompany {
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  height: 5em;
-}
-
-.signupCompany {
+.signupCompany .formGridPassWord {
   display: grid;
-  justify-items: end;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  align-items: center;
 }
 
 .signupCompany div {
   display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 
 .signupCompany div p {

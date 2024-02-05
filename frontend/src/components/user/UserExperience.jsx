@@ -5,13 +5,13 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 function UserExperience() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
-  const [experience, setExperience] = useState();
+  const [experienceUser, setExperienceUser] = useState();
 
   if (!auth.token) {
     navigate("/accueil");
   }
 
-  if (!experience || experience.length === 0) {
+  if (!experienceUser || experienceUser.length === 0) {
     return <p>Aucune expérience ajoutée.</p>;
   }
 
@@ -21,7 +21,7 @@ function UserExperience() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setExperience(res.data[0]));
+        .then((res) => setExperienceUser(res.data[0]));
     }
   }, [auth]);
 
@@ -33,8 +33,8 @@ function UserExperience() {
   return (
     <div>
       <ul>
-        {experience &&
-          experience.map((e) => (
+        {experienceUser &&
+          experienceUser.map((e) => (
             <>
               <li> Poste: {e.jobTitle} </li>
               <li> Compagnie: {e.companyName} </li>
