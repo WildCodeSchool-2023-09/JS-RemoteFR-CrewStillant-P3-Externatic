@@ -16,18 +16,24 @@ const login = async (req, res, next) => {
 
     const verified = await argon2.verify(user.password, password);
 
-    if (verified) {
-      delete user.password;
-      const token = jwt.sign({ sub: user.id }, process.env.APP_SECRET, {
-        expiresIn: "3h",
-      });
+    const { id, userTypeId } = user;
+    const mail = user.email;
 
-      res.json({
-        token,
-        user,
+    if (!verified) {
+      res.status(422).json({
+        message: "Mot de passe invalide",
       });
     } else {
-      res.sendStatus(422);
+      delete user.password;
+
+      const token = await jwt.sign(
+        { sub: id, role: userTypeId, email: mail },
+        process.env.APP_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
+      res.status(200).json({ token, userTypeId, mail });
     }
   } catch (error) {
     next(error);

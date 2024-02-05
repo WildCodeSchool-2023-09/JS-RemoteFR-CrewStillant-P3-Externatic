@@ -1,9 +1,26 @@
-import React from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function CompanyOffers() {
-  const { job } = useOutletContext();
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [job, setJob] = useState();
+
+  if (!auth.token || auth.userTypeId === "entreprise") {
+    navigate("/accueil");
+  }
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/job/companyoffers`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setJob(res.data[0]));
+    }
+  }, [auth]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };

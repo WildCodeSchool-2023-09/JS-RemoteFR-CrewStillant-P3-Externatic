@@ -8,17 +8,17 @@ const {
   edit,
   add,
   remove,
-} = require("../controllers/skillController");
+} = require("../controllers/adminController");
 
 // GET
 router.get("/", browse);
-router.get("/candidate", read);
-
-// POST
-router.post("/", add);
+router.get("/:id", read);
 
 // PUT
 router.put("/:id", edit);
+
+// POST
+router.post("/", add);
 
 // DELETE
 router.delete("/:id", remove);

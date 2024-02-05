@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  browse,
   read,
   edit,
   add,
@@ -12,8 +11,7 @@ const {
 
 // GET
 
-router.get("/", browse);
-router.get("/:id", read);
+router.get("/", read);
 
 // PUT
 

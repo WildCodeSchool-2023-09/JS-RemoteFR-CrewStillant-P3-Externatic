@@ -14,15 +14,16 @@
     "@hookform/error-message": "^2.0.1",
     "axios": "^1.6.5",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
+    "react": ">=16.8.0",
     "react-alice-carousel": "^2.8.0",
     "react-datepicker": "^4.25.0",
-    "react-dom": "^18.2.0",
+    "react-dom": ">=16.8.0",
     "react-hook-form": "^7.49.3",
-    "toastify": "^2.0.1",
     "react-icons": "^5.0.1",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.14.2",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "toastify": "^2.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.3",
@@ -43,7 +44,7 @@
     "*.{jsx,js}": "eslint"
   },
   "peerDependencies": {
-   "react": ">=16.8.0",
-   "react-dom": ">=16.8.0"
-}
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
 }

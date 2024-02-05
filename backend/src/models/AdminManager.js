@@ -2,7 +2,7 @@ const AbstractManager = require("./AbstractManager");
 
 class CompanyManager extends AbstractManager {
   constructor() {
-    super({ table: "company" });
+    super({ table: "admin" });
   }
 
   async readAll() {
@@ -15,7 +15,7 @@ class CompanyManager extends AbstractManager {
   async read(id) {
     const [result] = await this.database.query(
       `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email  FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id WHERE ${this.table}.id=?`,
-      [parseInt(id, 10)]
+      [id]
     );
     return result;
   }

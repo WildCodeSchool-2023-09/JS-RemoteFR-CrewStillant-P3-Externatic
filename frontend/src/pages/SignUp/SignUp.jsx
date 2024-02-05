@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./signUp.module.scss";
-import InscriptionCandidat from "../components/InscriptionCandidat";
-import InscriptionEntreprise from "../components/InscriptionEntreprise";
-import SearchBar from "../components/SearchBar/SearchBar";
+import InscriptionCandidat from "../../components/InscriptionCandidat";
+import InscriptionEntreprise from "../../components/InscriptionEntreprise";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 function SignUp() {
   const [form, setForm] = useState("candidate");
