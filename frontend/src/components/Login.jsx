@@ -21,7 +21,7 @@ function Login() {
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => {
           setAuth(res.data);
-          navigate(`/login/${auth.id}`);
+          navigate(`/accueil/${auth.id}`);
         });
     } catch (error) {
       toast.error(error.response?.data?.message);
