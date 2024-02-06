@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import { useOutletContext, NavLink } from "react-router-dom";
 import axios from "axios";
 import style from "../../assets/styles/activityPage.module.scss";
 
 function UserActivity() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [activityUser, setActivityUser] = useState();
 
-  if (!auth.token) {
-    navigate("/accueil");
-  }
   useEffect(() => {
     if (auth.token) {
       axios

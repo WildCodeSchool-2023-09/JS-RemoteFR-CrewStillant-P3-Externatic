@@ -1,0 +1,33 @@
+.qui-sommes-nous {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .introduction {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+
+  .mission-vision {
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+  }
+
+  .engagement {
+    font-style: italic;
+    font-size: 1.1em;
+    margin-top: 20px;
+  }
+}

@@ -1,15 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 function UserDiploma() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [userDegree, setUserDegree] = useState();
 
-  if (!auth.token) {
-    navigate("/accueil");
-  }
   useEffect(() => {
     if (auth.token) {
       axios

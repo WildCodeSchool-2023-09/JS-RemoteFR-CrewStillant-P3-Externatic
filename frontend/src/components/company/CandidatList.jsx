@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import { useOutletContext, NavLink } from "react-router-dom";
 import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function CandidatList() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [candidates, setCandidates] = useState();
-
-  if (!auth.token) {
-    navigate("/accueil");
-  }
 
   useEffect(() => {
     if (auth.token) {

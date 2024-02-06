@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./jobOffer.module.scss";
 
@@ -13,6 +14,7 @@ function JobOffer({ job }) {
         <h3 className="mb-10">{job.title}</h3>
         <p>{job.type}</p>
         <p>{job.city}</p>
+        <NavLink to={`/offre/${job.id}`}>Voir</NavLink>
       </div>
     </div>
   );

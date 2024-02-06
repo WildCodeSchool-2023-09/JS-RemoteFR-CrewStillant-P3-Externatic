@@ -16,12 +16,13 @@ import CandidatList from "./components/company/CandidatList";
 import NotFound from "./pages/NotFound/NotFound";
 import MySpace from "./pages/MySpace/MySpace";
 import UserMessage from "./components/user/UserMessage";
+import WhoWeAre from "./pages/WhoWeAre/WhoWeAre";
+import OfferPage from "./pages/OfferPage/OfferPage";
+import RGPD from "./pages/RGPD/RGPD";
 
 const router = createBrowserRouter([
   {
     element: <App />,
-    loader: ({ params }) =>
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/user/${params.id}`),
     children: [
       {
         path: "/accueil",
@@ -43,6 +44,16 @@ const router = createBrowserRouter([
       {
         path: "/recherche",
         element: <SearchPage />,
+      },
+      {
+        path: "/offre/:id",
+        element: <OfferPage />,
+        loader: async ({ params }) => {
+          const offer = await axios
+            .get(`${import.meta.env.VITE_BACKEND_URL}/job/${params.id}`)
+            .then((res) => res.data);
+          return offer;
+        },
       },
       {
         path: "/connexion",
@@ -81,6 +92,14 @@ const router = createBrowserRouter([
             element: <CandidatList />,
           },
         ],
+      },
+      {
+        path: "/qui-sommes-nous",
+        element: <WhoWeAre />,
+      },
+      {
+        path: "/rgpd",
+        element: <RGPD />,
       },
       {
         path: "*",
