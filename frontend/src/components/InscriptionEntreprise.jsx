@@ -106,6 +106,7 @@ export default function InscriptionEntreprise() {
             )}
             <button
               type="button"
+              className={`${style.showButton}`}
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? "😀" : "😎"}
@@ -127,6 +128,7 @@ export default function InscriptionEntreprise() {
             )}
             <button
               type="button"
+              className={`${style.showButton}`}
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? "😀" : "😎"}
@@ -274,36 +276,41 @@ export default function InscriptionEntreprise() {
             )}
           </div>
 
-          <label
-            htmlFor="smsNotification"
-            id="smsNotification"
-            className={`${style.smsNotification}`}
-          >
-            SMS Notification
-          </label>
-          <input
-            type="checkbox"
-            id="smsNotification"
-            className={`${style.smsNotification}`}
-            {...register("smsNotificationActive")}
-          />
+          <section className={`${style.notification}`}>
+            <label
+              htmlFor="smsNotification"
+              id="smsNotification"
+              className={`${style.smsNotification}`}
+            >
+              SMS Notification
+            </label>
+            <input
+              type="checkbox"
+              id="smsNotification"
+              className={`${style.smsNotification}`}
+              {...register("smsNotificationActive")}
+            />
 
-          <label
-            htmlFor="emailNotification"
-            id="emailNotification"
-            className={`${style.emailNotification}`}
-          >
-            E-mail Notification
-          </label>
-          <input
-            type="checkbox"
-            id="emailNotification"
-            className={`${style.emailNotification}`}
-            {...register("emailNotificationActive")}
-          />
+            <label
+              htmlFor="emailNotification"
+              id="emailNotification"
+              className={`${style.emailNotification}`}
+            >
+              E-mail Notification
+            </label>
+            <input
+              type="checkbox"
+              id="emailNotification"
+              className={`${style.emailNotification}`}
+              {...register("emailNotificationActive")}
+            />
+          </section>
 
           <div className={`${style.confirmButtonCompany}`}>
-            <button type="submit">Confirmer Inscription</button>
+            <button type="submit">
+              Confirmer
+              <br /> Inscription
+            </button>
           </div>
         </section>
       </section>

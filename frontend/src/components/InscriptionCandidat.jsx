@@ -113,7 +113,7 @@ export default function InscriptionCandidat() {
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className={`${style.showPassword}`}
+            className={`${style.showButton}`}
           >
             {showPassword ? "😀" : "😎"}
           </button>

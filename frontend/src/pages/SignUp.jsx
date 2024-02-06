@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./signUp.module.scss";
 import InscriptionCandidat from "../components/InscriptionCandidat";
 import InscriptionEntreprise from "../components/InscriptionEntreprise";
 import SearchBar from "../components/SearchBar/SearchBar";
+
+import style from "./signUp.module.scss";
 
 function SignUp() {
   const [form, setForm] = useState("candidate");
@@ -13,8 +14,9 @@ function SignUp() {
         <section className="title">
           <h2>Inscription</h2>
         </section>
-        <section className="selection">
-          <div className="candidate">
+
+        <section className={`${style.selection}`}>
+          <div className={`${style.candidate}`}>
             <p>Candidat</p>
             <input
               type="radio"
@@ -24,7 +26,8 @@ function SignUp() {
               checked={form === "candidate"}
             />
           </div>
-          <div className="company">
+
+          <div className={`${style.company}`}>
             <p>Entreprise</p>
             <input
               type="radio"
@@ -35,6 +38,7 @@ function SignUp() {
             />
           </div>
         </section>
+
         <section>
           {form === "candidate" ? (
             <InscriptionCandidat />

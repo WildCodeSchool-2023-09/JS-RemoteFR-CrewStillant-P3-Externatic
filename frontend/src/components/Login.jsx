@@ -21,12 +21,13 @@ function Login() {
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
         .then((res) => {
           setAuth(res.data);
-          navigate(`/accueil/${auth.id}`);
+          navigate(`/login/${auth.id}`);
         });
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
   };
+
   return (
     <div className={`${style.profilesection} ${style.banner}`}>
       <div>
