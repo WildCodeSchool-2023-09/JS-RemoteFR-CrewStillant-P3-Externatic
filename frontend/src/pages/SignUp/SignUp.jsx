@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InscriptionCandidat from "../components/InscriptionCandidat";
-import InscriptionEntreprise from "../components/InscriptionEntreprise";
-import SearchBar from "../components/SearchBar/SearchBar";
+import InscriptionCandidat from "../../components/InscriptionCandidat";
+import InscriptionEntreprise from "../../components/InscriptionEntreprise";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 import style from "./signUp.module.scss";
 

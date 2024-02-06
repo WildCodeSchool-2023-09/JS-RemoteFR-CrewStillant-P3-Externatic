@@ -1,10 +1,32 @@
-import React from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function UserMessage() {
-  const { messages } = useOutletContext();
+  const { auth } = useOutletContext();
+  const [messages, setMessages] = useState();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!auth.token) {
+      navigate("/accueil");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/message/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setMessages([res.data]));
+    }
+  }, [auth.token]);
+
+  if (!messages || messages.length === 0) {
+    return <p>Aucun messages.</p>;
+  }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);

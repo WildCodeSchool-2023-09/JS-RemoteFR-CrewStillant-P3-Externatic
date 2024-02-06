@@ -1,273 +1,255 @@
 /* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 
 // Load environment variables from .env file
-require("dotenv").config();
+/* require("dotenv").config();
 
-// Import Faker library for generating fake data
-const { fakerFR, faker } = require("@faker-js/faker");
-
-// Import database client
+/* Import database client
 const database = require("./database/client");
+
+// Import data
+const candidate = require("./database/data/candidate.json");
+const company = require("./database/data/company.json");
+const companySector = require("./database/data/companySector.json");
+const location = require("./database/data/location.json");
+const user = require("./database/data/user.json");
+const activity = require("./database/data/activity.json");
+const skill = require("./database/data/skill.json");
+const candidateDegree = require("./database/data/candidateDegree.json");
+const experience = require("./database/data/experience.json");
+const degree = require("./database/data/degree.json");
+const userType = require("./database/data/userType.json");
+const job = require("./database/data/job.json");
+const message = require("./database/data/message.json");
 
 const seed = async () => {
   try {
-    // Declare an array to store the query promises
-    // See why here: https://eslint.org/docs/latest/rules/no-await-in-loop
-    const queries = [];
-
     /* ************************************************************************* */
+// Candidate
+/* const candidateQuery = [];
 
-    // Generating Seed Data
-
-    // Random additional adress using an array & faker
-    const additionalAdress = [
-      "Appartement",
-      "Etage",
-      "Couloir",
-      "Escalier",
-      "Entrée",
-      "Bâtiment",
-      "Immeuble",
-      "Residence",
-    ];
-
-    // Optional: Truncate tables (remove existing data)
-    // await database.query("truncate item");
-
-    // Random number attribute using an array & faker
-    const numAttribute = ["bis", "ter", "quater", "ante", "A", "B", "C", "D"];
-
-    // Random skill level using an array & faker
-    const skillLevel = ["notions", "moyen", "confirmé", "expert"];
-
-    // Random degree level using an array & faker
-    const degreeLevel = [
-      "CAP-BEP",
-      "Bac",
-      "Bac+2",
-      "Bac+3",
-      "Bac+4",
-      "Bac+5",
-      "Bac+8",
-    ];
-
-    // Random user type using an array
-    const userType = ["candidat", "entreprise", "consultant", "administrateur"];
-
-    // Random job type using an array & faker
-    const jobType = [
-      "Contrat à durée déterminée",
-      "Contrat à durée indéterminée",
-      "Stage",
-      "Alternance",
-    ];
-
-    // Random job place using an array & faker
-    const jobPlace = ["Sur site", "Hybride", "A distance"];
-
-    const password =
-      "$argon2i$v=19$m=19,t=2,p=1$NUR2VkxTZ3ZoYjNGOWJ4Vw$arD06u+FgWuhKg";
-
-    // Insert fake data into all tables in the same order
-    for (let i = 0; i < 20; i += 1) {
-      queries.push(
-        database.query(
-          "INSERT INTO activity (apply_date, job_id, user_id) values (?, ?, ?)",
-          [
-            fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        ),
-        database.query(
-          "INSERT INTO candidate (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?, ?, ?, ?, ?)",
-          [
-            fakerFR.person.firstName(),
-            fakerFR.person.lastName(),
-            fakerFR.date.birthdate({ min: 18, max: 75, mode: "age" }),
-            fakerFR.number.int({ min: 35000, max: 200000 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        ),
-
-        database.query(
-          "INSERT INTO company (name, image, description, website, establishment_date, siret, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-          [
-            fakerFR.company.name(),
-            fakerFR.image.urlLoremFlickr({
-              width: 400,
-              height: 300,
-              category: "business",
-            }),
-            fakerFR.lorem.paragraph({ min: 2, max: 5 }),
-            fakerFR.internet.url({ appendSlash: true }),
-            fakerFR.date.past({ years: 30 }),
-            fakerFR.number.int({ min: 10000000000000, max: 99999999999999 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        ),
-        database.query("INSERT INTO company_sector (sector) VALUES (?)", [
-          fakerFR.lorem.word(),
-        ]),
-
-        database.query(
-          "INSERT INTO location (additional_adress, number_adress, number_attribute, address, city, state, country, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-          [
-            faker.helpers.arrayElement(additionalAdress, 1),
-            fakerFR.number.int({ min: 1, max: 200 }),
-            faker.helpers.arrayElement(numAttribute, 1),
-            fakerFR.location.street(),
-            fakerFR.location.city(),
-            fakerFR.location.state(),
-            "France",
-            fakerFR.helpers.fromRegExp(/[0-9]{3}[0]{2}/),
-          ]
-        ),
-
-        database.query(
-          "INSERT INTO user (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-          [
-            fakerFR.internet.email(),
-            password,
-            fakerFR.datatype.boolean(0.8),
-            fakerFR.helpers.fromRegExp(/[0]{1}[1-9]{1}[0-9]{8}/),
-            fakerFR.datatype.boolean(0.6),
-            fakerFR.datatype.boolean(0.9),
-            fakerFR.internet.avatar(),
-            fakerFR.number.int({ min: 1, max: 4 }),
-          ]
-        )
-      );
-    }
-
-    for (let i = 0; i < 50; i += 1) {
-      queries.push(
-        database.query(
-          "INSERT INTO activity (apply_date, job_id, user_id) values (?, ?, ?)",
-          [
-            fakerFR.date.recent({ days: 1 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        ),
-
-        database.query(
-          "INSERT INTO skill (name, level, candidate_id, job_id) VALUES (?, ?, ?, ?)",
-          [
-            fakerFR.word.adjective(),
-            faker.helpers.arrayElement(skillLevel, 1),
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 1557 }),
-          ]
-        ),
-
-        database.query(
-          "INSERT INTO candidate_degree (candidate_id, degree_id) VALUES (?, ?)",
-          [
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        ),
-
-        database.query(
-          "INSERT INTO experience (start_date, end_date, job_title, company_name, city, country, description, candidate_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-          [
-            fakerFR.date.between({
-              from: "2018-12-01",
-              to: "2022-12-01",
-            }),
-            fakerFR.date.between({
-              from: "2022-12-01",
-              to: "2023-12-01",
-            }),
-            faker.person.jobTitle(),
-            fakerFR.company.name(),
-            fakerFR.location.city(),
-            "France",
-            fakerFR.lorem.paragraph({ min: 2, max: 5 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        )
-      );
-      database.query(
-        "INSERT INTO degree (name, level, starting_date, completion_date, university, city) VALUES (?, ?, ?, ?, ?, ?)",
+    for (let i = 0; i < candidate.length; i++) {
+      const query = database.query(
+        "INSERT INTO candidate (firstname, lastname, date_of_birth, wanted_salary, user_id) VALUES (?, ?, ?, ?, ?)",
         [
-          faker.person.jobType(),
-          faker.helpers.arrayElement(degreeLevel, 1),
-          fakerFR.date.between({
-            from: "2018-12-01",
-            to: "2022-12-01",
-          }),
-          fakerFR.date.between({
-            from: "2022-12-01",
-            to: "2023-12-01",
-          }),
-          fakerFR.company.name(),
-          fakerFR.location.city(),
+          candidate[i].firstname,
+          candidate[i].lastname,
+          candidate[i].date_of_birth,
+          candidate[i].wanted_salary,
+          candidate[i].user_id,
         ]
       );
+      candidateQuery.push(query);
     }
+    await Promise.all(candidateQuery);
 
-    database.query(
-      "INSERT INTO skill (name, level, candidate_id, job_id) VALUES (?, ?, ?, ?)",
-      [
-        fakerFR.word.adjective(),
-        faker.helpers.arrayElement(skillLevel, 1),
-        fakerFR.number.int({ min: 1, max: 50 }),
-        fakerFR.number.int({ min: 1, max: 50 }),
-      ]
-    );
-    userType.map((e) =>
-      database.query("INSERT INTO user_type (type) VALUES (?)", [e])
-    );
+    // Company
+    const companyQuery = [];
 
-    for (let i = 0; i < 1557; i += 1) {
-      queries.push(
-        database.query(
-          "INSERT INTO job (title, type, description, hours_worked, is_active, salary, place, sector, location_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          [
-            faker.person.jobTitle(),
-            faker.helpers.arrayElement(jobType, 1),
-            fakerFR.lorem.paragraph({ min: 5, max: 10 }),
-            fakerFR.number.int({ min: 24, max: 48 }),
-            fakerFR.datatype.boolean(0.7),
-            fakerFR.number.int({ min: 35000, max: 200000 }),
-            faker.helpers.arrayElement(jobPlace, 1),
-            fakerFR.lorem.word(),
-            fakerFR.number.int({ min: 1, max: 20 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        )
+    for (let i = 0; i < company.length; i++) {
+      const query = database.query(
+        "INSERT INTO company (name, image, description, website, establishment_date, siret, company_sector_id, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          company[i].name,
+          company[i].image,
+          company[i].description,
+          company[i].website,
+          company[i].establishment_date,
+          company[i].siret,
+          company[i].company_sector_id,
+          company[i].user_id,
+        ]
       );
+      companyQuery.push(query);
     }
+    await Promise.all(companyQuery);
 
-    for (let i = 0; i < 150; i += 1) {
-      queries.push(
-        database.query(
-          "INSERT INTO message (subject, text, user_id) VALUES ( ?, ?, ?)",
-          [
-            fakerFR.lorem.sentence(3),
-            fakerFR.lorem.paragraph({ min: 5, max: 10 }),
-            fakerFR.number.int({ min: 1, max: 20 }),
-          ]
-        )
+    // Company sector
+    const companySectorQuery = [];
+
+    for (let i = 0; i < companySector.length; i++) {
+      const query = database.query(
+        "INSERT INTO company_sector (sector) VALUES (?)",
+        [companySector[i].sector]
       );
+      companySectorQuery.push(query);
     }
+    await Promise.all(companySectorQuery);
 
+    // Location
+    const locationQuery = [];
+
+    for (let i = 0; i < location.length; i++) {
+      const query = database.query(
+        "INSERT INTO location (additional_adress, number_adress, number_attribute, address, city, state, country, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          location[i].additional_adress,
+          location[i].number_adress,
+          location[i].number_attribute,
+          location[i].address,
+          location[i].city,
+          location[i].state,
+          location[i].country,
+          location[i].zip,
+        ]
+      );
+      locationQuery.push(query);
+    }
+    await Promise.all(locationQuery);
+
+    // User
+    const userQuery = [];
+
+    for (let i = 0; i < user.length; i++) {
+      const query = database.query(
+        "INSERT INTO user (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          user[i].email,
+          user[i].password,
+          user[i].is_active,
+          user[i].contact_number,
+          user[i].sms_notification_active,
+          user[i].email_notification_active,
+          user[i].image,
+          user[i].user_type_id,
+        ]
+      );
+      userQuery.push(query);
+    }
+    await Promise.all(userQuery);
+
+    // Activity
+    const activityQuery = [];
+
+    for (let i = 0; i < activity.length; i++) {
+      const query = database.query(
+        "INSERT INTO activity ( job_id, candidate_id) values (?, ?)",
+        [activity[i].job_id, activity[i].candidate_id]
+      );
+      activityQuery.push(query);
+    }
+    await Promise.all(activityQuery);
+
+    // Skill
+    const skillQuery = [];
+
+    for (let i = 0; i < skill.length; i++) {
+      const query = database.query(
+        "INSERT INTO skill (name, level, candidate_id, job_id) VALUES (?, ?, ?, ?)",
+        [skill[i].name, skill[i].level, skill[i].candidate_id, skill[i].job_id]
+      );
+      skillQuery.push(query);
+    }
+    await Promise.all(skillQuery);
+
+    // Candidate degree
+    const candidateDegreeQuery = [];
+
+    for (let i = 0; i < candidateDegree.length; i++) {
+      const query = database.query(
+        "INSERT INTO candidate_degree (candidate_id, degree_id) VALUES (?, ?)",
+        [candidateDegree[i].candidate_id, candidateDegree[i].degree_id]
+      );
+      candidateDegreeQuery.push(query);
+    }
+    await Promise.all(candidateDegreeQuery);
+
+    // Experience
+    const experienceQuery = [];
+
+    for (let i = 0; i < experience.length; i++) {
+      const query = database.query(
+        "INSERT INTO experience (start_date, end_date, job_title, company_name, city, country, description, candidate_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          experience[i].start_date,
+          experience[i].end_date,
+          experience[i].job_title,
+          experience[i].company_name,
+          experience[i].city,
+          experience[i].country,
+          experience[i].description,
+          experience[i].candidate_id,
+        ]
+      );
+      experienceQuery.push(query);
+    }
+    await Promise.all(experienceQuery);
+
+    // Degree
+    const degreeQuery = [];
+
+    for (let i = 0; i < degree.length; i++) {
+      const query = database.query(
+        "INSERT INTO degree (name, level, starting_date, completion_date, university, city) VALUES (?, ?, ?, ?, ?, ?)",
+        [
+          degree[i].name,
+          degree[i].level,
+          degree[i].starting_date,
+          degree[i].completion_date,
+          degree[i].university,
+          degree[i].city,
+        ]
+      );
+      degreeQuery.push(query);
+    }
+    await Promise.all(degreeQuery);
+
+    // User type
+    const userTypeQuery = [];
+
+    for (let i = 0; i < userType.length; i++) {
+      const query = database.query("INSERT INTO user_type (type) VALUES (?)", [
+        userType[i].type,
+      ]);
+      userTypeQuery.push(query);
+    }
+    await Promise.all(userTypeQuery);
+
+    // Job
+    const jobQuery = [];
+    for (let i = 0; i < job.length; i++) {
+      const query = database.query(
+        "INSERT INTO job (title, type, description, hours_worked, is_active, salary, place, sector, location_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+          job[i].title,
+          job[i].type,
+          job[i].description,
+          job[i].hours_worked,
+          job[i].is_active,
+          job[i].salary,
+          job[i].place,
+          job[i].sector,
+          job[i].location_id,
+          job[i].company_id,
+        ]
+      );
+      jobQuery.push(query);
+    }
+    await Promise.all(jobQuery);
+
+    // Message
+    const messageQuery = [];
+
+    for (let i = 0; i < message.length; i++) {
+      const query = database.query(
+        "INSERT INTO message (subject, text, user_id) VALUES ( ?, ?, ?)",
+        [message[i].subject, message[i].text, message[i].user_id]
+      );
+      messageQuery.push(query);
+    }
+    await Promise.all(messageQuery);
     /* ************************************************************************* */
 
-    // Wait for all the insertion queries to complete
-    await Promise.all(queries);
+// Wait for all the insertion queries to complete
+// await Promise.all(queries);
 
-    // Close the database connection
-    database.end();
+// Close the database connection
+/*  database.end();
 
     console.info(`${database.databaseName} filled from ${__filename} 🌱`);
-  } catch (err) {
+ /* } catch (err) {
     console.error("Error filling the database:", err.message);
   }
 };
 
 // Run the seed function
-seed();
+seed(); */

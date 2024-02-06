@@ -2,28 +2,23 @@ const express = require("express");
 
 const router = express.Router();
 
-const { read, edit, add, remove } = require("../controllers/userController");
+const { add, read, edit } = require("../controllers/userController");
+const { validateUserData } = require("../middlewares/validateUser");
 
 const { browseFilters } = require("../controllers/jobController");
 
-const { hash } = require("../middlewares/hashPassword");
-
-// GET
-
-router.get("/search", browseFilters);
-
-router.get("/:id", read);
+const { hash, verifyToken } = require("../middlewares/hashPassword");
 
 // POST
+router.post("/", validateUserData, hash, add);
 
-router.post("/", hash, add);
+// LOGIN WALL
+router.use(verifyToken);
 
+// GET
+router.get("/", read);
+router.get("/search", browseFilters);
 // PUT
-
-router.put("/:id", hash, edit);
-
-// DELETE
-
-router.delete("/:id", remove);
+router.put("/", validateUserData, hash, edit);
 
 module.exports = router;

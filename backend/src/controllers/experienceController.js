@@ -16,11 +16,11 @@ const browse = async (req, res) => {
 };
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getExperienceId = await tables.experience.read(parseInt(id, 10));
+    const getExperienceId = await tables.experience.read(parseInt(sub, 10));
     if (getExperienceId) {
-      res.status(200).json(getExperienceId);
+      res.status(200).json(getExperienceId[0]);
     } else {
       res.sendStatus(404);
     }
@@ -41,7 +41,7 @@ const edit = async (req, res, next) => {
     city,
     country,
   } = req.body;
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
     const editExperience = await tables.experience.update(
       jobTitle,
@@ -51,7 +51,7 @@ const edit = async (req, res, next) => {
       description,
       city,
       country,
-      parseInt(id, 10)
+      parseInt(sub, 10)
     );
 
     if (editExperience) {

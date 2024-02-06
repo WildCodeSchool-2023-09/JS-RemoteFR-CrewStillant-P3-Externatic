@@ -1,12 +1,20 @@
-import { useSearchParams } from "react-router-dom";
+import {
+  useNavigate,
+  useOutletContext,
+  useSearchParams,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { jobType, jobPlace } from "./datas/filterDatas";
 import { formatString, replaceAll } from "../../services/formatting";
 import styles from "./searchpage.module.scss";
+import src from "../../assets/images/map.png";
 
 export default function SearchPage() {
+  const navigate = useNavigate();
+  const { auth, search } = useOutletContext();
+
   // Mes différents états lier à mon GET & les potentiels filtres via les query.
   const [data, setData] = useState("");
   const [terms, setTerms] = useState("");
@@ -40,8 +48,16 @@ export default function SearchPage() {
         )
         .then((res) => setData(res.data));
       setIsValidate(false);
+    } else {
+      axios
+        .get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/job/searchPage?${filters.toString()}`
+        )
+        .then((res) => setData(res.data));
     }
-  }, [isValidate]);
+  }, [isValidate, search]);
 
   /**
    * Fonction qui vient appliquer les filtres.
@@ -70,7 +86,7 @@ export default function SearchPage() {
    */
   const handleReset = () => {
     const params = new URLSearchParams(filters);
-    params.delete("city");
+    params.delete("location");
     setCity("");
     params.delete("salary");
     setSalary(0);
@@ -100,18 +116,18 @@ export default function SearchPage() {
             <h3>Filtres recherche</h3>
           </div>
           <div className={`${styles.form}`}>
-            <label htmlFor="city">Ville</label>
-            <input
-              type="text"
-              value={city}
-              onChange={(e) => {
-                setCity(formatString(e.target.value));
-              }}
-            />
-            <div>
-              <span>
-                <label htmlFor="salary">Salaire</label>
-              </span>
+            <div className={`${styles.city}`}>
+              <label htmlFor="city">Ville</label>
+              <input
+                type="text"
+                value={city}
+                onChange={(e) => {
+                  setCity(formatString(e.target.value));
+                }}
+              />
+            </div>
+            <div className={`${styles.salary}`}>
+              <label htmlFor="salary">Salaire</label>
               <input
                 type="range"
                 min="0"
@@ -172,54 +188,78 @@ export default function SearchPage() {
         </div>
         <div className={`${styles.offers}`}>
           <div className={`${styles.listOffers}`}>
-            {data ? (
+            {data &&
               data.map((e) => (
-                <div key={e.id}>
+                <div className={`${styles.singleOffer}`} key={e.id}>
                   <button type="button" onClick={() => clickOffer(e.id)}>
-                    <h4>{e.title}</h4>
+                    <h5>{e.title}</h5>
+                    <p>{e.description}</p>
                   </button>
                 </div>
-              ))
-            ) : (
-              <h2>Commencez à recherchez une offre</h2>
-            )}
+              ))}
           </div>
         </div>
-        {offer && (
-          <div className={`${styles.detailledOffer}`}>
-            <h3>{offer.title}</h3>
-            <p>{offer.description}</p>
-            <div className={`${styles.smallInformations}`}>
-              <p>
-                <b>Type de contrat :</b> {offer.type}
-              </p>
-              <p>
-                <b>Salaire annuel :</b> {offer.salary} €
-              </p>
-              <p>
-                <b>Heures hebdomadaires :</b> {offer.hours_worked}H
-              </p>
-              <p>
-                <b>Lieu de travail :</b> {offer.place}
-              </p>
-              <p>
-                <b>Adresse :</b> {replaceAll(offer.address)}
-              </p>
-              <p>
-                <b>Ville :</b> {offer.city}
-              </p>
-            </div>
-            <iframe
-              title="Maps Embed Location"
-              width="450"
-              height="350"
-              style={{ border: 0 }}
-              src={`https://www.google.com/maps/embed/v1/place?key=${
-                import.meta.env.VITE_GOOGLE_API
-              }&q=${offer.city}`}
-            />
-          </div>
-        )}
+        <div className={`${styles.detailledOffer}`}>
+          {offer && (
+            <>
+              <h3>{offer.title}</h3>
+              <p>{offer.description}</p>
+              <div
+                className={
+                  auth.token
+                    ? `${styles.smallInformations}`
+                    : `${styles.smallInformations} ${styles.blur}`
+                }
+              >
+                <p>
+                  <b>Type de contrat :</b> {offer.type}
+                </p>
+                <p>
+                  <b>Salaire annuel :</b> {offer.salary} €
+                </p>
+                <p>
+                  <b>Heures hebdomadaires :</b> {offer.hours_worked}H
+                </p>
+                <p>
+                  <b>Lieu de travail :</b> {offer.place}
+                </p>
+                <p>
+                  <b>Adresse :</b> {replaceAll(offer.address)}
+                </p>
+                <p>
+                  <b>Ville :</b> {offer.city}
+                </p>
+              </div>
+              <div>
+                {!auth.token && (
+                  <button
+                    className={`${styles.visualize}`}
+                    type="button"
+                    onClick={() => navigate("/connexion")}
+                  >
+                    <u>CONNECTEZ VOUS POUR VISUALISER PLUS D’INFORMATIONS</u>
+                  </button>
+                )}
+              </div>
+              {auth.token ? (
+                <iframe
+                  title="Maps Embed Location"
+                  width="450"
+                  height="350"
+                  style={{ border: 0 }}
+                  src={`https://www.google.com/maps/embed/v1/place?key=${
+                    import.meta.env.VITE_GOOGLE_API
+                  }&q=${offer.city}`}
+                />
+              ) : (
+                <img className={`${styles.iblur}`} src={src} alt="Maps embed" />
+              )}
+            </>
+          )}
+          {!offer && (
+            <h2 className={`${styles.blank}`}>Aucune offre à afficher</h2>
+          )}
+        </div>
       </section>
     </main>
   );

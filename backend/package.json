@@ -3,7 +3,7 @@
     "dev": "nodemon index.js",
     "db:migrate": "node migrate.js",
     "db:seed": "node seed.js",
-    "db:creation": "node migrate.js && node seed.js && node migratebis.js",
+    "db:creation": "node migrate.js && node migratebis.js",
     "build": "node migrate.js",
     "start": "node index.js",
     "test": "jest"
@@ -16,8 +16,8 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.5.2",
-    "zod": "^3.22.4",
-    "react-datepicker": "^4.25.0"
+    "react-datepicker": "^4.25.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",

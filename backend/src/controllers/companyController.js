@@ -17,17 +17,19 @@ const browse = async (req, res) => {
 
 // GET BY ID
 
-const read = async (req, res) => {
-  const { id } = req.params;
+const read = async (req, res, next) => {
+  const { sub } = req.auth;
   try {
-    const getCompanyId = await tables.company.read(parseInt(id, 10));
-    if (getCompanyId[0]) {
-      res.status(200).json(getCompanyId);
+    const user = await tables.user.read(parseInt(sub, 10));
+    const company = await tables.company.read(parseInt(sub, 10));
+    if (user[0] && company[0]) {
+      console.info("cctrl", [user[0], company[0]]);
+      res.status(200).json([user[0], company[0]]);
     } else {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
@@ -70,7 +72,7 @@ const add = async (req, res) => {
     insertId: userId,
   } = req.body;
   try {
-    const addCompany = await tables.company.create(
+    const insertId = await tables.company.create(
       name,
       description,
       website,
@@ -79,8 +81,10 @@ const add = async (req, res) => {
       companySectorId,
       userId
     );
-    if (addCompany) {
-      res.status(201).json(addCompany);
+    if (insertId) {
+      res
+        .status(201)
+        .json({ insertId, message: "Votre entreprise a bien été crée." });
     } else {
       res.sendStatus(404);
     }

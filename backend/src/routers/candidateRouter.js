@@ -7,25 +7,19 @@ const {
   read,
   edit,
   add,
-  remove,
 } = require("../controllers/candidateController");
-
-// GET
-
-router.get("/", browse);
-
-router.get("/:id", read);
-
-// PUT
-
-router.put("/:id", edit);
+const { verifyToken } = require("../middlewares/hashPassword");
 
 // POST
-
 router.post("/", add);
 
-// DELETE
+// LOGIN WALL
+router.use(verifyToken);
 
-router.delete("/:id", remove);
+// GET
+router.get("/", read);
+router.get("/all", browse);
+// PUT
+router.put("/:id", edit);
 
 module.exports = router;

@@ -1,13 +1,29 @@
-import React from "react";
-import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function UserExperience() {
-  const { experience } = useOutletContext();
+  const { auth } = useOutletContext();
+  const navigate = useNavigate();
+  const [experienceUser, setExperienceUser] = useState();
 
-  if (!experience || experience.length === 0) {
-    return <p>Aucune expérience ajoutée.</p>;
+  if (!auth.token) {
+    navigate("/accueil");
   }
 
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setExperienceUser([res.data]));
+    }
+  }, [auth.token]);
+
+  if (!experienceUser) {
+    return <p>Aucune expérience ajoutée.</p>;
+  }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
@@ -16,8 +32,8 @@ function UserExperience() {
   return (
     <div>
       <ul>
-        {experience &&
-          experience.map((e) => (
+        {experienceUser &&
+          experienceUser.map((e) => (
             <>
               <li> Poste: {e.jobTitle} </li>
               <li> Compagnie: {e.companyName} </li>

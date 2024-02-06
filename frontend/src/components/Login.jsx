@@ -7,7 +7,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { setAuth, auth } = useOutletContext();
+  const { setAuth } = useOutletContext();
   const navigate = useNavigate();
   const {
     register,
@@ -19,61 +19,73 @@ function Login() {
     try {
       await axios
         .post(`${import.meta.env.VITE_BACKEND_URL}/login`, data)
-        .then((res) => {
-          setAuth(res.data);
-          navigate(`/login/${auth.id}`);
-        });
+        .then((res) => setAuth(res.data))
+        .then(
+          setTimeout(() => {
+            navigate("/accueil");
+          }, 1000)
+        );
+      toast.success("Connexion réussie, bienvenue !");
     } catch (error) {
       toast.error(error.response?.data?.message);
     }
   };
 
   return (
-    <div className={`${style.profilesection} ${style.banner}`}>
-      <div>
-        <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
+    <div className={`${style.profileconnexion}`}>
+      <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
+      <div className={`${style.connexion}`}>
+        <div>
+          <p>Connecte toi</p>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <input
+                type="email"
+                className={`${style.input}`}
+                placeholder="Adresse mail"
+                {...register("email", { required: "L'e-mail est obligatoire" })}
+              />
+              {errors.email && <p role="alert">{errors.email?.message}</p>}
+            </div>
 
-        <p>Connecte toi</p>
+            <div>
+              <input
+                type="password"
+                placeholder="Mot de passe"
+                {...register("password", {
+                  required: "Le mot de passe est obligatoire",
+                })}
+              />
+              {errors.password && (
+                <p role="alert">{errors.password?.message}</p>
+              )}
+            </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <input
-              type="email"
-              placeholder="Adresse mail"
-              {...register("email", { required: "L'e-mail est obligatoire" })}
-            />
-            {errors.mail && <p role="alert">{errors.mail?.message}</p>}
-          </div>
+            <div>
+              <button type="submit" className={`${style.buttonspace}`}>
+                Connexion
+              </button>
+            </div>
+          </form>
 
-          <div>
-            <input
-              type="password"
-              placeholder="Mot de passe"
-              {...register("password", {
-                required: "Le mot de passe est obligatoire",
-              })}
-            />
-            {errors.password && <p role="alert">{errors.password?.message}</p>}
-          </div>
+          <hr />
+          <span>Tu n'as pas de compte? Inscris toi.</span>
+          <button
+            type="button"
+            onClick={() => navigate("/inscription")}
+            className={`${style.buttonspace}`}
+          >
+            Inscription
+          </button>
+        </div>
 
-          <div>
-            <button type="submit" className={`${style.buttonspace}`}>
-              Connexion
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div>
-        <span>Tu n'as pas de compte? Inscris toi.</span>
-
-        <button
-          type="button"
-          onClick={() => navigate("/inscription")}
-          className={`${style.buttonspace}`}
-        >
-          Inscription
-        </button>
+        <div>
+          <img
+            className={`${style.loginPicture}`}
+            src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
+            alt="login"
+          />
+        </div>
       </div>
     </div>
   );
