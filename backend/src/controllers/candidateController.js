@@ -1,7 +1,5 @@
 const tables = require("../tables");
 
-// GET
-
 const browse = async (req, res) => {
   try {
     const getCandidate = await tables.candidate.readAll();
@@ -16,33 +14,69 @@ const browse = async (req, res) => {
 };
 
 // GET BY ID
-
-const read = async (req, res) => {
-  const { id } = req.params;
+const read = async (req, res, next) => {
+  const { sub } = req.auth;
   try {
-    const getCandidateId = await tables.candidate.read(parseInt(id, 10));
-    if (getCandidateId[0]) {
-      res.status(200).json(getCandidateId);
+    const user = await tables.user.read(parseInt(sub, 10));
+    const candidate = await tables.candidate.read(parseInt(sub, 10));
+    if (user[0] && candidate[0]) {
+      console.info("candidateCtrl", [user[0], candidate[0]]);
+      res.status(200).json([user[0], candidate[0]]);
     } else {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
-
 // PUT
 
 const edit = async (req, res, next) => {
-  const { firstname, lastname, dateOfBirth, wantedSalary } = req.body;
-  const { id } = req.params;
+  const {
+    firstname,
+    lastname,
+    dateOfBirth,
+    wantedSalary,
+    email,
+    hashedPassword,
+    isActive,
+    contactNumber,
+    smsNotificationActive,
+    emailNotificationActive,
+    image,
+    city,
+    country,
+  } = req.body;
+  const { sub, userTypeId } = req.auth;
+  try {
+    const editUser = await tables.user.edit(
+      email,
+      hashedPassword,
+      isActive,
+      contactNumber,
+      smsNotificationActive,
+      emailNotificationActive,
+      image,
+      userTypeId,
+      parseInt(sub, 10)
+    );
+    if (editUser.length > 0) {
+      res.status(200).json(editUser);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
   try {
     const editCandidate = await tables.candidate.update(
       firstname,
       lastname,
       dateOfBirth,
       wantedSalary,
-      parseInt(id, 10)
+      city,
+      country,
+      parseInt(sub, 10)
     );
 
     if (editCandidate.length > 0) {
@@ -58,13 +92,16 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
-  const { firstname, lastname, dateOfBirth, salary, insertId } = req.body;
+  const { firstname, lastname, dateOfBirth, salary, city, country, insertId } =
+    req.body;
   try {
     const addCandidate = await tables.candidate.create(
       firstname,
       lastname,
       dateOfBirth,
       salary,
+      city,
+      country,
       insertId
     );
     if (addCandidate) {
@@ -77,22 +114,4 @@ const add = async (req, res) => {
   }
 };
 
-// DELETE
-
-const remove = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const deleteCandidate = await tables.candidate.delete(parseInt(id, 10));
-    if (deleteCandidate) {
-      res
-        .status(200)
-        .json("candidate has been successefully deleted from your table");
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-module.exports = { browse, read, edit, add, remove };
+module.exports = { browse, read, edit, add };

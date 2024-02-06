@@ -18,9 +18,9 @@ const browse = async (req, res) => {
 // GET BY ID
 
 const read = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const getSkillId = await tables.skill.read(parseInt(id, 10));
+    const getSkillId = await tables.skill.read(parseInt(sub, 10));
     if (getSkillId) {
       res.status(200).json(getSkillId[0]);
     } else {
@@ -35,14 +35,14 @@ const read = async (req, res) => {
 
 const edit = async (req, res, next) => {
   const { name, level, candidateId, jobId } = req.body;
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
     const editSkill = await tables.skill.update(
       name,
       level,
       candidateId,
       jobId,
-      parseInt(id, 10)
+      parseInt(sub, 10)
     );
 
     if (editSkill.length > 0) {
@@ -74,9 +74,9 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const deleteSkill = await tables.candidate.delete(parseInt(id, 10));
+    const deleteSkill = await tables.candidate.delete(parseInt(sub, 10));
     if (deleteSkill) {
       res
         .status(200)

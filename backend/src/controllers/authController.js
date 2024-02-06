@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 const tables = require("../tables");
 
 const login = async (req, res, next) => {
@@ -15,17 +16,25 @@ const login = async (req, res, next) => {
 
     const verified = await argon2.verify(user.password, password);
 
-    const userVerified = {
-      id: user.id,
-      email: user.email,
-    };
+    const { id, userTypeId } = user;
+    const mail = user.email;
 
     if (!verified) {
-      res.status(403).json({
+      res.status(422).json({
         message: "Mot de passe invalide",
       });
     } else {
-      res.status(200).json(userVerified);
+      delete user.password;
+
+      const token = await jwt.sign(
+        { sub: id, role: userTypeId, email: mail },
+        process.env.APP_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
+      console.info(userTypeId);
+      res.status(200).json({ token, userTypeId, mail });
     }
   } catch (error) {
     next(error);

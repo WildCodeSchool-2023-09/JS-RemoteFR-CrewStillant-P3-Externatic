@@ -1,11 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./notfound.module.scss";
+import { useEffect } from "react";
 
 function NotFound() {
   const navigate = useNavigate();
-  setTimeout(() => {
+
+  useEffect(() => {
     navigate("/accueil");
-  }, 5000);
+  }, []);
 
   return (
     <div>

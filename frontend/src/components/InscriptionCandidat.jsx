@@ -1,23 +1,35 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import axios from "axios";
-import { React, useState } from "react";
+import { React, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
-import "./inscriptionCandidat.module.scss";
+import { Uploader } from "uploader";
+import { UploadButton } from "react-uploader";
+import style from "./inscriptionCandidat.module.scss";
 
 export default function InscriptionCandidat() {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm();
 
+  const passwordRef = useRef({});
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
+  const uploader = Uploader({
+    apiKey: "free",
+  });
+
+  const options = { multi: true };
+  passwordRef.current = watch("password", "");
+
   const onSubmit = async (data) => {
+    console.info(data);
     try {
       const type = 1;
       const response = await axios.post(
@@ -34,16 +46,20 @@ export default function InscriptionCandidat() {
 
       if (response.status === 201 && responseTwo.status === 201) {
         toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/accueil");
+        }, 2000);
       }
     } catch (e) {
       console.error(e);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="signupCandidate">
-        <div className="formGrid">
+      <section className={`${style.signupCandidate}`}>
+        <div className={`${style.formGrid}`}>
           <p>Nom:</p>
           <input
             type="text"
@@ -53,12 +69,12 @@ export default function InscriptionCandidat() {
               minLength: { value: 3, message: "Ce champ est obligatoire" },
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+          {errors.lastname && (
+            <span className="text-red-500">{errors.lastname?.message}</span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Prénom:</p>
           <input
             type="text"
@@ -68,12 +84,12 @@ export default function InscriptionCandidat() {
               minLength: { value: 3, message: "Ce champ est obligatoire" },
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+          {errors.firstname && (
+            <span className="text-red-500">{errors.firstname?.message}</span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>E-mail:</p>
           <input
             type="email"
@@ -88,33 +104,34 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.email && (
-            <span className="text-red-500">{errors.email.message}</span>
+            <span className="text-red-500">{errors.email?.message}</span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGridPassWord}`}>
           <p>Password:</p>
           <input
             type={showPassword ? "text" : "password"}
             name="password"
             autoComplete="true"
             {...register("password", {
-              pattern: {
-                value:
-                  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/i,
-                message: "Doit contenir au minimum 8 - 16 caractères",
-              },
+              minLength: { value: 8, message: "Minimum 8 caractères" },
+              maxLength: { value: 16, message: "Maximum 16 caractères" },
               required: "Ce champ est obligatoire",
             })}
           />
           {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+            <span className="text-red-500">{errors.password?.message}</span>
           )}
-          <button type="button" onClick={() => setShowPassword(!showPassword)}>
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className={`${style.showPassword}`}
+          >
             {showPassword ? "😀" : "😎"}
           </button>
         </div>
-        <div>
+        <div className={`${style.formGrid}`}>
           <p>Confirmez mot de passe :</p>
           <input
             type="password"
@@ -122,14 +139,19 @@ export default function InscriptionCandidat() {
             autoComplete="true"
             {...register("confirmPassword", {
               required: "Vous devez confirmer votre mot de passe",
+              validate: (value) =>
+                value === passwordRef.current ||
+                "Les mots de passe ne correspondent pas",
             })}
           />
-          {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
+          {errors.confirmPassword && (
+            <span className="text-red-500">
+              {errors.confirmPassword?.message}
+            </span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Date de Naissance:</p>
           <input
             type="date"
@@ -143,15 +165,16 @@ export default function InscriptionCandidat() {
               },
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.dateOfBirth.message}</span>
+          {errors.dateOfBirth && (
+            <span className="text-red-500">{errors.dateOfBirth?.message}</span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Salaire annuel souhaité :</p>
           <input
             type="number"
+            min="0"
             placeholder="50000"
             autoComplete="true"
             {...register("salary", {
@@ -159,12 +182,12 @@ export default function InscriptionCandidat() {
               required: "Ce champs est obligatoire",
             })}
           />
-          {errors.name && (
-            <span className="text-red-500">{errors.name.message}</span>
+          {errors.salary && (
+            <span className="text-red-500">{errors.salary?.message}</span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Numéro de téléphone :</p>
           <input
             type="text"
@@ -175,14 +198,14 @@ export default function InscriptionCandidat() {
               required: "Ce champ est obligatoire",
             })}
           />
-          {errors.contact_number && (
+          {errors.contactNumber && (
             <span className="text-red-500">
-              {errors.contact_number.message}
+              {errors.contactNumber?.message}
             </span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Ville :</p>
           <input
             type="text"
@@ -197,11 +220,11 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.city && (
-            <span className="text-red-500">{errors.city.message}</span>
+            <span className="text-red-500">{errors.city?.message}</span>
           )}
         </div>
 
-        <div className="formGrid">
+        <div className={`${style.formGrid}`}>
           <p>Pays :</p>
           <input
             type="text"
@@ -216,43 +239,63 @@ export default function InscriptionCandidat() {
             })}
           />
           {errors.country && (
-            <span className="text-red-500">{errors.country.message}</span>
+            <span className="text-red-500">{errors.country?.message}</span>
           )}
         </div>
+      </section>
 
-        <label
-          htmlFor="smsNotification"
-          id="smsNotification"
-          className="smsNotification"
-        >
-          Notifications SMS
-        </label>
-        <input
-          type="checkbox"
-          id="smsNotification"
-          className="smsNotification"
-          {...register("smsNotificationActive")}
-        />
+      <section>
+        <div className={`${style.notification}`}>
+          <label
+            htmlFor="smsNotification"
+            id="smsNotification"
+            className="smsNotification"
+          >
+            Notifications SMS :
+          </label>
+          <input
+            type="checkbox"
+            id="smsNotification"
+            className="smsNotification"
+            {...register("smsNotificationActive")}
+          />
+        </div>
 
-        <label
-          htmlFor="emailNotification"
-          id="emailNotification"
-          className="emailNotification"
-        >
-          Notifications par e-mail
-        </label>
-        <input
-          type="checkbox"
-          id="emailNotification"
-          className="emailNotification"
-          {...register("emailNotificationActive")}
-        />
+        <div className={`${style.notification}`}>
+          <label
+            htmlFor="emailNotification"
+            id="emailNotification"
+            className="emailNotification"
+          >
+            Notifications par e-mail :
+          </label>
+          <input
+            type="checkbox"
+            id="emailNotification"
+            className="emailNotification"
+            {...register("emailNotificationActive")}
+          />
+        </div>
+        <div>
+          <UploadButton
+            uploader={uploader}
+            options={options}
+            onComplete={(image) => {
+              const fileUrls = image.map((x) => x.fileUrl).join("\n");
+              setValue("image", fileUrls);
+            }}
+          >
+            {({ onClick }) => (
+              <button type="button" onClick={onClick}>
+                Photo de profil
+              </button>
+            )}
+          </UploadButton>
+        </div>
       </section>
 
       <section className="confirmButtonCandidate">
-        <button type="submit" onClick={() => navigate("/connexion")}>
-          S'inscrire
-        </button>
+        <button type="submit">S'inscrire</button>
       </section>
     </form>
   );

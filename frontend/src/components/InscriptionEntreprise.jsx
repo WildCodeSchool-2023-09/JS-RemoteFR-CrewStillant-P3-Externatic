@@ -2,17 +2,23 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import "./inscriptionEntreprise.module.scss";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import style from "./inscriptionEntreprise.module.scss";
 
 export default function InscriptionEntreprise() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
+  const passwordRef = useRef({});
   const [showPassword, setShowPassword] = useState(false);
+  passwordRef.current = watch("password", "");
 
   const onSubmit = async (data) => {
     try {
@@ -41,17 +47,21 @@ export default function InscriptionEntreprise() {
         responseThree.status === 201
       ) {
         toast.success(response.data.message);
+        setTimeout(() => {
+          navigate("/connexion");
+        }, 2000);
       }
     } catch (e) {
       console.error(e);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="grid">
-        <section className="signupCompany">
-          <div>
+      <section className={`${style.grid}`}>
+        <section className={`${style.signupCompany}`}>
+          <div className={`${style.formGrid}`}>
             <p>Nom:</p>
             <input
               type="text"
@@ -63,11 +73,11 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.name && (
-              <span className="text-red-500">{errors.name.message}</span>
+              <span className="text-red-500">{errors.name?.message}</span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>E-mail:</p>
             <input
               type="email"
@@ -82,11 +92,11 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.email && (
-              <span className="text-red-500">{errors.email.message}</span>
+              <span className="text-red-500">{errors.email?.message}</span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGridPassword}`}>
             <p>Mot de passe :</p>
             <input
               type={showPassword ? "text" : "password"}
@@ -102,7 +112,7 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.password && (
-              <span className="text-red-500">{errors.password.message}</span>
+              <span className="text-red-500">{errors.password?.message}</span>
             )}
             <button
               type="button"
@@ -112,7 +122,7 @@ export default function InscriptionEntreprise() {
             </button>
           </div>
 
-          <div>
+          <div className={`${style.formGridPassword}`}>
             <p>Confirmez mot de passe :</p>
             <input
               type="password"
@@ -120,20 +130,19 @@ export default function InscriptionEntreprise() {
               autoComplete="true"
               {...register("confirmPassword", {
                 required: "Vous devez confirmer votre mot de passe",
+                validate: (value) =>
+                  value === passwordRef.current ||
+                  "Les mots de passe ne correspondent pas",
               })}
             />
-            {errors.password && (
-              <span className="text-red-500">{errors.password.message}</span>
+            {errors.confirmPassword && (
+              <span className="text-red-500">
+                {errors.confirmPassword?.message}
+              </span>
             )}
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "😀" : "😎"}
-            </button>
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Site internet :</p>
             <input
               type="text"
@@ -144,11 +153,11 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.website && (
-              <span className="text-red-500">{errors.website.message}</span>
+              <span className="text-red-500">{errors.website?.message}</span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Numéro de téléphone :</p>
             <input
               type="text"
@@ -159,14 +168,14 @@ export default function InscriptionEntreprise() {
                 required: "Ce champ est obligatoire",
               })}
             />
-            {errors.contact_number && (
+            {errors.contactNumber && (
               <span className="text-red-500">
-                {errors.contact_number.message}
+                {errors.contactNumber?.message}
               </span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Ville :</p>
             <input
               type="text"
@@ -181,11 +190,11 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.city && (
-              <span className="text-red-500">{errors.city.message}</span>
+              <span className="text-red-500">{errors.city?.message}</span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Pays :</p>
             <input
               type="text"
@@ -200,11 +209,11 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.country && (
-              <span className="text-red-500">{errors.country.message}</span>
+              <span className="text-red-500">{errors.country?.message}</span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>N° SIRET :</p>
             <input
               type="text"
@@ -217,11 +226,11 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.siret && (
-              <span className="text-red-500">{errors.siret.message}</span>
+              <span className="text-red-500">{errors.siret?.message}</span>
             )}
           </div>
 
-          <div className="formGrid">
+          <div className={`${style.formGrid}`}>
             <p>Date de Création:</p>
             <input
               type="date"
@@ -235,14 +244,14 @@ export default function InscriptionEntreprise() {
                 },
               })}
             />
-            {errors.establishment_date && (
+            {errors.establishmentDate && (
               <span className="text-red-500">
-                {errors.establishment_date.message}
+                {errors.establishmentDate?.message}
               </span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Secteur d'activité :</p>
             <input
               type="text"
@@ -252,14 +261,12 @@ export default function InscriptionEntreprise() {
                 required: "Ce champs est obligatoire",
               })}
             />
-            {errors.company_sector_id && (
-              <span className="text-red-500">
-                {errors.company_sector_id.message}
-              </span>
+            {errors.sector && (
+              <span className="text-red-500">{errors.sector?.message}</span>
             )}
           </div>
 
-          <div>
+          <div className={`${style.formGrid}`}>
             <p>Description:</p>
             <textarea
               type="text"
@@ -270,42 +277,44 @@ export default function InscriptionEntreprise() {
               })}
             />
             {errors.description && (
-              <span className="text-red-500">{errors.description.message}</span>
+              <span className="text-red-500">
+                {errors.description?.message}
+              </span>
             )}
           </div>
 
           <label
             htmlFor="smsNotification"
             id="smsNotification"
-            className="smsNotification"
+            className={`${style.smsNotification}`}
           >
             SMS Notification
           </label>
           <input
             type="checkbox"
             id="smsNotification"
-            className="smsNotification"
+            className={`${style.smsNotification}`}
             {...register("smsNotificationActive")}
           />
 
           <label
             htmlFor="emailNotification"
             id="emailNotification"
-            className="emailNotification"
+            className={`${style.emailNotification}`}
           >
             E-mail Notification
           </label>
           <input
             type="checkbox"
             id="emailNotification"
-            className="emailNotification"
+            className={`${style.emailNotification}`}
             {...register("emailNotificationActive")}
           />
-        </section>
 
-        <div className="confirmButtonCompany">
-          <button type="submit">Confirmer Inscription</button>
-        </div>
+          <div className={`${style.confirmButtonCompany}`}>
+            <button type="submit">Confirmer Inscription</button>
+          </div>
+        </section>
       </section>
     </form>
   );

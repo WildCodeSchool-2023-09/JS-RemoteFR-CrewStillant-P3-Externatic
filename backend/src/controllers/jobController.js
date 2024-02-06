@@ -48,13 +48,40 @@ const browse = async (req, res) => {
   }
 };
 
+const browseCount = async (req, res) => {
+  try {
+    const getJob = await tables.job.readCount();
+    if (getJob) {
+      res.status(200).json(getJob);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // GET BY ID
 
 const read = async (req, res) => {
+  const { sub } = req.auth;
+  try {
+    const getJobId = await tables.job.read(parseInt(sub, 10));
+    if (getJobId.length > 0) {
+      res.status(200).json(getJobId);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const readOffer = async (req, res) => {
   const { id } = req.params;
   try {
-    const getJobId = await tables.job.read(parseInt(id, 10));
-    if (getJobId.length > 0) {
+    const [getJobId] = await tables.job.readOne(parseInt(id, 10));
+    if (getJobId) {
       res.status(200).json(getJobId);
     } else {
       res.sendStatus(404);
@@ -138,6 +165,7 @@ const add = async (req, res) => {
 
 const remove = async (req, res) => {
   const { id } = req.params;
+
   try {
     const deleteJob = await tables.job.delete(parseInt(id, 10));
     if (deleteJob.length > 0) {
@@ -150,4 +178,13 @@ const remove = async (req, res) => {
   }
 };
 
-module.exports = { browseFilters, browse, read, edit, add, remove };
+module.exports = {
+  browseFilters,
+  browseCount,
+  browse,
+  read,
+  readOffer,
+  edit,
+  add,
+  remove,
+};

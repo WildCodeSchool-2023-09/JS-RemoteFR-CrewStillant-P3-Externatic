@@ -1,10 +1,28 @@
 import { useOutletContext } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import SkillsUser from "./SkillsUser";
 import CriteriaUser from "./CriteriaUser";
 
 function UserChoices() {
-  const { criteria, skills } = useOutletContext();
+  const { auth } = useOutletContext();
+  const [skills, setSkills] = useState();
+  const [criteria, setCriteria] = useState();
+
+  useEffect(() => {
+    if (auth.token) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/skill/candidate`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setSkills(res.data[0]));
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => setCriteria(res.data[0]));
+    }
+  }, [auth]);
 
   return (
     <div>
