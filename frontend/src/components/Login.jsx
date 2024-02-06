@@ -30,27 +30,25 @@ function Login() {
       toast.error(error.response?.data?.message);
     }
   };
-
   return (
     <div className={`${style.profileconnexion}`}>
       <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
       <div className={`${style.connexion}`}>
         <div>
           <p>Connecte toi</p>
-
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
                 type="email"
+                className={`${style.input}`}
                 placeholder="Adresse mail"
-                {...register("email", { required: "Le mail est obligatoire" })}
+                {...register("email", { required: "L'e-mail est obligatoire" })}
               />
               {errors.email && <p role="alert">{errors.email?.message}</p>}
             </div>
 
             <div>
               <input
-                className={`${style.input}`}
                 type="password"
                 placeholder="Mot de passe"
                 {...register("password", {
@@ -68,6 +66,7 @@ function Login() {
               </button>
             </div>
           </form>
+
           <hr />
           <span>Tu n'as pas de compte? Inscris toi.</span>
           <button

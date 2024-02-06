@@ -275,22 +275,22 @@ export default function InscriptionCandidat() {
             className="emailNotification"
             {...register("emailNotificationActive")}
           />
-          <div>
-            <UploadButton
-              uploader={uploader}
-              options={options}
-              onComplete={(image) => {
-                const fileUrls = image.map((x) => x.fileUrl).join("\n");
-                setValue("image", fileUrls);
-              }}
-            >
-              {({ onClick }) => (
-                <button type="button" onClick={onClick}>
-                  Photo de profil
-                </button>
-              )}
-            </UploadButton>
-          </div>
+        </div>
+        <div>
+          <UploadButton
+            uploader={uploader}
+            options={options}
+            onComplete={(image) => {
+              const fileUrls = image.map((x) => x.fileUrl).join("\n");
+              setValue("image", fileUrls);
+            }}
+          >
+            {({ onClick }) => (
+              <button type="button" onClick={onClick}>
+                Photo de profil
+              </button>
+            )}
+          </UploadButton>
         </div>
       </section>
 

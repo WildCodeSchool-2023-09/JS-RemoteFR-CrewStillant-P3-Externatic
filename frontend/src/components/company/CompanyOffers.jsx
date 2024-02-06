@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext, NavLink, useNavigate } from "react-router-dom";
+import { useOutletContext, NavLink } from "react-router-dom";
 import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function CompanyOffers() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [job, setJob] = useState();
-
-  if (!auth.token || auth.userTypeId === "entreprise") {
-    navigate("/accueil");
-  }
 
   useEffect(() => {
     if (auth.token) {

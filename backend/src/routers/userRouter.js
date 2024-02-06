@@ -17,7 +17,6 @@ router.use(verifyToken);
 
 // GET
 router.get("/", read);
-
 router.get("/search", browseFilters);
 // PUT
 router.put("/", validateUserData, hash, edit);
