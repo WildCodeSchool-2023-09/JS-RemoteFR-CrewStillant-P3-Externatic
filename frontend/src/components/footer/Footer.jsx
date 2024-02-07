@@ -6,14 +6,13 @@ function Footer() {
     <footer className={styles.footer}>
       <ul className="d-flex ">
         <li>
-          <a href="https://www.welcometothejungle.com/fr/companies/externatic">
-            Nos Offres
-          </a>
-          <p>Nos Entreprises</p>
-          <p>Nos Corps de Métiers</p>
+          <Link to="/recherche?terms=">Nos offres</Link>
         </li>
         <li>
           <Link to="/rgpd">RGPD</Link>
+        </li>
+        <li>
+          <Link to="/qui-sommes-nous">Qui sommes-nous</Link>
         </li>
         <li>
           <p>Adresse:</p>

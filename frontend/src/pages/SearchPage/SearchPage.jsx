@@ -206,7 +206,7 @@ export default function SearchPage() {
               <p>{offer.description}</p>
               <div
                 className={
-                  auth.token
+                  auth?.token
                     ? `${styles.smallInformations}`
                     : `${styles.smallInformations} ${styles.blur}`
                 }
@@ -231,7 +231,7 @@ export default function SearchPage() {
                 </p>
               </div>
               <div>
-                {!auth.token && (
+                {!auth?.token && (
                   <button
                     className={`${styles.visualize}`}
                     type="button"
@@ -241,7 +241,7 @@ export default function SearchPage() {
                   </button>
                 )}
               </div>
-              {auth.token ? (
+              {auth?.token ? (
                 <iframe
                   title="Maps Embed Location"
                   width="450"

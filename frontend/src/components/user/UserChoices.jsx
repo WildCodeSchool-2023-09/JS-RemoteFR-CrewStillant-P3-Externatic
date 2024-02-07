@@ -10,15 +10,15 @@ function UserChoices() {
   const [criteria, setCriteria] = useState();
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth?.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/skill/candidate`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setSkills(res.data[0]));
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/skill/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setCriteria(res.data[0]));
     }

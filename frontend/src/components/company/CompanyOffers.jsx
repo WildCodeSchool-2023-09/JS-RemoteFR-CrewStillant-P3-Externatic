@@ -8,14 +8,14 @@ function CompanyOffers() {
   const [job, setJob] = useState();
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth?.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/job/companyoffers`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setJob(res.data));
     }
-  }, [auth.token]);
+  }, [auth?.token]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };

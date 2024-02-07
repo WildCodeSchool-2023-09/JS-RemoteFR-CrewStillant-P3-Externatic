@@ -15,26 +15,26 @@ function App() {
   const [type, setType] = useState();
 
   useEffect(() => {
-    if (auth.userTypeId === 1) {
+    if (auth?.userTypeId === 1) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/candidate/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setUser(res.data[0]) || setType(res.data[1]));
-    } else if (auth.userTypeId === 2) {
+    } else if (auth?.userTypeId === 2) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/company/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setUser(res.data[0]) || setType(res.data[1]));
-    } else if (auth.userTypeId === 3) {
+    } else if (auth?.userTypeId === 3) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/admin/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setUser(res.data[0]) || setType(res.data[1]));
     }
-  }, [auth]);
+  }, [auth?.token]);
 
   return (
     <div>
