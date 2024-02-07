@@ -46,7 +46,7 @@ function UserProfil() {
             <p> Téléphone: {typeData.contactNumber} </p>
             <p> Salaire souhaité: {typeData.wantedSalary} €/an</p>
           </div>
-          <hr />
+          <hr className={`${style.hr}`} />
         </div>
       )}
       {userData.type === "entreprise" && (
@@ -72,7 +72,6 @@ function UserProfil() {
             <p> Secteur d'activité: {typeData.companySector} </p>
             <p> Description: {typeData.description} </p>
           </div>
-          <hr />
         </div>
       )}
     </div>

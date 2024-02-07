@@ -7,6 +7,7 @@ function CandidatList() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
   const [candidates, setCandidates] = useState();
+  const candidate = [candidates];
 
   if (!auth.token) {
     navigate("/accueil");
@@ -30,8 +31,8 @@ function CandidatList() {
   return (
     <div className={`${style.profileMessage}`}>
       <div id="1" className={`${style.messageList}`}>
-        {candidates &&
-          candidates.map((c) => (
+        {candidate &&
+          candidate.map((c) => (
             <>
               <NavLink>
                 <h3>
@@ -46,8 +47,8 @@ function CandidatList() {
       </div>
       <hr />
       <div id="2" className={`${style.message}`}>
-        {candidates &&
-          candidates.map((c) => (
+        {candidate &&
+          candidate.map((c) => (
             <>
               <img src={c.image} alt={c.firstname} />
               <h2>

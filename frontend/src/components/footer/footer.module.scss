@@ -1,10 +1,23 @@
 .footer {
   background-color: var(--primary);
   padding: 4rem;
+
   ul {
     justify-content: space-between;
   }
-  p {
+
+  p,
+  a {
     color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+
+    ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
   }
 }

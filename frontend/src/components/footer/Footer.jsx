@@ -5,7 +5,9 @@ function Footer() {
     <div className={styles.footer}>
       <ul className="d-flex ">
         <li>
-          <p>Nos Offres</p>
+          <a href="https://www.welcometothejungle.com/fr/companies/externatic">
+            Nos Offres
+          </a>
           <p>Nos Entreprises</p>
           <p>Nos Corps de Métiers</p>
         </li>
@@ -20,8 +22,7 @@ function Footer() {
         </li>
         <li>
           <p>Adresse:</p>
-          <p>105 Rue du Perlinpinpion</p>
-          <p>75008 Paris</p>
+          <p>105 Rue du Perlinpinpion - 75008 Paris</p>
         </li>
       </ul>
       <p className="d-flex justify-content-center align-content-center">

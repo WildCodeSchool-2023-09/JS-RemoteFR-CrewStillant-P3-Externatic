@@ -8,6 +8,10 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   margin-bottom: 2em;
+  @media (max-width: 768px) {
+    background-size: 100%;
+    margin-bottom: 1em;
+  }
 }
 
 .h1 {
@@ -15,11 +19,20 @@ html {
   color: #161a30;
   text-align: left;
   margin-left: 4em;
+  @media (max-width: 768px) {
+    font: 280% jost;
+    margin-left: 0;
+  }
 }
 
 .userpage {
   display: flex;
   gap: 5em;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2em;
+  }
 }
 
 // Side section
@@ -36,11 +49,26 @@ html {
   height: auto;
   margin: 0 0 3em 2em;
 
+  @media (max-width: 768px) {
+    font: 80% jost;
+    flex-direction: row;
+    align-items: center;
+    justify-self: center;
+    padding: 3em 1em;
+    gap: 1.2em;
+    margin-bottom: 1.5em;
+    margin-left: 0;
+  }
+
   a {
     font: 140% jost;
     text-align: left;
     text-decoration: none;
     color: aliceblue;
+
+    @media (max-width: 768px) {
+      font-size: 100%;
+    }
   }
 }
 
@@ -55,6 +83,14 @@ html {
   gap: 10em;
   padding: 0 8em;
   margin: 0 0 3em 0;
+  background-color: #f5f5f5;
+
+  @media (max-width: 768px) {
+    border-style: none;
+    flex-direction: column;
+    gap: 2em;
+    padding: 0 2em;
+  }
 }
 
 .userimage {
@@ -62,19 +98,36 @@ html {
   flex-direction: column;
   justify-content: center;
   gap: 4em;
+
+  @media (max-width: 768px) {
+    gap: 2em;
+  }
 }
 
 .profilepic {
   border-radius: 15em;
   width: 15em;
+
+  @media (max-width: 768px) {
+    width: 10em;
+    border-radius: 10em;
+  }
 }
 
 .userinfo {
   font: 120% jost;
+
+  @media (max-width: 768px) {
+    font-size: 100%;
+  }
 }
 
 button {
   font-size: 1.2em;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+  }
 }
 
 .buttonspace {
@@ -85,4 +138,15 @@ button {
   border-radius: 0.4em;
   margin: 1em;
   padding: 0.6em;
+
+  @media (max-width: 768px) {
+    margin: 0.5em;
+    padding: 0.3em;
+  }
+}
+
+hr {
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
