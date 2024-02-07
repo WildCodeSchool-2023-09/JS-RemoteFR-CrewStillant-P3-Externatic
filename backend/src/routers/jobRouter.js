@@ -21,7 +21,6 @@ router.get("/count", browseCount);
 router.get("/searchPage", browseFilters);
 router.get("/companyoffers", verifyToken, read);
 router.get("/:id", readOffer);
-
 // TOKEN WALL
 router.use(verifyToken);
 

@@ -46,7 +46,7 @@ function UserMessage() {
             </>
           ))}
       </div>
-      <hr />
+      <hr className={`${style.hr}`} />
       <div id="2" className={`${style.message}`}>
         {messages &&
           messages.map((m) => (

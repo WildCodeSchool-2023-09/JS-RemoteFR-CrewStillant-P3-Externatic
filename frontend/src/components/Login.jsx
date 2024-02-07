@@ -30,6 +30,7 @@ function Login() {
       toast.error(error.response?.data?.message);
     }
   };
+
   return (
     <div className={`${style.profileconnexion}`}>
       <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
@@ -39,8 +40,8 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
-                type="email"
                 className={`${style.input}`}
+                type="email"
                 placeholder="Adresse mail"
                 {...register("email", { required: "L'e-mail est obligatoire" })}
               />
@@ -49,6 +50,7 @@ function Login() {
 
             <div>
               <input
+                className={`${style.input}`}
                 type="password"
                 placeholder="Mot de passe"
                 {...register("password", {

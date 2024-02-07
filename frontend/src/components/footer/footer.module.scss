@@ -2,14 +2,24 @@
   color: #fff;
   background-color: var(--primary);
   padding: 4rem;
+
   ul {
     justify-content: space-between;
   }
-  p {
+
+  p,
+  a {
     margin-top: 0;
     color: #fff;
   }
-  a {
-    color: #fff;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+
+    ul {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
   }
 }

@@ -1,44 +1,138 @@
-.avatar {
-  height: 200px;
-  width: 150px;
+.companySection {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  gap: 1em;
+  border: 0.1em solid;
+  border-radius: 1em;
+  border-color: #ca2061;
+  margin: 3em;
+  background-color: #e0e0e0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 2em;
+    padding: 2em 0;
+  }
+}
+
+.p {
+  width: 300px;
+
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+}
+
+.divButton {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 1em;
+  gap: 2em;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 2em;
+  }
+}
+
+.notification {
+  text-align: center;
+  margin-top: 2em;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.imageSignup {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.divImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.input {
+  font: 100% jost;
+  background-color: var(--gray-2);
+  color: var(--gray-1);
+  border-style: none;
+  border-radius: 0.4em;
+  padding: 0.6em;
 }
 
 .signupCompany {
-  flex-direction: column;
-  align-content: space-around;
-  margin-left: 40%;
-  margin-right: 40%;
+  @media (max-width: 768px) {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
 }
 
-.signupCompany .formGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
+.showPassword {
+  border-style: none;
+  background-color: transparent;
+  border-top: 0.2em;
 }
 
-.signupCompany .formGridPassWord {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  align-items: center;
-}
-
-.signupCompany div {
-  display: flex;
-  flex-direction: row;
-}
-
-.signupCompany div p {
+.companyButton {
+  font: 100% jost;
+  background-color: var(--secondary);
+  color: var(--gray-2);
+  border-style: none;
+  border-radius: 0.4em;
+  padding: 0.8em 1em;
   display: flex;
   align-items: center;
+  margin: 1em;
+
+  @media (max-width: 768px) {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+  }
 }
 
-.signupCompany div input {
-  height: 4em;
-  width: 10em;
+.signDiv {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4em;
+  margin-top: 4em;
+  margin-left: 4em;
+
+  @media (max-width: 768px) {
+    width: 70%;
+    display: inline;
+    margin: 1em;
+  }
 }
 
-.signupCompany div textarea {
-  height: 4em;
-  width: 10em;
+.password {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
 }
