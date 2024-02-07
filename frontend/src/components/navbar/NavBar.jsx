@@ -19,10 +19,10 @@ function NavBar({ auth, setAuth }) {
           <img src={externaticLogo} alt="logo" />
         </Link>
         <div className="d-flex justify-content-flex-end flex-fill">
-          {auth.token ? (
+          {auth?.token ? (
             <ul className=" d-flex align-items-center mr-30">
               <li>
-                <span>Bienvenue {auth.mail}</span>
+                <span>Bienvenue {auth?.mail}</span>
               </li>
               <li className="d-flex justify-content-space-center align-items-center">
                 <img

@@ -9,7 +9,7 @@ function UserProfil() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.token) {
+    if (!auth?.token) {
       navigate("/accueil");
     }
   }, []);

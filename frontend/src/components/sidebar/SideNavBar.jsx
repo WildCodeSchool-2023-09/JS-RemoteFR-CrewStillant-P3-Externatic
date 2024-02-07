@@ -8,7 +8,7 @@ import styles from "./sideBar.module.scss";
 function SideBar({ sidebar, showSidebar, setAuth, auth }) {
   const navigate = useNavigate();
 
-  if (!auth.token) {
+  if (!auth?.token) {
     navigate("/accueil");
   }
 
