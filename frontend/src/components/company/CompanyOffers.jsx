@@ -13,9 +13,9 @@ function CompanyOffers() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/job/companyoffers`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setJob(res.data[0]));
+        .then((res) => setJob(res.data));
     }
-  }, [auth]);
+  }, [auth.token]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };

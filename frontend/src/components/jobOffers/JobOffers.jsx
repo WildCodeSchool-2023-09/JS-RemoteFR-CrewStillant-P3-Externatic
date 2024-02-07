@@ -8,7 +8,7 @@ function JobOffers({ job }) {
       className={`d-flex flex-column align-items-center justify-content-center ${styles.jobOffersContainer}`}
     >
       <h1 className="my-30">Nos dernières offres</h1>
-      <section className={` p-20 ${styles.jobOffers}`}>
+      <section className={`p-20 ${styles.jobOffers}`}>
         {job.map((j) => (
           <JobOffer key={j.id} job={j} />
         ))}

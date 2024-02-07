@@ -8,9 +8,7 @@ function JobOffer({ job }) {
       <div className={`${styles.imgContainer}`}>
         <img src={job.image} alt="logo" />
       </div>
-      <div
-        className={`d-flex flex-column justify-content-center align-items-center ${styles.jobOfferTitle}`}
-      >
+      <div className={`${styles.jobOfferTitle}`}>
         <h3 className="mb-10">{job.title}</h3>
         <p>{job.type}</p>
         <p>{job.city}</p>
