@@ -41,6 +41,7 @@ function Login() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
+                className={`${style.input}`}
                 type="email"
                 placeholder="Adresse mail"
                 {...register("email", { required: "Le mail est obligatoire" })}
