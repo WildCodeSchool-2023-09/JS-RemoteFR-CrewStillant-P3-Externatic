@@ -170,12 +170,7 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
     .detailledOffer::-webkit-scrollbar {
       display: none;
     }
-    .blur {
-      filter: blur(4px);
-    }
-    .iblur {
-      filter: blur(8px);
-    }
+
     .detailledOffer {
       width: 100%;
       min-height: 50vh;
@@ -188,10 +183,6 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
       box-shadow: $box-shadow;
       -webkit-box-shadow: $box-shadowWB;
       -moz-box-shadow: $box-shadowMB;
-      #buttonH3 {
-        background: none;
-        border: none;
-      }
       .visualize {
         border: none;
         background: none;
@@ -219,6 +210,12 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
   }
+}
+.blur {
+  filter: blur(4px);
+}
+.iblur {
+  filter: blur(8px);
 }
 
 @media (max-width: 900px) or (max-height: 810px) {
@@ -320,22 +317,82 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
         }
       }
       .offers {
+        width: 90vw;
+        min-height: 10vh;
         display: flex;
         flex-direction: row;
+        justify-content: center;
         border: 2px solid black;
         border-bottom: 2px groove;
         border-radius: 1rem 1rem 0 0;
-        width: 90vw;
-        min-height: 10vh;
         flex-wrap: wrap;
         margin-top: 2vh;
-
-        .detailledOffer {
-          width: 90vw;
-          height: 30vh;
-          border: 2px solid black;
-          border-top: 2px groove;
-          border-radius: 0 0 1rem 1rem;
+        .listOffers {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          flex-direction: column;
+          button {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 1rem;
+            background: none;
+          }
+          .singleOffer {
+            display: flex;
+            max-width: 90%;
+            justify-content: center;
+            margin: 1vh 1vw;
+            border: 1px solid;
+            border-radius: 1rem;
+            transition: all 300ms ease-in-out;
+            box-shadow: $box-shadow;
+            -webkit-box-shadow: $box-shadowWB;
+            -moz-box-shadow: $box-shadowMB;
+            &:hover {
+              transform: scale(1.05);
+            }
+            &:visited {
+              background-color: lightgray;
+            }
+            &:active {
+              background-color: lightgray;
+            }
+            h5 {
+              font-size: medium;
+              margin-top: 1vh;
+              margin-bottom: 0;
+            }
+            p {
+              font-size: small;
+              padding: 0 0.5vw 0 0.5vw;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+      }
+      .detailledOffer {
+        width: 90vw;
+        height: fit-content;
+        border: 2px solid black;
+        border-top: 2px groove;
+        border-radius: 0 0 1rem 1rem;
+        padding: 1rem 1rem;
+        h3 {
+          margin-top: 2rem;
+        }
+        .visualize {
+          border: none;
+          background: none;
+          cursor: pointer;
+          transition: all 50ms ease-in-out;
+          &:hover {
+            font-weight: bold;
+          }
         }
       }
     }

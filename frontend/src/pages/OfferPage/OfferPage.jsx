@@ -8,8 +8,9 @@ export default function OfferPage() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
 
+  console.info(offer);
   return (
-    <section className={`${style.totalOffer}`}>
+    <section className={`${style.detailledOffer}`}>
       {offer && (
         <>
           <h3>{offer.title}</h3>
@@ -18,7 +19,7 @@ export default function OfferPage() {
             className={
               auth.token
                 ? `${style.smallInformations}`
-                : `${style.smallInformations2}`
+                : `${style.smallInformations} ${style.blur}`
             }
           >
             <span>
@@ -28,7 +29,7 @@ export default function OfferPage() {
               <b>Salaire annuel :</b> {offer.salary} €
             </span>
             <span>
-              <b>Heures hebdomadaires :</b> {offer.hours_worked}H
+              <b>Heures hebdomadaires :</b> {offer.hoursWorked}H
             </span>
             <span>
               <b>Lieu de travail :</b> {offer.place}
