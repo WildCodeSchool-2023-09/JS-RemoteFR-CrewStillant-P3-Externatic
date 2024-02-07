@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
+  margin-bottom: 1em;
 }
 
 .signupCandidate .formGridPassWord {
@@ -17,6 +18,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   align-items: center;
+  margin-bottom: 1em;
 }
 
 .signupCandidate div p {
@@ -52,10 +54,12 @@
 .confirmButtonCandidate {
   display: flex;
   margin-top: 3em;
+  margin-bottom: 3em;
 }
 
-.showPassword {
+.showButton {
   display: flex;
-  width: 2em;
-  height: 2em;
+  justify-content: center;
+  margin-left: 1em;
+  width: 3em;
 }

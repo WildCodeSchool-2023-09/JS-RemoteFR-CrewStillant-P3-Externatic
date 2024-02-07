@@ -14,13 +14,15 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
+  margin-bottom: 1em;
 }
 
-.signupCompany .formGridPassWord {
+.signupCompany .formGridPassword {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   align-items: center;
+  margin-bottom: 1em;
 }
 
 .signupCompany div {
@@ -41,4 +43,24 @@
 .signupCompany div textarea {
   height: 4em;
   width: 10em;
+}
+
+.notification {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.confirmButtonCompany {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3em;
+}
+
+.showButton {
+  display: flex;
+  justify-content: center;
+  margin-left: 1em;
+  width: 3em;
 }

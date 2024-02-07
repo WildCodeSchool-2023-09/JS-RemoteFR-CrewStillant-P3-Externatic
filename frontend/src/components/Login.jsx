@@ -30,6 +30,7 @@ function Login() {
       toast.error(error.response?.data?.message);
     }
   };
+
   return (
     <div className={`${style.profileconnexion}`}>
       <h3 className={`${style.h3}`}>Bienvenue sur Externatic</h3>
