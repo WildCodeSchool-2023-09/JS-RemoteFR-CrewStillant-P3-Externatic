@@ -78,6 +78,20 @@ const read = async (req, res) => {
   }
 };
 
+const readOffer = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [getJobId] = await tables.job.readOne(parseInt(id, 10));
+    if (getJobId) {
+      res.status(200).json(getJobId);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // PUT
 
 const edit = async (req, res) => {
@@ -152,6 +166,7 @@ const add = async (req, res) => {
 
 const remove = async (req, res) => {
   const { id } = req.params;
+
   try {
     const deleteJob = await tables.job.delete(parseInt(id, 10));
     if (deleteJob.length > 0) {
@@ -169,6 +184,7 @@ module.exports = {
   browseCount,
   browse,
   read,
+  readOffer,
   edit,
   add,
   remove,

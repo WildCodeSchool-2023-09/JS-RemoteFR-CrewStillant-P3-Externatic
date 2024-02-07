@@ -1,14 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import style from "../assets/styles/candidatePage.module.scss";
 
 function SideSection({ auth }) {
-  const navigate = useNavigate();
-
-  if (!auth.token) {
-    navigate("/accueil");
-  }
   return (
     <section className={`${style.sidesection}`}>
       <NavLink to="/monespace/profil">Profil</NavLink>

@@ -1,15 +1,18 @@
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
 import style from "../../assets/styles/candidatePage.module.scss";
 
 function UserProfil() {
   const { user, type, auth } = useOutletContext();
-  const navigate = useNavigate();
   const userData = user;
   const typeData = type;
+  const navigate = useNavigate();
 
-  if (!auth.token) {
-    navigate("/accueil");
-  }
+  useEffect(() => {
+    if (!auth.token) {
+      navigate("/accueil");
+    }
+  }, []);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -30,7 +33,7 @@ function UserProfil() {
           </button>
         </div>
       )}
-      {userData.type === "candidat" && (
+      {userData && userData.type === "candidat" && (
         <div className={`${style.userinfo}`}>
           <div>
             <p> Nom: {typeData.lastname} </p>
@@ -49,7 +52,7 @@ function UserProfil() {
           <hr className={`${style.hr}`} />
         </div>
       )}
-      {userData.type === "entreprise" && (
+      {userData && userData.type === "entreprise" && (
         <div className={`${style.userinfo}`}>
           <div>
             <p> Nom: {typeData.name} </p>

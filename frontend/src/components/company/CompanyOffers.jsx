@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
 function CompanyOffers() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [job, setJob] = useState();
-
-  if (!auth.token || auth.userTypeId === "entreprise") {
-    navigate("/accueil");
-  }
 
   useEffect(() => {
     if (auth.token) {

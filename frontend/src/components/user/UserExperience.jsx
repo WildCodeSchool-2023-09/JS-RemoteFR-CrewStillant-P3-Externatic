@@ -11,20 +11,19 @@ function UserExperience() {
     navigate("/accueil");
   }
 
-  if (!experienceUser || experienceUser.length === 0) {
-    return <p>Aucune expérience ajoutée.</p>;
-  }
-
   useEffect(() => {
     if (auth.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setExperienceUser(res.data[0]));
+        .then((res) => setExperienceUser([res.data]));
     }
-  }, [auth]);
+  }, [auth.token]);
 
+  if (!experienceUser) {
+    return <p>Aucune expérience ajoutée.</p>;
+  }
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);

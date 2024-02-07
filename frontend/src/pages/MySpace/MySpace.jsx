@@ -1,14 +1,17 @@
 import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
 import SideSection from "../../components/SideSection";
 import style from "../../assets/styles/candidatePage.module.scss";
 
 export default function MySpace() {
-  const navigate = useNavigate();
   const { auth, user, type } = useOutletContext();
+  const navigate = useNavigate();
 
-  if (!auth.token) {
-    navigate("/accueil");
-  }
+  useEffect(() => {
+    if (!auth.token) {
+      navigate("/accueil");
+    }
+  }, []);
 
   return (
     <div>

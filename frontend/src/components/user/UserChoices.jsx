@@ -1,4 +1,4 @@
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SkillsUser from "./SkillsUser";
@@ -6,13 +6,8 @@ import CriteriaUser from "./CriteriaUser";
 
 function UserChoices() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [skills, setSkills] = useState();
   const [criteria, setCriteria] = useState();
-
-  if (!auth.token) {
-    navigate("/accueil");
-  }
 
   useEffect(() => {
     if (auth.token) {

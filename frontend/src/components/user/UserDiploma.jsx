@@ -1,16 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import style from "../../assets/styles/DegreePage.module.scss";
 
 function UserDiploma() {
   const { auth } = useOutletContext();
-  const navigate = useNavigate();
   const [userDegree, setUserDegree] = useState();
-
-  if (!auth.token) {
-    navigate("/accueil");
-  }
 
   useEffect(() => {
     if (auth.token) {
@@ -20,11 +15,12 @@ function UserDiploma() {
         })
         .then((res) => setUserDegree([res.data]));
     }
-  }, [auth]);
+  }, [auth.token]);
 
   if (!userDegree) {
     return <p>Aucun diplôme ajouté.</p>;
   }
+
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);

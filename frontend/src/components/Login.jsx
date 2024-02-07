@@ -37,14 +37,13 @@ function Login() {
       <div className={`${style.connexion}`}>
         <div>
           <p>Connecte toi</p>
-
           <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <input
                 className={`${style.input}`}
                 type="email"
                 placeholder="Adresse mail"
-                {...register("email", { required: "Le mail est obligatoire" })}
+                {...register("email", { required: "L'e-mail est obligatoire" })}
               />
               {errors.email && <p role="alert">{errors.email?.message}</p>}
             </div>
@@ -69,6 +68,7 @@ function Login() {
               </button>
             </div>
           </form>
+
           <hr />
           <span>Tu n'as pas de compte? Inscris toi.</span>
           <button

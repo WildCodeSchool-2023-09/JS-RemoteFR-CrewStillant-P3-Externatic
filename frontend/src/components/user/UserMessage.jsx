@@ -5,12 +5,14 @@ import style from "../../assets/styles/messagePage.module.scss";
 
 function UserMessage() {
   const { auth } = useOutletContext();
+  const [messages, setMessages] = useState();
   const navigate = useNavigate();
-  const [messages, setMessages] = useState("");
 
-  if (!auth.token) {
-    navigate("/accueil");
-  }
+  useEffect(() => {
+    if (!auth.token) {
+      navigate("/accueil");
+    }
+  }, []);
 
   useEffect(() => {
     if (auth.token) {

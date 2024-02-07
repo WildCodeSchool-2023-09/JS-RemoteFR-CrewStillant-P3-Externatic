@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import styles from "./footer.module.scss";
 
 function Footer() {
   return (
-    <div className={styles.footer}>
+    <footer className={styles.footer}>
       <ul className="d-flex ">
         <li>
           <a href="https://www.welcometothejungle.com/fr/companies/externatic">
@@ -12,13 +13,7 @@ function Footer() {
           <p>Nos Corps de Métiers</p>
         </li>
         <li>
-          <p>Coordonnées</p>
-          <p>Qui sommes-nous</p>
-          <p>Plan du site</p>
-        </li>
-        <li>
-          <p>Infos Personnelles</p>
-          <p>RGPD</p>
+          <Link to="/rgpd">RGPD</Link>
         </li>
         <li>
           <p>Adresse:</p>
@@ -28,7 +23,7 @@ function Footer() {
       <p className="d-flex justify-content-center align-content-center">
         Externatic © 2023 - Tous droits réservés
       </p>
-    </div>
+    </footer>
   );
 }
 

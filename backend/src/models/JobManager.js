@@ -29,6 +29,15 @@ class JobManager extends AbstractManager {
     return result;
   }
 
+  async readOne(id) {
+    const offerId = Number(id);
+    const [result] = await this.database.query(
+      `SELECT job.id, job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, CONCAT(COALESCE(location.additional_adress, '.'), ' ', COALESCE(location.number_adress, '.'), ' ', COALESCE(location.number_attribute, '.'), ' ', location.address) AS address, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id WHERE ${this.table}.id = ?`,
+      [offerId]
+    );
+    return result;
+  }
+
   async edit(
     title,
     type,
