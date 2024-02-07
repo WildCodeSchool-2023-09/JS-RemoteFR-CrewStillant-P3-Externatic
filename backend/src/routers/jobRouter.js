@@ -6,6 +6,7 @@ const {
   browse,
   browseFilters,
   read,
+  readOffer,
   edit,
   add,
   remove,
@@ -19,7 +20,7 @@ router.get("/", browse);
 router.get("/count", browseCount);
 router.get("/searchPage", browseFilters);
 router.get("/companyoffers", verifyToken, read);
-
+router.get("/:id", readOffer);
 // TOKEN WALL
 router.use(verifyToken);
 
