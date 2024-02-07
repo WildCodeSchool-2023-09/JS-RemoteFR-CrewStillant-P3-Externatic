@@ -9,20 +9,20 @@ function UserMessage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.token) {
+    if (!auth?.token) {
       navigate("/accueil");
     }
   }, []);
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth?.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/message/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setMessages([res.data]));
     }
-  }, [auth.token]);
+  }, [auth?.token]);
 
   if (!messages || messages.length === 0) {
     return <p>Aucun messages.</p>;

@@ -23,7 +23,6 @@ const read = async (req, res, next) => {
     const user = await tables.user.read(parseInt(sub, 10));
     const company = await tables.company.read(parseInt(sub, 10));
     if (user[0] && company[0]) {
-      console.info("cctrl", [user[0], company[0]]);
       res.status(200).json([user[0], company[0]]);
     } else {
       res.sendStatus(404);
@@ -61,7 +60,6 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
-  console.info("company:", req.body);
   const {
     name,
     description,

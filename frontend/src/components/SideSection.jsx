@@ -8,7 +8,7 @@ function SideSection({ auth }) {
     <section className={`${style.sidesection}`}>
       <NavLink to="/monespace/profil">Profil</NavLink>
       <NavLink to="/monespace/messages">Messages</NavLink>
-      {auth.userTypeId === 1 && (
+      {auth?.userTypeId === 1 && (
         <>
           <NavLink to="/monespace/diplome">Mes diplômes</NavLink>
           <NavLink to="/monespace/activites">
@@ -16,14 +16,13 @@ function SideSection({ auth }) {
           </NavLink>
         </>
       )}
-      {auth.userTypeId === 2 && (
+      {auth?.userTypeId === 2 && (
         <>
           <NavLink to="/monespace/offres">Mes offres</NavLink>
-          <NavLink to="/monespace/nouvelle-offre">Créer une offre</NavLink>
           <NavLink to="/monespace/candidats">Liste des candidats</NavLink>
         </>
       )}
-      {auth.userTypeId === 3 && (
+      {auth?.userTypeId === 3 && (
         <>
           <NavLink to="/admin/candidats/">Candidats</NavLink>
           <NavLink to="/admin/entreprises/">Entreprises</NavLink>

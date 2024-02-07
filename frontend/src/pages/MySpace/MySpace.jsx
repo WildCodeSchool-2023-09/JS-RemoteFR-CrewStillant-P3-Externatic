@@ -8,7 +8,7 @@ export default function MySpace() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth.token) {
+    if (!auth?.token) {
       navigate("/accueil");
     }
   }, []);

@@ -33,7 +33,6 @@ const login = async (req, res, next) => {
           expiresIn: "1h",
         }
       );
-      console.info(userTypeId);
       res.status(200).json({ token, userTypeId, mail });
     }
   } catch (error) {

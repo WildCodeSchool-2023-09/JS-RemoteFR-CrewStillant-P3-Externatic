@@ -7,19 +7,19 @@ function UserExperience() {
   const navigate = useNavigate();
   const [experienceUser, setExperienceUser] = useState();
 
-  if (!auth.token) {
+  if (!auth?.token) {
     navigate("/accueil");
   }
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth?.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/experience/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setExperienceUser([res.data]));
     }
-  }, [auth.token]);
+  }, [auth?.token]);
 
   if (!experienceUser) {
     return <p>Aucune expérience ajoutée.</p>;

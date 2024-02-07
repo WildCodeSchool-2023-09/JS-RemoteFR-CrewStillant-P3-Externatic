@@ -8,14 +8,14 @@ function UserActivity() {
   const [activityUser, setActivityUser] = useState();
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth?.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/activity/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setActivityUser([res.data]));
     }
-  }, [auth.token]);
+  }, [auth?.token]);
 
   if (!activityUser) {
     return <p>Vous n'avez pas de candidature pour le moment.</p>;

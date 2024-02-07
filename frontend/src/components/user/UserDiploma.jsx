@@ -8,14 +8,14 @@ function UserDiploma() {
   const [userDegree, setUserDegree] = useState();
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth?.token) {
       axios
         .get(`${import.meta.env.VITE_BACKEND_URL}/degree/`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => setUserDegree([res.data]));
     }
-  }, [auth.token]);
+  }, [auth?.token]);
 
   if (!userDegree) {
     return <p>Aucun diplôme ajouté.</p>;

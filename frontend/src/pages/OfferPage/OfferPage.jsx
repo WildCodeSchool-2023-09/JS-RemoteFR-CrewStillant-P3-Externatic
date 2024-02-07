@@ -8,7 +8,6 @@ export default function OfferPage() {
   const { auth } = useOutletContext();
   const navigate = useNavigate();
 
-  console.info(offer);
   return (
     <section className={`${style.detailledOffer}`}>
       {offer && (
@@ -17,7 +16,7 @@ export default function OfferPage() {
           <p>{offer.description}</p>
           <div
             className={
-              auth.token
+              auth?.token
                 ? `${style.smallInformations}`
                 : `${style.smallInformations} ${style.blur}`
             }
@@ -42,7 +41,7 @@ export default function OfferPage() {
             </span>
           </div>
           <div>
-            {!auth.token && (
+            {!auth?.token && (
               <button
                 className={`${style.visualize}`}
                 type="button"
@@ -52,7 +51,7 @@ export default function OfferPage() {
               </button>
             )}
           </div>
-          {auth.token ? (
+          {auth?.token ? (
             <iframe
               title="Maps Embed Location"
               width="450"
