@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import style from "../../assets/styles/DegreePage.module.scss";
 
 function UserDiploma() {
   const { auth } = useOutletContext();
@@ -26,7 +27,7 @@ function UserDiploma() {
   };
 
   return (
-    <div>
+    <div className={`${style.profileDegree}`}>
       <ul>
         {userDegree &&
           userDegree.map((d) => (
@@ -45,7 +46,7 @@ function UserDiploma() {
               </li>
               <li> Université: {d.university} </li>
               <li> Ville: {d.city} </li>
-              <hr />
+              <hr className={`${style.hr}`} />
             </>
           ))}
       </ul>

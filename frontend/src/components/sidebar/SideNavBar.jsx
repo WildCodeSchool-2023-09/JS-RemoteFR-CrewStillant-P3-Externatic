@@ -51,7 +51,7 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
             <button
               type="button"
               onClick={handleSignOut}
-              className={styles.disconnect}
+              className={`${styles.disconnect}`}
             >
               Se déconnecter
             </button>

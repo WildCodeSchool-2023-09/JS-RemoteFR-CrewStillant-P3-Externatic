@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import externaticLogo from "../../assets/images/EXTERNATIC-LOGO.png";
+import externaticLogo from "../../assets/images/EXTERNATIC-LOGO-ORIGINAL-RVB.png";
 import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
 import SideBar from "../sidebar/SideNavBar";
 import styles from "./navBar.module.scss";
@@ -22,10 +22,14 @@ function NavBar({ auth, setAuth }) {
           {auth.token ? (
             <ul className=" d-flex align-items-center mr-30">
               <li>
-                <p>Bienvenue {auth.mail}!</p>
+                <span>Bienvenue {auth.mail}</span>
               </li>
               <li className="d-flex justify-content-space-center align-items-center">
-                <img src={externaticLogo2} alt="logo" />
+                <img
+                  src={externaticLogo2}
+                  className={`${styles.connexionImg}`}
+                  alt="logo"
+                />
               </li>
               <li className="d-flex justify-content-space-center align-items-center">
                 <i>
@@ -48,7 +52,11 @@ function NavBar({ auth, setAuth }) {
                   {" "}
                   <u>Se connecter</u>{" "}
                 </Link>
-                <img src={externaticLogo2} alt="logo" />
+                <img
+                  className={`${styles.connexionImg}`}
+                  src={externaticLogo2}
+                  alt="logo"
+                />
               </li>
             </ul>
           )}

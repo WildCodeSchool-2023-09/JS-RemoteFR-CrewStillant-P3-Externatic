@@ -20,7 +20,6 @@ const read = async (req, res, next) => {
     const user = await tables.user.read(parseInt(sub, 10));
     const candidate = await tables.candidate.read(parseInt(sub, 10));
     if (user[0] && candidate[0]) {
-      console.info("candidateCtrl", [user[0], candidate[0]]);
       res.status(200).json([user[0], candidate[0]]);
     } else {
       res.sendStatus(404);

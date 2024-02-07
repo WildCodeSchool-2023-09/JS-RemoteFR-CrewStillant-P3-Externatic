@@ -65,9 +65,10 @@ const browseCount = async (req, res) => {
 
 const read = async (req, res) => {
   const { sub } = req.auth;
+  console.info(req.auth);
   try {
     const getJobId = await tables.job.read(parseInt(sub, 10));
-    if (getJobId.length > 0) {
+    if (getJobId) {
       res.status(200).json(getJobId);
     } else {
       res.sendStatus(404);

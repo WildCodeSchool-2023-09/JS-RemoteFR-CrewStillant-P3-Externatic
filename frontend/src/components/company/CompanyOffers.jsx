@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useOutletContext, NavLink } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import style from "../../assets/styles/messagePage.module.scss";
 
@@ -13,9 +13,9 @@ function CompanyOffers() {
         .get(`${import.meta.env.VITE_BACKEND_URL}/job/companyoffers`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         })
-        .then((res) => setJob(res.data[0]));
+        .then((res) => setJob(res.data));
     }
-  }, [auth]);
+  }, [auth.token]);
 
   const formatDateString = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
@@ -24,36 +24,23 @@ function CompanyOffers() {
 
   return (
     <div className={`${style.profileMessage}`}>
-      <div id="1" className={`${style.messageList}`}>
-        {job &&
-          job.map((j) => (
-            <>
-              <NavLink>
-                <h3>{j.title}</h3>
-              </NavLink>
-              <h4>{j.type}</h4>
-              <h4>{formatDateString(j.createdDate)}</h4>
-              <hr />
-            </>
-          ))}
-      </div>
-      <hr />
       <div id="2" className={`${style.message}`}>
         {job &&
           job.map((j) => (
-            <>
-              <h2>{j.title}</h2>
-              <p>{formatDateString(j.createdDate)}</p>
-              <p>{j.type}</p>
-              <p>{j.hoursWorked}</p>
-              <p>{j.salary}</p>
+            <div>
+              <h2>Poste: {j.title}</h2>
+              <p>Date: {formatDateString(j.createdDate)}</p>
+              <p>Contrat: {j.type}</p>
+              <p>Heures travaillés: {j.hoursWorked}</p>
+              <p>Salaire: {j.salary}</p>
               {j.skill && j.level ? (
                 <p>
-                  {j.skill} : {j.level}
+                  Compétence: {j.skill} - {j.level}
                 </p>
               ) : null}
-              <p>{j.description}</p>
-            </>
+              <p>Description: {j.description}</p>
+              <hr className={`${style.hr}`} />
+            </div>
           ))}
       </div>
     </div>

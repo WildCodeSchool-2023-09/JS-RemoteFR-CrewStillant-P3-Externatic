@@ -20,3 +20,10 @@
   background: none;
   border: none;
 }
+
+@media (max-width: 900px) or (max-height: 810px) {
+  .jobOffers {
+    display: flex;
+    flex-direction: column;
+  }
+}

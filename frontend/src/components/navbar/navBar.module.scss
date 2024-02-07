@@ -8,9 +8,37 @@
           font-size: 5rem;
         }
       }
-      li:first-child {
-        margin-right: 10rem;
+    }
+    img {
+      margin-left: 0.5rem;
+      max-width: 25rem;
+    }
+  }
+}
+
+@media (max-width: 900px) or (max-height: 810px) {
+  .navBar {
+    nav {
+      img {
+        content: url("../../assets/images/EXTERNATIC-LOGO2.png");
+      }
+      div {
+        ul {
+          li {
+            padding-left: 5px;
+            span {
+              width: 1em;
+            }
+          }
+          li:first-child {
+            text-align: center;
+            width: 17rem;
+          }
+        }
       }
     }
+  }
+  .connexionImg {
+    display: none;
   }
 }

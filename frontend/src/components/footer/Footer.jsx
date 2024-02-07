@@ -6,15 +6,18 @@ function Footer() {
     <footer className={styles.footer}>
       <ul className="d-flex ">
         <li>
-          <Link to="/qui-sommes-nous">Qui sommes-nous</Link>
+          <a href="https://www.welcometothejungle.com/fr/companies/externatic">
+            Nos Offres
+          </a>
+          <p>Nos Entreprises</p>
+          <p>Nos Corps de Métiers</p>
         </li>
         <li>
           <Link to="/rgpd">RGPD</Link>
         </li>
         <li>
           <p>Adresse:</p>
-          <p>105 Rue du Perlinpinpion</p>
-          <p>75008 Paris</p>
+          <p>105 Rue du Perlinpinpion - 75008 Paris</p>
         </li>
       </ul>
       <p className="d-flex justify-content-center align-content-center">
