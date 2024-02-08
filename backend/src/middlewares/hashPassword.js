@@ -48,10 +48,8 @@ const verifyToken = (req, res, next) => {
     req.auth = jwt.verify(token, process.env.APP_SECRET);
 
     return next();
-  } catch (err) {
-    console.error(err);
-
-    return res.sendStatus(401);
+  } catch (e) {
+    return next(e);
   }
 };
 
