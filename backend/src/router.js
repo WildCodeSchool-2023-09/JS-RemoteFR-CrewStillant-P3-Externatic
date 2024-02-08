@@ -26,15 +26,13 @@ router.use("/login", authRouter);
 router.use("/candidate", candidateRouter);
 
 // Token identification wall, protecting routers below.
-router.use(verifyToken);
-
-router.use("/company", companyRouter);
-router.use("/admin", adminRouter);
-router.use("/activity", activityRouter);
-router.use("/message", messageRouter);
-router.use("/sector", sectorRouter);
-router.use("/skill", skillRouter);
-router.use("/degree", degreeRouter);
-router.use("/experience", experienceRouter);
+router.use("/company", verifyToken, companyRouter);
+router.use("/admin", verifyToken, adminRouter);
+router.use("/activity", verifyToken, activityRouter);
+router.use("/message", verifyToken, messageRouter);
+router.use("/sector", verifyToken, sectorRouter);
+router.use("/skill", verifyToken, skillRouter);
+router.use("/degree", verifyToken, degreeRouter);
+router.use("/experience", verifyToken, experienceRouter);
 
 module.exports = router;
