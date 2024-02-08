@@ -25,13 +25,17 @@ const verifyToken = (req, res, next) => {
     const authorizationHeader = req.get("Authorization");
 
     if (authorizationHeader == null) {
-      throw new Error("Authorization header is missing");
+      // throw new Error("Authorization header is missing");
+      res.status(403).json({ message: "Authorization header is missing" });
     }
 
     const [type, token] = authorizationHeader.split(" ");
 
     if (type !== "Bearer") {
-      throw new Error("Authorization header has not the 'Bearer' type");
+      // throw new Error("Authorization header has not the 'Bearer' type");
+      res
+        .status(403)
+        .json({ message: "Authorization header has not the 'Bearer' type" });
     }
 
     req.auth = jwt.verify(token, process.env.APP_SECRET);
