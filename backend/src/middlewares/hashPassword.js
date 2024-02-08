@@ -21,8 +21,11 @@ const hash = async (req, res, next) => {
 };
 
 const verifyToken = (req, res, next) => {
+  console.info(req.path);
+  console.info(req.url);
+  console.info(req.originalUrl);
   try {
-    const authorizationHeader = req.get("Authorization");
+    const authorizationHeader = req.headers.authorization || null;
 
     if (!authorizationHeader) {
       return res
