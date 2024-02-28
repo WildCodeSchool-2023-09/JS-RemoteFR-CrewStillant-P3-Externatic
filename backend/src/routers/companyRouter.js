@@ -4,16 +4,18 @@ const router = express.Router();
 
 const { read, edit, add, remove } = require("../controllers/companyController");
 
+const { verifyToken } = require("../middlewares/hashPassword");
+
 // GET
-router.get("/", read);
+router.get("/", verifyToken, read);
 
 // PUT
-router.put("/:id", edit);
+router.put("/", verifyToken, edit);
 
 // POST
 router.post("/", add);
 
 // DELETE
-router.delete("/:id", remove);
+router.delete("/", verifyToken, remove);
 
 module.exports = router;

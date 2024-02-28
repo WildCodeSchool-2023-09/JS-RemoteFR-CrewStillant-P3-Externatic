@@ -30,8 +30,8 @@ CREATE TABLE `activity` (
   PRIMARY KEY (`id`),
   KEY `candidate_activity` (`candidate_id`),
   KEY `job_activity` (`job_id`),
-  CONSTRAINT `candidate_activity` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`),
-  CONSTRAINT `job_activity` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`)
+  CONSTRAINT `candidate_activity` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `job_activity` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,7 +41,61 @@ CREATE TABLE `activity` (
 
 LOCK TABLES `activity` WRITE;
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-INSERT INTO `activity` VALUES (1,'2024-01-30 16:07:26',13,1),(2,'2024-01-30 16:07:26',25,1),(3,'2024-01-30 16:07:26',30,5),(4,'2024-01-30 16:07:26',1,11),(5,'2024-01-30 16:07:26',3,1),(6,'2024-01-30 16:07:26',29,9),(7,'2024-01-30 16:07:26',27,3),(8,'2024-01-30 16:07:26',1,1),(9,'2024-01-30 16:07:26',25,12),(10,'2024-01-30 16:07:26',7,3),(11,'2024-01-30 16:07:26',14,5),(12,'2024-01-30 16:07:26',28,11),(13,'2024-01-30 16:07:26',22,3),(14,'2024-01-30 16:07:26',2,9),(15,'2024-01-30 16:07:26',1,1),(16,'2024-01-30 16:07:26',2,9),(17,'2024-01-30 16:07:26',3,3),(18,'2024-01-30 16:07:26',4,4),(19,'2024-01-30 16:07:26',5,5),(20,'2024-01-30 16:07:26',6,13),(21,'2024-01-30 16:07:26',7,11),(22,'2024-01-30 16:07:26',8,9),(23,'2024-01-30 16:07:26',9,1),(24,'2024-01-30 16:07:26',10,9),(25,'2024-01-30 16:07:26',11,3),(26,'2024-01-30 16:07:26',12,4),(27,'2024-01-30 16:07:26',13,5),(28,'2024-01-30 16:07:26',14,12),(29,'2024-01-30 16:07:26',15,9),(30,'2024-01-30 16:07:26',16,5),(31,'2024-01-30 16:07:26',17,1),(32,'2024-01-30 16:07:26',18,5),(33,'2024-01-30 16:07:26',19,3),(34,'2024-01-30 16:07:26',20,4),(35,'2024-01-30 16:07:26',21,5),(36,'2024-01-30 16:07:26',22,11),(37,'2024-01-30 16:07:26',23,12),(38,'2024-01-30 16:07:26',24,3),(39,'2024-01-30 16:07:26',25,1),(40,'2024-01-30 16:07:26',26,9),(41,'2024-01-30 16:07:26',27,3),(42,'2024-01-30 16:07:26',28,4),(43,'2024-01-30 16:07:26',29,5),(44,'2024-01-30 16:07:26',30,12),(45,'2024-01-30 16:07:26',31,3),(46,'2024-01-30 16:07:26',32,4),(47,'2024-01-30 16:07:26',33,1),(48,'2024-01-30 16:07:26',34,12),(49,'2024-01-30 16:07:26',35,3),(50,'2024-01-30 16:07:26',36,4),(51,'2024-01-30 16:07:26',37,5),(52,'2024-01-30 16:07:26',38,1),(53,'2024-01-30 16:07:26',39,5),(54,'2024-01-30 16:07:26',40,13),(55,'2024-01-30 16:07:26',41,1),(56,'2024-01-30 16:07:26',42,5),(57,'2024-01-30 16:07:26',43,3),(58,'2024-01-30 16:07:26',44,4),(59,'2024-01-30 16:07:26',45,5);
+INSERT INTO `activity` VALUES 
+(1,'2024-01-30 16:07:26',13,1),
+(2,'2024-01-30 16:07:26',25,2),
+(3,'2024-01-30 16:07:26',30,3),
+(4,'2024-01-30 16:07:26',1,4),
+(5,'2024-01-30 16:07:26',3,5),
+(6,'2024-01-30 16:07:26',29,6),
+(7,'2024-01-30 16:07:26',27,7),
+(8,'2024-01-30 16:07:26',1,8),
+(9,'2024-01-30 16:07:26',25,1),
+(10,'2024-01-30 16:07:26',7,2),
+(11,'2024-01-30 16:07:26',14,3),
+(12,'2024-01-30 16:07:26',28,4),
+(13,'2024-01-30 16:07:26',22,5),
+(14,'2024-01-30 16:07:26',2,6),
+(15,'2024-01-30 16:07:26',1,7),
+(16,'2024-01-30 16:07:26',2,8),
+(17,'2024-01-30 16:07:26',3,1),
+(18,'2024-01-30 16:07:26',4,2),
+(19,'2024-01-30 16:07:26',5,3),
+(20,'2024-01-30 16:07:26',6,4),
+(21,'2024-01-30 16:07:26',7,5),
+(22,'2024-01-30 16:07:26',8,6),
+(23,'2024-01-30 16:07:26',9,7),
+(24,'2024-01-30 16:07:26',10,8),
+(25,'2024-01-30 16:07:26',11,1),
+(26,'2024-01-30 16:07:26',12,2),
+(27,'2024-01-30 16:07:26',13,3),
+(28,'2024-01-30 16:07:26',14,4),
+(29,'2024-01-30 16:07:26',15,5),
+(30,'2024-01-30 16:07:26',16,6),
+(31,'2024-01-30 16:07:26',17,7),
+(32,'2024-01-30 16:07:26',18,8),
+(33,'2024-01-30 16:07:26',19,1),
+(34,'2024-01-30 16:07:26',20,2),
+(35,'2024-01-30 16:07:26',21,3),
+(36,'2024-01-30 16:07:26',22,4),
+(37,'2024-01-30 16:07:26',23,5),
+(38,'2024-01-30 16:07:26',24,6),
+(39,'2024-01-30 16:07:26',25,7),
+(40,'2024-01-30 16:07:26',26,8),
+(41,'2024-01-30 16:07:26',27,1),
+(42,'2024-01-30 16:07:26',28,2),
+(43,'2024-01-30 16:07:26',29,3),
+(44,'2024-01-30 16:07:26',30,4),
+(45,'2024-01-30 16:07:26',31,5),
+(46,'2024-01-30 16:07:26',32,6),
+(47,'2024-01-30 16:07:26',33,7),
+(48,'2024-01-30 16:07:26',34,8),
+(49,'2024-01-30 16:07:26',35,1),
+(50,'2024-01-30 16:07:26',36,2),
+(51,'2024-01-30 16:07:26',37,3),
+(52,'2024-01-30 16:07:26',38,4),
+(53,'2024-01-30 16:07:26',39,5),
+(54,'2024-01-30 16:07:26',40,6);
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +117,7 @@ CREATE TABLE `candidate` (
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_user` (`user_id`),
-  CONSTRAINT `candidate_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `candidate_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -91,8 +145,8 @@ CREATE TABLE `candidate_degree` (
   PRIMARY KEY (`id`),
   KEY `candidate_degree` (`candidate_id`),
   KEY `degree_candidate` (`degree_id`),
-  CONSTRAINT `candidate_degree` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`),
-  CONSTRAINT `degree_candidate` FOREIGN KEY (`degree_id`) REFERENCES `degree` (`id`)
+  CONSTRAINT `candidate_degree` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `degree_candidate` FOREIGN KEY (`degree_id`) REFERENCES `degree` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -102,7 +156,7 @@ CREATE TABLE `candidate_degree` (
 
 LOCK TABLES `candidate_degree` WRITE;
 /*!40000 ALTER TABLE `candidate_degree` DISABLE KEYS */;
-INSERT INTO `candidate_degree` VALUES (1,1,5),(2,5,15),(3,11,5),(4,12,7),(5,13,5),(6,4,14),(7,5,1),(8,3,9),(9,1,13),(10,4,1),(11,3,3),(12,9,11),(13,5,4),(14,1,8),(15,4,2);
+INSERT INTO `candidate_degree` VALUES (1,7,5),(2,5,12),(3,2,5),(4,8,7),(5,7,8),(6,4,10),(7,5,1),(8,3,9),(9,1,3),(10,4,1),(11,3,3),(12,6,11),(13,5,4),(14,1,8),(15,4,2);
 /*!40000 ALTER TABLE `candidate_degree` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,8 +181,8 @@ CREATE TABLE `company` (
   UNIQUE KEY `siret` (`siret`),
   KEY `company_sector` (`company_sector_id`),
   KEY `company_user` (`user_id`),
-  CONSTRAINT `company_sector` FOREIGN KEY (`company_sector_id`) REFERENCES `company_sector` (`id`),
-  CONSTRAINT `company_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `company_sector` FOREIGN KEY (`company_sector_id`) REFERENCES `company_sector` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `company_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,7 +268,7 @@ CREATE TABLE `experience` (
   `candidate_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `candidate_experience` (`candidate_id`),
-  CONSTRAINT `candidate_experience` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`)
+  CONSTRAINT `candidate_experience` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -224,7 +278,7 @@ CREATE TABLE `experience` (
 
 LOCK TABLES `experience` WRITE;
 /*!40000 ALTER TABLE `experience` DISABLE KEYS */;
-INSERT INTO `experience` VALUES (1,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Amazon','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',12),(2,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Google','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',11),(3,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Facebook','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',3),(4,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Youtube','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',4),(5,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Twitter','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',5),(6,'2024-01-02','2023-12-31','Développeur Web & Web Mobile','Samsung','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',1);
+INSERT INTO `experience` VALUES (1,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Amazon','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',1),(2,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Google','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',2),(3,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Facebook','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',3),(4,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Youtube','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',4),(5,'2015-01-02','2023-12-31','Développeur Web & Web Mobile','Twitter','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',5),(6,'2024-01-02','2023-12-31','Développeur Web & Web Mobile','Samsung','Paris','France','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Cras semper auctor neque vitae tempus quam pellentesque nec. Adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque.',7);
 /*!40000 ALTER TABLE `experience` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,8 +305,8 @@ CREATE TABLE `job` (
   PRIMARY KEY (`id`),
   KEY `job_location` (`location_id`),
   KEY `job_post_company` (`company_id`),
-  CONSTRAINT `job_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
-  CONSTRAINT `job_post_company` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`)
+  CONSTRAINT `job_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `job_post_company` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -312,7 +366,7 @@ CREATE TABLE `message` (
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   KEY `message_user` (`user_id`),
-  CONSTRAINT `message_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `message_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -342,8 +396,8 @@ CREATE TABLE `skill` (
   PRIMARY KEY (`id`),
   KEY `skill_candidate` (`candidate_id`),
   KEY `skill_job` (`job_id`),
-  CONSTRAINT `skill_candidate` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`),
-  CONSTRAINT `skill_job` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`)
+  CONSTRAINT `skill_candidate` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `skill_job` FOREIGN KEY (`job_id`) REFERENCES `job` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -378,7 +432,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `user_type` (`user_type_id`),
-  CONSTRAINT `user_type` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`)
+  CONSTRAINT `user_type` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

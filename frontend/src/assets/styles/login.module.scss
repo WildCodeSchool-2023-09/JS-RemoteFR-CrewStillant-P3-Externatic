@@ -6,6 +6,7 @@ html {
   font: 400% jost;
   color: #161a30;
   text-align: center;
+  margin-top: 1em;
   @media (max-width: 768px) {
     font: 200% jost;
   }
@@ -22,17 +23,17 @@ html {
   background-color: #e0e0e0;
 
   @media (max-width: 768px) {
-    padding: 0 4em;
+    padding: 0;
+    gap: 0;
   }
 }
 
 .loginPicture {
-  max-width: 80%;
-  background-size: 40%;
-  border-radius: 2em;
+  max-width: 100%;
+  border-radius: 0.5em;
 
   @media (max-width: 768px) {
-    max-width: 0%;
+    display: none;
   }
 }
 
@@ -40,10 +41,9 @@ html {
   font: 150% jost;
   display: flex;
   justify-content: space-between;
-  gap: 10em;
+  gap: 2em;
   text-align: center;
   margin-bottom: 3em;
-  margin-left: 5em;
 
   @media (max-width: 900px) {
     font: 100% jost;
@@ -51,7 +51,7 @@ html {
     align-items: center;
     gap: 1em;
     text-align: center;
-    margin-left: 0em;
+    margin: 0;
   }
 }
 
@@ -71,8 +71,34 @@ html {
   color: var(--gray-2);
   border-style: none;
   border-radius: 0.4em;
+  width: 8em;
+  height: 2em;
+  margin: 1em 0;
 
   @media (max-width: 768px) {
-    width: 100%;
+    width: 6em;
+    height: 2em;
   }
+}
+
+.showPassword {
+  border-style: none;
+  background-color: transparent;
+  width: 2em;
+  padding-top: 0.5em;
+}
+
+.password {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.email {
+  margin-right: 3em;
 }

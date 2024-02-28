@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { add, read, edit } = require("../controllers/userController");
+const { add, read, edit, remove } = require("../controllers/userController");
 const { validateUserData } = require("../middlewares/validateUser");
 
 const { browseFilters } = require("../controllers/jobController");
@@ -19,6 +19,8 @@ router.use(verifyToken);
 router.get("/", read);
 router.get("/search", browseFilters);
 // PUT
-router.put("/", validateUserData, hash, edit);
+router.put("/", validateUserData, hash, verifyToken, edit);
+// DELETE
+router.delete("/", verifyToken, remove);
 
 module.exports = router;

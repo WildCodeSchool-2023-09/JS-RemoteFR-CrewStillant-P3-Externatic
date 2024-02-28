@@ -36,7 +36,7 @@ const read = async (req, res, next) => {
 
 const edit = async (req, res, next) => {
   const { name, image, description, website, establishmentDate } = req.body;
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
     const editCompany = await tables.company.update(
       name,
@@ -44,10 +44,10 @@ const edit = async (req, res, next) => {
       description,
       website,
       establishmentDate,
-      parseInt(id, 10)
+      parseInt(sub, 10)
     );
 
-    if (editCompany.length > 0) {
+    if (editCompany.affectedRows > 0) {
       res.status(200).json(editCompany);
     } else {
       res.sendStatus(404);
@@ -94,10 +94,10 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const removeCompany = await tables.company.delete(parseInt(id, 10));
-    if (removeCompany.length > 0) {
+    const removeCompany = await tables.company.delete(parseInt(sub, 10));
+    if (removeCompany) {
       res
         .status(200)
         .json("Company has been successefully deleted from your table");

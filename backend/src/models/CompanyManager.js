@@ -14,7 +14,7 @@ class CompanyManager extends AbstractManager {
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id WHERE ${this.table}.id=?`,
+      `SELECT company.id, company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id WHERE user.id=?`,
       [id]
     );
     return result;
@@ -22,7 +22,7 @@ class CompanyManager extends AbstractManager {
 
   async update(name, image, description, website, establishmentDate, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name=?, image=?, description=?, website=?, establishment_date=?  WHERE id=?`,
+      `UPDATE ${this.table} SET name=?, image=?, description=?, website=?, establishment_date=? WHERE user_id=?`,
       [name, image, description, website, establishmentDate, id]
     );
 
@@ -54,10 +54,10 @@ class CompanyManager extends AbstractManager {
     return result;
   }
 
-  async delete(id) {
+  async delete(sub) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id=?`,
-      [id]
+      `DELETE FROM ${this.table} WHERE user_id = ?`,
+      [sub]
     );
     return result;
   }

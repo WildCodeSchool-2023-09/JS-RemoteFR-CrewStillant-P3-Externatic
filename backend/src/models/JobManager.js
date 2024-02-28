@@ -23,7 +23,7 @@ class JobManager extends AbstractManager {
 
   async read(id) {
     const [result] = await this.database.query(
-      `SELECT job.title, company.name AS company, company.image, job.type, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, location.additional_adress AS additionalAdress, location.number_adress AS numberAdress, location.number_attribute AS numberAttribute, location.address, location.city, location.zip, location.state, location.country, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id WHERE ${this.table}.company_id=?`,
+      `SELECT job.id, job.is_active AS isActive, job.title, company.name AS company, company.image, job.type, job.place, job.sector, job.description, job.hours_worked AS hoursWorked, job.salary, job.created_date AS createdDate, location.additional_adress AS additionalAdress, location.number_adress AS numberAdress, location.number_attribute AS numberAttribute, location.address, location.city, location.zip, location.state, location.country, skill.name AS skill, skill.level FROM ${this.table} LEFT JOIN location ON location.id = location_id LEFT JOIN company ON company.id = company_id LEFT JOIN skill ON job.id = job_id WHERE ${this.table}.company_id IN (SELECT id FROM company WHERE user_id=?)`,
       [id]
     );
     return result;
@@ -38,29 +38,35 @@ class JobManager extends AbstractManager {
     return result;
   }
 
-  async edit(
+  async update(
     title,
     type,
     description,
-    salary,
     hoursWorked,
     isActive,
+    salary,
+    place,
+    sector,
     locationId,
     companyId,
-    id
+    id,
+    sub
   ) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET title=?, type=?, description=?, salary=?, hours_worked=?,is_active=?, location_id=?, company_id=? WHERE id=?`,
+      `UPDATE ${this.table} SET title=?, type=?, description=?, hours_worked=?, is_active=?, salary=?, place=?, sector=?, location_id=?, company_id=? WHERE id=? AND company_id IN (SELECT id FROM company WHERE user_id=?)`,
       [
         title,
         type,
         description,
-        salary,
         hoursWorked,
         isActive,
+        salary,
+        place,
+        sector,
         locationId,
         companyId,
         id,
+        sub,
       ]
     );
     return result;
@@ -70,21 +76,25 @@ class JobManager extends AbstractManager {
     title,
     type,
     description,
-    salary,
     hoursWorked,
     isActive,
+    salary,
+    place,
+    sector,
     locationId,
     companyId
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (title, type, description, salary, hours_worked, is_active, location_id, company_id) VALUES (?,?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (title, type, description, hours_worked, is_active, salary, place, sector, location_id, company_id) VALUES (?,?,?,?,?,?,?,?,?,?)`,
       [
         title,
         type,
         description,
-        salary,
         hoursWorked,
         isActive,
+        salary,
+        place,
+        sector,
         locationId,
         companyId,
       ]
@@ -92,10 +102,10 @@ class JobManager extends AbstractManager {
     return result;
   }
 
-  async delete(id) {
+  async delete(id, sub) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id=?`,
-      [id]
+      `DELETE FROM ${this.table} WHERE id=? AND company_id IN (SELECT id FROM company WHERE user_id=?)`,
+      [id, sub]
     );
     return result;
   }

@@ -23,26 +23,22 @@ class UserManager extends AbstractManager {
   async update(
     email,
     hashedPassword,
-    isActive,
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
     image,
-    userTypeId,
-    id
+    sub
   ) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET email=?, password=?, is_active=?, contact_number=?, sms_notification_active=?, email_notification_active=?, image=?, user_type_id=? WHERE id = ?`,
+      `UPDATE ${this.table} SET email=?, password=?, contact_number=?, sms_notification_active=?, email_notification_active=?, image=? WHERE id = ?`,
       [
         email,
         hashedPassword,
-        isActive,
         contactNumber,
         smsNotificationActive,
         emailNotificationActive,
         image,
-        userTypeId,
-        id,
+        sub,
       ]
     );
     return result;
@@ -55,10 +51,11 @@ class UserManager extends AbstractManager {
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
+    image,
     type
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, user_type_id) VALUES (?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (email, password, is_active, contact_number, sms_notification_active, email_notification_active, image, user_type_id) VALUES (?,?,?,?,?,?,?,?)`,
       [
         email,
         hashedPassword,
@@ -66,16 +63,17 @@ class UserManager extends AbstractManager {
         contactNumber,
         smsNotificationActive,
         emailNotificationActive,
+        image,
         type,
       ]
     );
     return result.insertId;
   }
 
-  async delete(id) {
+  async delete(sub) {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE id=?`,
-      [id]
+      [sub]
     );
     return result;
   }

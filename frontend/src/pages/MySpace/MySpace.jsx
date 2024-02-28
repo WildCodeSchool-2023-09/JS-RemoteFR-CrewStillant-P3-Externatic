@@ -4,7 +4,8 @@ import SideSection from "../../components/SideSection";
 import style from "../../assets/styles/candidatePage.module.scss";
 
 export default function MySpace() {
-  const { auth, user, type } = useOutletContext();
+  const { auth, setAuth, user, type, setType } = useOutletContext();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,8 +25,10 @@ export default function MySpace() {
         <Outlet
           context={{
             auth,
+            setAuth,
             user,
             type,
+            setType,
           }}
         />
       </div>

@@ -59,7 +59,6 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
-  console.info("company:", req.body);
   const {
     name,
     description,

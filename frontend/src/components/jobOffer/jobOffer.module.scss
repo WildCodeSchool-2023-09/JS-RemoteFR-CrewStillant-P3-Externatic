@@ -6,9 +6,9 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
   height: 420px;
   border-radius: 1rem;
   border: 1px groove black;
-  box-shadow: $box-shadow;
-  -webkit-box-shadow: $box-shadowWB;
   -moz-box-shadow: $box-shadowMB;
+  -webkit-box-shadow: $box-shadowWB;
+  box-shadow: $box-shadow;
   &:hover {
     img {
       transform: scale(1.1);

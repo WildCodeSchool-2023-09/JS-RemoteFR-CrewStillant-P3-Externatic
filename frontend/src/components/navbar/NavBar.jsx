@@ -8,23 +8,32 @@ import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
 import SideBar from "../sidebar/SideNavBar";
 import styles from "./navBar.module.scss";
 
-function NavBar({ auth, setAuth }) {
-  const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
+function NavBar({ auth, setAuth, type }) {
+  const [bar, setbar] = useState(false);
+  const showSidebar = () => setbar(!bar);
 
   return (
     <div className={`${styles.navBar}`}>
-      <nav className="d-flex justify-content-space-between align-items-center ">
-        <Link to="/accueil">
-          <img src={externaticLogo} alt="logo" />
-        </Link>
+      <nav className="d-flex justify-content-space-evenly align-items-center ">
+        <div className={`${styles.linkLogo}`}>
+          <Link to="/accueil">
+            <img src={externaticLogo} alt="logo" />
+          </Link>
+          {auth?.userTypeId === 1 ? (
+            <Link to="/recherche">
+              {" "}
+              <p>Trouver votre emploi</p>{" "}
+            </Link>
+          ) : null}
+        </div>
+
         <div className="d-flex justify-content-flex-end flex-fill">
           {auth?.token ? (
-            <ul className=" d-flex align-items-center mr-30">
+            <ul className=" d-flex align-items-center ">
               <li>
-                <span>Bienvenue {auth?.mail}</span>
+                <p>Bienvenue {type && (type.firstname || type.name)}</p>
               </li>
-              <li className="d-flex justify-content-space-center align-items-center">
+              <li>
                 <img
                   src={externaticLogo2}
                   className={`${styles.connexionImg}`}
@@ -38,7 +47,7 @@ function NavBar({ auth, setAuth }) {
               </li>
               <li>
                 <SideBar
-                  sidebar={sidebar}
+                  bar={bar}
                   showSidebar={showSidebar}
                   setAuth={setAuth}
                   auth={auth}
@@ -48,7 +57,7 @@ function NavBar({ auth, setAuth }) {
           ) : (
             <ul className=" d-flex align-items-center mr-30">
               <li className="d-flex justify-content-space-center align-items-center">
-                <Link to="/connexion">
+                <Link to="/connexion" className={`${styles.link}`}>
                   {" "}
                   <u>Se connecter</u>{" "}
                 </Link>
@@ -70,6 +79,11 @@ NavBar.propTypes = {
   auth: PropTypes.shape({
     token: PropTypes.string.isRequired,
     mail: PropTypes.string.isRequired,
+    userTypeId: PropTypes.number.isRequired,
+  }).isRequired,
+  type: PropTypes.shape({
+    firstname: PropTypes.string,
+    name: PropTypes.string,
   }).isRequired,
   setAuth: PropTypes.func.isRequired,
 };

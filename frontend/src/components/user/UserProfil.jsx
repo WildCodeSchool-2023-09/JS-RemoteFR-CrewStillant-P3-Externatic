@@ -26,11 +26,8 @@ function UserProfil() {
           <img
             src={typeData.image}
             alt={typeData.firstname}
-            className={`${style.profilepic}`}
-          />
-          <button type="button" className={`${style.buttonspace}`}>
-            Changer votre photo
-          </button>
+            className={`${style.companyPic}`}
+          />{" "}
         </div>
       )}
       {userData && userData.type === "candidat" && (

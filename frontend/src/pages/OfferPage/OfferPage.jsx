@@ -1,12 +1,31 @@
 import React from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
 import style from "./offerpage.module.scss";
 import src from "../../assets/images/map.png";
 
 export default function OfferPage() {
   const offer = useLoaderData();
-  const { auth } = useOutletContext();
+  const { auth, type } = useOutletContext();
   const navigate = useNavigate();
+
+  const onApply = async () => {
+    try {
+      const applyResponse = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/activity`,
+        { jobId: offer.id, candidateId: type.id },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      );
+      if (applyResponse.status === 201)
+        toast.success("Votre candidature a bien été prise en compte.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    }
+  };
 
   return (
     <section className={`${style.detailledOffer}`}>
@@ -39,6 +58,17 @@ export default function OfferPage() {
             <span>
               <b>Ville :</b> {offer.city}
             </span>
+          </div>
+          <div>
+            {auth.userTypeId === 1 && (
+              <button
+                type="button"
+                onClick={onApply}
+                className={`${style.applyButton}`}
+              >
+                Envoyer votre candidature
+              </button>
+            )}
           </div>
           <div>
             {!auth?.token && (

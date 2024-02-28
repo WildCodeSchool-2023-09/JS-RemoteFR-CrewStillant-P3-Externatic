@@ -19,6 +19,8 @@ import UserMessage from "./components/user/UserMessage";
 import WhoWeAre from "./pages/WhoWeAre/WhoWeAre";
 import OfferPage from "./pages/OfferPage/OfferPage";
 import RGPD from "./pages/RGPD/RGPD";
+import ModifyProfil from "./components/user/ModifyProfil";
+import UserExperience from "./components/user/UserExperience";
 
 const router = createBrowserRouter([
   {
@@ -68,8 +70,16 @@ const router = createBrowserRouter([
             element: <UserProfil />,
           },
           {
+            path: "modifier",
+            element: <ModifyProfil />,
+          },
+          {
             path: "diplome",
             element: <UserDiploma />,
+          },
+          {
+            path: "experience",
+            element: <UserExperience />,
           },
           {
             path: "competence",

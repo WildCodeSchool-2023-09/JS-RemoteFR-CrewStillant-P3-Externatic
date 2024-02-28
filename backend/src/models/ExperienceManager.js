@@ -7,16 +7,16 @@ class ExperienceManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT experience.job_title AS jobTitle, experience.company_name AS companyName, experience.start_date AS startDate, experience.end_date AS endDate, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate ON candidate.id = ${this.table}.candidate_id `
+      `SELECT experience.job_title AS jobTitle, experience.company_name AS companyName, experience.start_date AS startDate, experience.end_date AS endDate, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} INNER JOIN candidate ON candidate.id = ${this.table}.candidate_id `
     );
 
     return result;
   }
 
-  async read(id) {
+  async read(sub) {
     const [result] = await this.database.query(
-      `SELECT experience.job_title AS jobTitle, experience.company_name AS companyName, experience.start_date AS startDate, experience.end_date AS endDate, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate ON candidate.id = ${this.table}.candidate_id WHERE ${this.table}.candidate_id=?`,
-      [id]
+      `SELECT experience.id, experience.job_title AS jobTitle, experience.company_name AS companyName, experience.start_date AS startDate, experience.end_date AS endDate, experience.description AS description, experience.city AS city, experience.country AS country, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} INNER JOIN candidate ON candidate.id = ${this.table}.candidate_id WHERE ${this.table}.candidate_id IN (SELECT id FROM candidate WHERE user_id=?)`,
+      [sub]
     );
 
     return result;
@@ -30,10 +30,14 @@ class ExperienceManager extends AbstractManager {
     description,
     city,
     country,
-    id
+    id,
+    sub
   ) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET job_title=?, company_name=?, start_date=?, end_date=?, description=?, city=?, country=? WHERE id=?`,
+      `UPDATE ${this.table} 
+    INNER JOIN candidate ON ${this.table}.candidate_id = candidate.id
+    SET ${this.table}.job_title=?, ${this.table}.company_name=?, ${this.table}.start_date=?, ${this.table}.end_date=?, ${this.table}.description=?, ${this.table}.city=?, ${this.table}.country=? 
+    WHERE ${this.table}.id=? AND candidate.user_id=?`,
       [
         jobTitle,
         companyName,
@@ -43,6 +47,7 @@ class ExperienceManager extends AbstractManager {
         city,
         country,
         id,
+        sub,
       ]
     );
 
@@ -75,10 +80,10 @@ class ExperienceManager extends AbstractManager {
     return result;
   }
 
-  async delete(id) {
+  async delete(id, sub) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id=?`,
-      [id]
+      `DELETE FROM ${this.table} WHERE id= ? AND candidate_id IN (SELECT id FROM candidate WHERE user_id=?)`,
+      [id, sub]
     );
     return result;
   }

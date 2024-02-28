@@ -77,3 +77,23 @@ $box-shadowWB: 0px 6px 5px 0px rgba(0, 0, 0, 0.3);
 .iblur {
   filter: blur(8px);
 }
+
+.applyButton {
+  font: 100% jost;
+  background-color: var(--secondary);
+  color: var(--gray-2);
+  border-style: none;
+  border-radius: 0.4em;
+  padding: 0.8em 1em;
+  display: flex;
+  align-items: center;
+  margin: 1em;
+
+  @media (max-width: 768px) {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1em;
+  }
+}

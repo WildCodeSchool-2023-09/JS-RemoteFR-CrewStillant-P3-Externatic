@@ -31,42 +31,9 @@ const read = async (req, res, next) => {
 // PUT
 
 const edit = async (req, res, next) => {
-  const {
-    firstname,
-    lastname,
-    dateOfBirth,
-    wantedSalary,
-    email,
-    hashedPassword,
-    isActive,
-    contactNumber,
-    smsNotificationActive,
-    emailNotificationActive,
-    image,
-    city,
-    country,
-  } = req.body;
-  const { sub, userTypeId } = req.auth;
-  try {
-    const editUser = await tables.user.edit(
-      email,
-      hashedPassword,
-      isActive,
-      contactNumber,
-      smsNotificationActive,
-      emailNotificationActive,
-      image,
-      userTypeId,
-      parseInt(sub, 10)
-    );
-    if (editUser.length > 0) {
-      res.status(200).json(editUser);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    next(err);
-  }
+  const { firstname, lastname, dateOfBirth, wantedSalary, city, country } =
+    req.body;
+  const { sub } = req.auth;
   try {
     const editCandidate = await tables.candidate.update(
       firstname,
@@ -78,7 +45,7 @@ const edit = async (req, res, next) => {
       parseInt(sub, 10)
     );
 
-    if (editCandidate.length > 0) {
+    if (editCandidate) {
       res.status(200).json(editCandidate);
     } else {
       res.sendStatus(404);

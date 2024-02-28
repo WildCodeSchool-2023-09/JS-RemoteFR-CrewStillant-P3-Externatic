@@ -22,17 +22,14 @@ router.get("/searchPage", browseFilters);
 router.get("/companyoffers", verifyToken, read);
 router.get("/:id", readOffer);
 // TOKEN WALL
-router.use(verifyToken);
 
 // POST
 router.post("/", add);
 
-// GET
-
 // PUT
-router.put("/:id", edit);
+router.put("/", verifyToken, edit);
 
 // DELETE
-router.delete("/:id", remove);
+router.delete("/:id", verifyToken, remove);
 
 module.exports = router;

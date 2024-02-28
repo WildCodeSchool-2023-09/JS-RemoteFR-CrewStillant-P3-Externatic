@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import sidebarData from "./sideBarData";
 import styles from "./sideBar.module.scss";
 
-function SideBar({ sidebar, showSidebar, setAuth, auth }) {
+function SideBar({ bar, showSidebar, setAuth, auth }) {
   const navigate = useNavigate();
 
   if (!auth?.token) {
@@ -22,7 +22,7 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
 
   return (
     <aside className={styles.aside}>
-      <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
+      <nav className={bar ? "nav-menu active" : "nav-menu"}>
         <ul
           className="nav-menu-items"
           onClick={showSidebar}
@@ -41,19 +41,27 @@ function SideBar({ sidebar, showSidebar, setAuth, auth }) {
           </li>
           {sidebarData.map((item) => (
             <li key={item.title} className={item.cName}>
-              <Link to={item.path}>
+              <Link
+                to={
+                  auth.userTypeId === 2 && item.title === "Mes offres"
+                    ? "/monespace/offres"
+                    : item.path
+                }
+              >
                 {item.icon}
                 <span>{item.title}</span>
               </Link>
             </li>
           ))}
+
           <li>
             <button
               type="button"
               onClick={handleSignOut}
               className={`${styles.disconnect}`}
             >
-              Se déconnecter
+              {AiIcons.AiOutlineLogout()}
+              <span>Se déconnecter</span>
             </button>
           </li>
         </ul>
@@ -69,13 +77,18 @@ SideBar.propTypes = {
     cName: PropTypes.string,
   }).isRequired,
   showSidebar: PropTypes.func.isRequired,
-  sidebar: PropTypes.bool.isRequired,
+  bar: PropTypes.bool.isRequired,
   setAuth: PropTypes.func.isRequired,
   auth: PropTypes.shape({
     token: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     type: PropTypes.number.isRequired,
+    userTypeId: PropTypes.number.isRequired,
+  }).isRequired,
+  type: PropTypes.shape({
+    firstname: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
 };
 export default SideBar;

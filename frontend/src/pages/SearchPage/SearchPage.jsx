@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { jobType, jobPlace } from "./datas/filterDatas";
 import { formatString, replaceAll } from "../../services/formatting";
@@ -13,15 +14,14 @@ import src from "../../assets/images/map.png";
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { auth, search } = useOutletContext();
-
+  const { auth, type, search } = useOutletContext();
   // Mes différents états lier à mon GET & les potentiels filtres via les query.
   const [data, setData] = useState("");
   const [terms, setTerms] = useState("");
   const [city, setCity] = useState("");
   const [salary, setSalary] = useState(0);
   const [place, setPlace] = useState("none");
-  const [type, setType] = useState("none");
+  const [contract, setContract] = useState("none");
   const [offer, setOffer] = useState(null);
   const [isValidate, setIsValidate] = useState(false);
   const [filters, setFilters] = useSearchParams();
@@ -34,7 +34,7 @@ export default function SearchPage() {
 
   const handleSelectTypesChange = (e) => {
     if (e.target.value !== "none") {
-      setType(e.target.value);
+      setContract(e.target.value);
     }
   };
 
@@ -59,6 +59,23 @@ export default function SearchPage() {
     }
   }, [isValidate, search]);
 
+  const onApply = async () => {
+    try {
+      const applyResponse = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/activity`,
+        { jobId: offer.id, candidateId: type.id },
+        {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        }
+      );
+      if (applyResponse.status === 201)
+        toast.success("Votre candidature a bien été prise en compte.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Une erreur est survenue. Veuillez réessayer.");
+    }
+  };
+
   /**
    * Fonction qui vient appliquer les filtres.
    */
@@ -74,8 +91,8 @@ export default function SearchPage() {
     if (place !== "none") {
       params.set("place", place);
     }
-    if (type !== "none") {
-      params.set("type", type);
+    if (contract !== "none") {
+      params.set("type", contract);
     }
     setFilters(params);
     setIsValidate(true);
@@ -93,7 +110,7 @@ export default function SearchPage() {
     params.delete("place");
     setPlace("none");
     params.delete("type");
-    setType("none");
+    setContract("none");
     setFilters(params);
     setIsValidate(true);
   };
@@ -163,7 +180,7 @@ export default function SearchPage() {
             <div className={`${styles.jobTypes}`}>
               <label htmlFor="jobTypes">Type de contrat</label>
               <select
-                value={type}
+                value={contract}
                 name="jobTypes"
                 id="jobTypes"
                 onChange={handleSelectTypesChange}
@@ -212,7 +229,7 @@ export default function SearchPage() {
                 }
               >
                 <p>
-                  <b>Type de contrat :</b> {offer.type}
+                  <b>Type de contrat :</b> {offer.contract}
                 </p>
                 <p>
                   <b>Salaire annuel :</b> {offer.salary} €
@@ -229,6 +246,17 @@ export default function SearchPage() {
                 <p>
                   <b>Ville :</b> {offer.city}
                 </p>
+              </div>
+              <div>
+                {auth.userTypeId === 1 && (
+                  <button
+                    type="button"
+                    onClick={onApply}
+                    className={`${styles.applyButton}`}
+                  >
+                    Envoyer votre candidature
+                  </button>
+                )}
               </div>
               <div>
                 {!auth?.token && (

@@ -20,6 +20,6 @@ router.use(verifyToken);
 router.get("/", read);
 router.get("/all", browse);
 // PUT
-router.put("/:id", edit);
+router.put("/", edit);
 
 module.exports = router;

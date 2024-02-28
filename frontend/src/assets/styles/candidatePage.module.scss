@@ -27,7 +27,7 @@ html {
 
 .userpage {
   display: flex;
-  gap: 5em;
+  gap: 4em;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -107,6 +107,18 @@ html {
 .profilepic {
   border-radius: 15em;
   width: 15em;
+
+  @media (max-width: 768px) {
+    width: 10em;
+    border-radius: 10em;
+  }
+}
+
+.companyPic {
+  background-color: white;
+  border-radius: 0.5em;
+  width: 20em;
+  height: 22em;
 
   @media (max-width: 768px) {
     width: 10em;

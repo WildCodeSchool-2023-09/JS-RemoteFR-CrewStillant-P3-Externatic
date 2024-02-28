@@ -11,15 +11,18 @@ function SideSection({ auth }) {
       {auth?.userTypeId === 1 && (
         <>
           <NavLink to="/monespace/diplome">Mes diplômes</NavLink>
+          <NavLink to="/monespace/experience">Mes expériences</NavLink>
           <NavLink to="/monespace/activites">
             Historique de candidatures
           </NavLink>
+          <NavLink to="/monespace/modifier">Modifier profil</NavLink>
         </>
       )}
       {auth?.userTypeId === 2 && (
         <>
           <NavLink to="/monespace/offres">Mes offres</NavLink>
           <NavLink to="/monespace/candidats">Liste des candidats</NavLink>
+          <NavLink to="/monespace/modifier">Modifier profil</NavLink>
         </>
       )}
       {auth?.userTypeId === 3 && (

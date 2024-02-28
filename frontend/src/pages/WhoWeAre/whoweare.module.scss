@@ -4,18 +4,25 @@
   ul,
   li {
     text-align: center;
-    margin-left: 2rem;
+    margin: 4rem;
   }
+  h1 {
+    font-size: 2em;
+  }
+  margin-top: 2em;
+  margin-bottom: 6.25em;
 }
 
-.qui-sommes-nous {
+.WhoWeAre {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25em;
+  margin-bottom: 0.3em;
 
   h1 {
     font-size: 2em;
-    margin-bottom: 20px;
+    text-align: center;
+    margin: 2rem;
   }
 
   .introduction {
@@ -28,11 +35,10 @@
     margin-bottom: 15px;
   }
 
-  .mission-vision {
-    h2 {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
+  .missionVision {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 2rem;
   }
 
   .engagement {
