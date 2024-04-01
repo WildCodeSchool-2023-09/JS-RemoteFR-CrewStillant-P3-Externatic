@@ -7,7 +7,7 @@ class CandidateManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT user.image, user.email, user.contact_number AS contactNumber, candidate.firstname, candidate.lastname, candidate.date_of_birth AS dateOfBirth, candidate.wanted_salary AS wantedSalary, candidate.city, candidate.country, user.registration_date AS registrationDate FROM ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id`
+      `SELECT candidate.id, candidate.user_id AS userId, user.image, user.email, user.contact_number AS contactNumber, candidate.firstname, candidate.lastname, candidate.date_of_birth AS dateOfBirth, candidate.wanted_salary AS wantedSalary, candidate.city, candidate.country, user.registration_date AS registrationDate FROM ${this.table} LEFT JOIN user ON ${this.table}.user_id = user.id`
     );
     return result;
   }

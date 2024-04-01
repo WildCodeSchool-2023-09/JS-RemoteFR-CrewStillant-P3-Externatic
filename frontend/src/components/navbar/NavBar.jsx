@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import * as AiIcons from "react-icons/ai";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import externaticLogo from "../../assets/images/EXTERNATIC-LOGO-ORIGINAL-RVB.png";
@@ -11,6 +13,15 @@ import styles from "./navBar.module.scss";
 function NavBar({ auth, setAuth, type }) {
   const [bar, setbar] = useState(false);
   const showSidebar = () => setbar(!bar);
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    setAuth(null);
+    navigate("/accueil");
+    setTimeout(() => {
+      toast.success("Déconnexion réussie, à bientôt !");
+    }, 1000);
+  };
 
   return (
     <div className={`${styles.navBar}`}>
@@ -28,10 +39,37 @@ function NavBar({ auth, setAuth, type }) {
         </div>
 
         <div className="d-flex justify-content-flex-end flex-fill">
-          {auth?.token ? (
+          {auth?.token && auth?.userTypeId === 3 && (
             <ul className=" d-flex align-items-center ">
               <li>
-                <p>Bienvenue {type && (type.firstname || type.name)}</p>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className={`${styles.disconnect}`}
+                >
+                  {AiIcons.AiOutlineLogout()}
+                  <span>Se déconnecter</span>
+                </button>
+              </li>
+              <li>
+                <NavLink to="/admin/candidats">
+                  <p>Bienvenue {type && type.firstname} </p>
+                </NavLink>
+              </li>
+              <li>
+                <img
+                  src={externaticLogo2}
+                  className={`${styles.connexionImg}`}
+                  alt="logo"
+                />
+              </li>
+            </ul>
+          )}
+
+          {auth?.token && auth?.userTypeId !== 3 && (
+            <ul className=" d-flex align-items-center ">
+              <li>
+                <p>Bienvenue {type && (type.firstname || type.name)} </p>
               </li>
               <li>
                 <img
@@ -54,7 +92,8 @@ function NavBar({ auth, setAuth, type }) {
                 />
               </li>
             </ul>
-          ) : (
+          )}
+          {!auth?.token && (
             <ul className=" d-flex align-items-center mr-30">
               <li className="d-flex justify-content-space-center align-items-center">
                 <Link to="/connexion" className={`${styles.link}`}>

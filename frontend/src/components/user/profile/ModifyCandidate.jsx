@@ -19,6 +19,17 @@ function ModifyCandidate({ type, setType, auth }) {
   };
 
   const onSubmit = async (data) => {
+    if (
+      !data.lastname &&
+      !data.firstname &&
+      !data.dateOfBirth &&
+      !data.wantedSalary &&
+      !data.city &&
+      !data.country
+    ) {
+      toast.error("Veuillez remplir les champs");
+      return;
+    }
     try {
       const candidateResponse = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/candidate`,

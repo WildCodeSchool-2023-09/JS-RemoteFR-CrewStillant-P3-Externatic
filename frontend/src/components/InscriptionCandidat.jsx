@@ -35,7 +35,7 @@ export default function InscriptionCandidat() {
     apiKey: "free",
   });
 
-  const options = { multi: true };
+  const options = { multi: false };
   passwordRef.current = watch("password", "");
 
   // Handling Form pages
@@ -71,8 +71,8 @@ export default function InscriptionCandidat() {
 
   // Handling Form Submit
   const onSubmit = async (data) => {
+    const type = 1;
     try {
-      const type = 1;
       const userResponse = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
         { ...data, type }
@@ -104,10 +104,13 @@ export default function InscriptionCandidat() {
         newData.endDate = null;
       }
 
-      const experienceResponse = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/experience`,
-        { ...newData, candidateId }
-      );
+      let experienceResponse;
+      if (isDisabled === false) {
+        experienceResponse = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/experience`,
+          { ...newData, candidateId }
+        );
+      }
 
       if (
         (userResponse.status === 201 &&
@@ -375,7 +378,7 @@ export default function InscriptionCandidat() {
               <div className={`${style.divButton}`}>
                 <UploadButton
                   uploader={uploader}
-                  options={options}
+                  options={{ ...options, accept: "image/*" }}
                   onComplete={(image) => {
                     const urls = image.map((x) => x.fileUrl).join("\n");
                     setValue("image", urls);

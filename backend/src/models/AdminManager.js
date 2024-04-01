@@ -1,55 +1,38 @@
 const AbstractManager = require("./AbstractManager");
 
-class CompanyManager extends AbstractManager {
+class AdminManager extends AbstractManager {
   constructor() {
     super({ table: "admin" });
   }
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id`
+      `SELECT admin.*, user.image AS image, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN user ON user.id = user_id`
     );
     return result;
   }
 
-  async read(id) {
+  async read(sub) {
     const [result] = await this.database.query(
-      `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email  FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id WHERE ${this.table}.id=?`,
-      [id]
+      `SELECT admin.*, user.image AS image, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN user ON user.id = ${this.table}.user_id WHERE ${this.table}.user_id=?`,
+      [sub]
     );
     return result;
   }
 
-  async update(name, image, description, website, establishmentDate, id) {
+  async update(firstname, lastname, dateOfBirth, id) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name=?, image=?, description=?, website=?, establishment_date=?  WHERE id=?`,
-      [name, image, description, website, establishmentDate, id]
+      `UPDATE ${this.table} SET firstname=?, lastname=?, dateOfBirth=? WHERE id=?`,
+      [firstname, lastname, dateOfBirth, id]
     );
 
     return result;
   }
 
-  async create(
-    name,
-    description,
-    website,
-    establishmentDate,
-    siret,
-    companySectorId,
-    userId
-  ) {
+  async create(firstname, lastname, dateOfBirth, userId) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, description, website, establishment_date, siret, company_sector_id,
-    user_id) VALUES (?,?,?,?,?,?,?)`,
-      [
-        name,
-        description,
-        website,
-        establishmentDate,
-        siret,
-        companySectorId,
-        userId,
-      ]
+      `INSERT INTO ${this.table} (firstname, lastname, date_of_birth, user_id) VALUES (?,?,?,?)`,
+      [firstname, lastname, dateOfBirth, userId]
     );
     return result;
   }
@@ -63,4 +46,4 @@ class CompanyManager extends AbstractManager {
   }
 }
 
-module.exports = CompanyManager;
+module.exports = AdminManager;

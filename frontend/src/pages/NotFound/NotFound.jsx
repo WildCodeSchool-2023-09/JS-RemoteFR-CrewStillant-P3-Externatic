@@ -8,7 +8,7 @@ function NotFound() {
   useEffect(() => {
     setTimeout(() => {
       navigate("/accueil");
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (

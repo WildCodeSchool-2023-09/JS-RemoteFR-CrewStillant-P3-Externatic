@@ -32,12 +32,12 @@ export default function InscriptionEntreprise() {
     apiKey: "free",
   });
 
-  const options = { multi: true };
+  const options = { multi: false };
   passwordRef.current = watch("password", "");
 
   const onSubmit = async (data) => {
+    const type = 2;
     try {
-      const type = 2;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
         { ...data, type }
@@ -331,7 +331,7 @@ export default function InscriptionEntreprise() {
           <div className={`${style.divButton}`}>
             <UploadButton
               uploader={uploader}
-              options={options}
+              options={{ ...options, accept: "image/*" }}
               onComplete={(image) => {
                 const urls = image.map((x) => x.fileUrl).join("\n");
 

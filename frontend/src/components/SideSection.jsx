@@ -6,10 +6,10 @@ import style from "../assets/styles/candidatePage.module.scss";
 function SideSection({ auth }) {
   return (
     <section className={`${style.sidesection}`}>
-      <NavLink to="/monespace/profil">Profil</NavLink>
-      <NavLink to="/monespace/messages">Messages</NavLink>
       {auth?.userTypeId === 1 && (
         <>
+          <NavLink to="/monespace/profil">Profil</NavLink>
+          <NavLink to="/monespace/messages">Messages</NavLink>
           <NavLink to="/monespace/diplome">Mes diplômes</NavLink>
           <NavLink to="/monespace/experience">Mes expériences</NavLink>
           <NavLink to="/monespace/activites">
@@ -20,6 +20,8 @@ function SideSection({ auth }) {
       )}
       {auth?.userTypeId === 2 && (
         <>
+          <NavLink to="/monespace/profil">Profil</NavLink>
+          <NavLink to="/monespace/messages">Messages</NavLink>
           <NavLink to="/monespace/offres">Mes offres</NavLink>
           <NavLink to="/monespace/candidats">Liste des candidats</NavLink>
           <NavLink to="/monespace/modifier">Modifier profil</NavLink>
@@ -30,6 +32,7 @@ function SideSection({ auth }) {
           <NavLink to="/admin/candidats/">Candidats</NavLink>
           <NavLink to="/admin/entreprises/">Entreprises</NavLink>
           <NavLink to="/admin/offres/">Offres</NavLink>
+          <NavLink to="/admin/ajouter&&admin/">Ajouter un Admin</NavLink>
         </>
       )}
     </section>

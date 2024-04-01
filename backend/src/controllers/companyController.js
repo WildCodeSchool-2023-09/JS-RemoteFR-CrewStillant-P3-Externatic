@@ -62,6 +62,7 @@ const edit = async (req, res, next) => {
 const add = async (req, res) => {
   const {
     name,
+    image,
     description,
     website,
     establishmentDate,
@@ -72,6 +73,7 @@ const add = async (req, res) => {
   try {
     const insertId = await tables.company.create(
       name,
+      image,
       description,
       website,
       establishmentDate,
@@ -94,9 +96,9 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { sub } = req.auth;
+  const { id } = req.params;
   try {
-    const removeCompany = await tables.company.delete(parseInt(sub, 10));
+    const removeCompany = await tables.company.delete(parseInt(id, 10));
     if (removeCompany) {
       res
         .status(200)

@@ -22,6 +22,15 @@ function ModifyCompany({ type, setType, auth }) {
   };
 
   const onSubmit = async (data) => {
+    if (
+      !data.name &&
+      !data.description &&
+      !data.website &&
+      !data.establishmentDate
+    ) {
+      toast.error("Veuillez remplir les champs");
+      return;
+    }
     try {
       const candidateResponse = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/company/`,

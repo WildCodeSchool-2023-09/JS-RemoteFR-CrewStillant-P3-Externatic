@@ -31,7 +31,7 @@ function ModifyUser({ user, auth, setAuth, type, setType }) {
     apiKey: "free",
   });
 
-  const options = { multi: true };
+  const options = { multi: false };
   passwordRef.current = watch("password", "");
 
   const formatDateString = (dateString) => {
@@ -40,6 +40,17 @@ function ModifyUser({ user, auth, setAuth, type, setType }) {
   };
 
   const onSubmit = async (data) => {
+    if (
+      !data.email &&
+      !data.password &&
+      !data.contactNumber &&
+      !data.image &&
+      !data.smsNotificationActive &&
+      !data.emailNotificationActive
+    ) {
+      toast.error("Veuillez remplir les champs");
+      return;
+    }
     try {
       const userResponse = await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
@@ -47,8 +58,10 @@ function ModifyUser({ user, auth, setAuth, type, setType }) {
           email: data.email || user.email,
           password: data.password || user.password,
           contactNumber: data.contact_number || user.contact_number,
-          smsNotificationActive: data.smsNotificationActive || false,
-          emailNotificationActive: data.emailNotificationActive || false,
+          smsNotificationActive:
+            data.smsNotificationActive || user.email_notification_active,
+          emailNotificationActive:
+            data.emailNotificationActive || user.sms_notification_active,
           image: data.image || user.image,
         },
         {
@@ -237,7 +250,7 @@ function ModifyUser({ user, auth, setAuth, type, setType }) {
 
         <UploadButton
           uploader={uploader}
-          options={options}
+          options={{ ...options, accept: "image/*" }}
           onComplete={(image) => {
             const urls = image.map((x) => x.fileUrl).join("\n");
             setValue("image", urls);
@@ -283,8 +296,8 @@ ModifyUser.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     contactNumber: PropTypes.string.isRequired,
-    smsNotificationActive: PropTypes.bool.isRequired,
-    emailNotificationActive: PropTypes.bool.isRequired,
+    sms_notification_active: PropTypes.bool.isRequired,
+    email_notification_active: PropTypes.bool.isRequired,
     image: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     contact_number: PropTypes.string.isRequired,

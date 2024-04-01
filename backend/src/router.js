@@ -18,7 +18,6 @@ const authRouter = require("./routers/authRouter");
 const adminRouter = require("./routers/adminRouter");
 const candidateDegreeRouter = require("./routers/candidateDegreeRouter");
 const locationRouter = require("./routers/locationRouter");
-const { verifyToken } = require("./middlewares/hashPassword");
 
 // ROUTES
 
@@ -31,9 +30,6 @@ router.use("/experience", experienceRouter);
 router.use("/candidate-degree", candidateDegreeRouter);
 router.use("/company", companyRouter);
 router.use("/location", locationRouter);
-// Token identification wall, protecting routers below.
-router.use(verifyToken);
-
 router.use("/admin", adminRouter);
 router.use("/activity", activityRouter);
 router.use("/message", messageRouter);

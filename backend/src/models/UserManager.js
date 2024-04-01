@@ -12,10 +12,10 @@ class UserManager extends AbstractManager {
     return result;
   }
 
-  async read(id) {
+  async read(sub) {
     const [result] = await this.database.query(
       `SELECT user.email, user.password, user.contact_number, user.sms_notification_active, user.email_notification_active, user.image, user_type.type FROM ${this.table} INNER JOIN user_type ON user_type.id = ${this.table}.user_type_id WHERE ${this.table}.id =?`,
-      [id]
+      [sub]
     );
     return result;
   }
@@ -74,6 +74,14 @@ class UserManager extends AbstractManager {
     const [result] = await this.database.query(
       `DELETE FROM ${this.table} WHERE id=?`,
       [sub]
+    );
+    return result;
+  }
+
+  async deleteUser(id) {
+    const [result] = await this.database.query(
+      `DELETE FROM ${this.table} WHERE id=?`,
+      [id]
     );
     return result;
   }

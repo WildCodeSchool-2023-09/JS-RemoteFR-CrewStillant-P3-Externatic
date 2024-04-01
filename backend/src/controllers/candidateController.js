@@ -80,4 +80,18 @@ const add = async (req, res) => {
   }
 };
 
-module.exports = { browse, read, edit, add };
+const remove = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deleteCandidate = await tables.candidate.delete(parseInt(id, 10));
+    if (deleteCandidate) {
+      res.status(200).json(deleteCandidate);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { browse, read, edit, add, remove };

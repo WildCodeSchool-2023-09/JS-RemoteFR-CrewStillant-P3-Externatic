@@ -47,6 +47,19 @@ const browse = async (req, res) => {
   }
 };
 
+const browseAdmin = async (req, res, next) => {
+  try {
+    const getJob = await tables.job.readJobs();
+    if (getJob) {
+      res.status(200).json(getJob);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 const browseCount = async (req, res) => {
   try {
     const getJob = await tables.job.readCount();
@@ -180,7 +193,7 @@ const remove = async (req, res) => {
   try {
     const deleteJob = await tables.job.delete(id, parseInt(sub, 10));
     if (deleteJob) {
-      res.status(200).json(deleteJob);
+      res.status(200).json("The offer has been successfully deleted");
     } else {
       res.sendStatus(404);
     }
@@ -189,13 +202,30 @@ const remove = async (req, res) => {
   }
 };
 
+const adminDelete = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deleteJob = await tables.job.deleteJob(parseInt(id, 10));
+    if (deleteJob) {
+      res.status(200).json("The offer has been successfully deleted");
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browseFilters,
   browseCount,
   browse,
+  browseAdmin,
   read,
   readOffer,
   edit,
   add,
   remove,
+  adminDelete,
 };

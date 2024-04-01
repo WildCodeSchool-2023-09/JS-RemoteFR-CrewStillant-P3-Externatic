@@ -1,7 +1,7 @@
 .navBar {
   box-shadow: 0 0 0.5px 0.3px rgba(0, 0, 0, 0.15);
   background-color: #efefef;
-  border-bottom: 0.3em solid #ca2061;
+  border-bottom: 0.3em solid var(--primary);
   nav {
     gap: 4rem;
     padding: 0;
@@ -12,7 +12,7 @@
           font-size: 5rem;
         }
         p {
-          border-bottom: 0.3em solid #ca2061;
+          border-bottom: 0.3em solid var(--primary);
         }
       }
     }
@@ -80,11 +80,42 @@
   gap: 2em;
 
   p {
-    border-bottom: 0.3em solid #ca2061;
+    border-bottom: 0.3em solid var(--primary);
   }
 
   @media (max-width: 768px) {
     font: 100% jost;
     gap: 1em;
   }
+}
+
+.disconnect {
+  border-style: none;
+  border-radius: 0.2em;
+  background-color: var(--primary);
+  margin-left: 1.5em;
+  color: #f5f5f5;
+  font-size: 1.125em;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  width: 12em;
+  height: 3em;
+  border: 4em 5em;
+  @media (max-width: 768px) {
+    font-size: 0.8em;
+    font-weight: 300;
+    width: 10em;
+    height: 2em;
+    margin-right: 4em;
+  }
+}
+
+.disconnect:hover {
+  background-color: var(--secondary);
+  color: black;
+  padding: 0 1em;
+  border-radius: 0.25em;
 }

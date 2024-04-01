@@ -7,7 +7,7 @@ class CompanyManager extends AbstractManager {
 
   async readAll() {
     const [result] = await this.database.query(
-      `SELECT company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id`
+      `SELECT company.id, company.user_id AS userId, company.name, company.image, company.description, company.website, company.establishment_date AS establishmentDate, company.siret, company_sector.sector AS companySector, user.contact_number AS contactNumber, user.registration_date AS registrationDate, user.email FROM ${this.table} INNER JOIN company_sector ON company_sector.id = company_sector_id INNER JOIN user ON user.id = user_id`
     );
     return result;
   }
@@ -31,6 +31,7 @@ class CompanyManager extends AbstractManager {
 
   async create(
     name,
+    image,
     description,
     website,
     establishmentDate,
@@ -39,10 +40,11 @@ class CompanyManager extends AbstractManager {
     userId
   ) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, description, website, establishment_date, siret, company_sector_id,
-    user_id) VALUES (?,?,?,?,?,?,?)`,
+      `INSERT INTO ${this.table} (name, image, description, website, establishment_date, siret, company_sector_id,
+    user_id) VALUES (?,?,?,?,?,?,?,?)`,
       [
         name,
+        image,
         description,
         website,
         establishmentDate,
@@ -54,10 +56,10 @@ class CompanyManager extends AbstractManager {
     return result;
   }
 
-  async delete(sub) {
+  async delete(id) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE user_id = ?`,
-      [sub]
+      `DELETE FROM ${this.table} WHERE id = ?`,
+      [id]
     );
     return result;
   }

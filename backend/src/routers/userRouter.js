@@ -2,7 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-const { add, read, edit, remove } = require("../controllers/userController");
+const {
+  add,
+  read,
+  edit,
+  remove,
+  adminDeleteUser,
+} = require("../controllers/userController");
 const { validateUserData } = require("../middlewares/validateUser");
 
 const { browseFilters } = require("../controllers/jobController");
@@ -22,5 +28,6 @@ router.get("/search", browseFilters);
 router.put("/", validateUserData, hash, verifyToken, edit);
 // DELETE
 router.delete("/", verifyToken, remove);
+router.delete("/:id", verifyToken, adminDeleteUser);
 
 module.exports = router;

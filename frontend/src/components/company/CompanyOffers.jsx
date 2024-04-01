@@ -45,50 +45,54 @@ function CompanyOffers() {
 
   return (
     <div className={`${style.company}`}>
-      <div className={`${style.jobList}`}>
-        <div className={`${style.job}`}>
-          {Array.isArray(job) &&
-            job.map((j) => (
-              <div key={j.id}>
-                <h2>Poste: {j.title}</h2>
-                <p>Date: {formatDateString(j.createdDate)}</p>
-                <p>Contrat: {j.type}</p>
-                <p>Heures travaillés: {j.hoursWorked} heures</p>
-                <p>Salaire: {j.salary} euro/an</p>
-                {j.skill && j.level ? (
-                  <p>
-                    Compétence: {j.skill} - {j.level}
-                  </p>
-                ) : null}
-                <p>Description: {j.description}</p>
-                <div className={`${style.divButton}`}>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(j.id)}
-                    className={`${style.jobButton}`}
-                  >
-                    {" "}
-                    Supprimer cette offre
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowModifyJob(true);
-                      setShowAddJob(false);
-                      setGetJob(j);
-                    }}
-                    className={`${style.jobButton}`}
-                  >
-                    {" "}
-                    Modifier cette offre
-                  </button>
-                </div>
+      {getJob ? (
+        <div className={`${style.jobList}`}>
+          <div className={`${style.job}`}>
+            {Array.isArray(job) &&
+              job.map((j) => (
+                <div key={j.id}>
+                  <h2>Poste: {j.title}</h2>
+                  <p>Date: {formatDateString(j.createdDate)}</p>
+                  <p>Contrat: {j.type}</p>
+                  <p>Heures travaillés: {j.hoursWorked} heures</p>
+                  <p>Salaire: {j.salary} euro/an</p>
+                  {j.skill && j.level ? (
+                    <p>
+                      Compétence: {j.skill} - {j.level}
+                    </p>
+                  ) : null}
+                  <p>Description: {j.description}</p>
+                  <div className={`${style.divButton}`}>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(j.id)}
+                      className={`${style.jobButton}`}
+                    >
+                      {" "}
+                      Supprimer cette offre
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowModifyJob(true);
+                        setShowAddJob(false);
+                        setGetJob(j);
+                      }}
+                      className={`${style.jobButton}`}
+                    >
+                      {" "}
+                      Modifier cette offre
+                    </button>
+                  </div>
 
-                <hr className={`${style.hr}`} />
-              </div>
-            ))}
+                  <hr className={`${style.hr}`} />
+                </div>
+              ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <p> Veuillez ajouter une offre. </p>
+      )}
       <button
         type="button"
         onClick={() => {

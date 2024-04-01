@@ -54,7 +54,7 @@ const add = async (req, res, next) => {
     if (insertId) {
       res
         .status(201)
-        .json({ insertId, message: "Votre utilisateur a bien été créer." });
+        .json({ insertId, message: "Votre utilisateur a bien été créé." });
     } else {
       res.sendStatus(404);
     }
@@ -108,4 +108,18 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { browse, read, edit, add, remove };
+const adminDeleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deleteUser = await tables.user.deleteUser(parseInt(id, 10));
+    if (deleteUser) {
+      res.status(200).json("User is successfully deleted");
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { browse, read, edit, add, remove, adminDeleteUser };

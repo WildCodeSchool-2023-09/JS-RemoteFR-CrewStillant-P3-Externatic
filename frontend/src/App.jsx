@@ -43,7 +43,7 @@ function App() {
           headers: { Authorization: `Bearer ${auth?.token}` },
         })
         .then((res) => {
-          if (res.data && res.data.length >= 2) {
+          if (res.data) {
             setUser(res.data[0]);
             setType(res.data[1]);
           }
@@ -54,7 +54,7 @@ function App() {
   return (
     <div>
       <ErrorBoundary>
-        <NavBar auth={auth} setAuth={setAuth} type={type} />
+        <NavBar auth={auth} setAuth={setAuth} type={type} user={user} />
         <ToastContainer
           position="top-right"
           autoClose={5000}

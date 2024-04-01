@@ -18,7 +18,7 @@ router.get("/", verifyToken, read);
 
 // POST
 
-router.post("/", verifyToken, add);
+router.post("/", add);
 
 // DELETE
 

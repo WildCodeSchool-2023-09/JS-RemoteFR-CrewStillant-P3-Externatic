@@ -10,7 +10,7 @@ import show from "../assets/images/show.png";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { setAuth } = useOutletContext();
+  const { setAuth, auth } = useOutletContext();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const {
@@ -26,10 +26,17 @@ function Login() {
         data
       );
       setAuth(res.data);
+
       if (res.data) {
-        setTimeout(() => {
-          navigate("/accueil");
-        }, 1000);
+        if (auth.userTypeId === 3) {
+          setTimeout(() => {
+            navigate("/admin");
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            navigate("/accueil");
+          }, 1000);
+        }
       }
 
       toast.success("Connexion réussie, bienvenue !");
