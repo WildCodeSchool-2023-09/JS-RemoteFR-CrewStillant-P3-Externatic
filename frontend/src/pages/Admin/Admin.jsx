@@ -9,7 +9,7 @@ function Admin() {
 
   useEffect(() => {
     if (!auth?.token) {
-      navigate("/accueil");
+      navigate("/");
     }
   }, []);
 

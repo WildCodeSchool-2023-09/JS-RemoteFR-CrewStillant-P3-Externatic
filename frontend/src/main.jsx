@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/accueil",
+        path: "/",
         element: <HomePage />,
         loader: async () => {
           const job = await axios

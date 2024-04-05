@@ -10,7 +10,7 @@ function UserProfil() {
 
   useEffect(() => {
     if (!auth?.token) {
-      navigate("/accueil");
+      navigate("/");
     }
   }, []);
 
