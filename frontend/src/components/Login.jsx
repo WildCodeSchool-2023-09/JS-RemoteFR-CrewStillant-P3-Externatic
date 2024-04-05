@@ -34,7 +34,7 @@ function Login() {
           }, 1000);
         } else {
           setTimeout(() => {
-            navigate("/accueil");
+            navigate("/");
           }, 1000);
         }
       }

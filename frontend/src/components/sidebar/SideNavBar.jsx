@@ -9,12 +9,12 @@ function SideBar({ bar, showSidebar, setAuth, auth }) {
   const navigate = useNavigate();
 
   if (!auth?.token) {
-    navigate("/accueil");
+    navigate("/");
   }
 
   const handleSignOut = () => {
     setAuth(null);
-    navigate("/accueil");
+    navigate("/");
     setTimeout(() => {
       toast.success("Déconnexion réussie, à bientôt !");
     }, 1000);

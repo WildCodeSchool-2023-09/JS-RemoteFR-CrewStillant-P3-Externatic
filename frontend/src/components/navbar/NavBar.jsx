@@ -17,7 +17,7 @@ function NavBar({ auth, setAuth, type }) {
 
   const handleSignOut = () => {
     setAuth(null);
-    navigate("/accueil");
+    navigate("/");
     setTimeout(() => {
       toast.success("Déconnexion réussie, à bientôt !");
     }, 1000);
@@ -27,7 +27,7 @@ function NavBar({ auth, setAuth, type }) {
     <div className={`${styles.navBar}`}>
       <nav className="d-flex justify-content-space-evenly align-items-center ">
         <div className={`${styles.linkLogo}`}>
-          <Link to="/accueil">
+          <Link to="/">
             <img src={externaticLogo} alt="logo" />
           </Link>
           {auth?.userTypeId === 1 ? (
@@ -52,7 +52,7 @@ function NavBar({ auth, setAuth, type }) {
                 </button>
               </li>
               <li>
-                <NavLink to="/admin/candidats">
+                <NavLink to="admin/candidats">
                   <p>Bienvenue {type && type.firstname} </p>
                 </NavLink>
               </li>

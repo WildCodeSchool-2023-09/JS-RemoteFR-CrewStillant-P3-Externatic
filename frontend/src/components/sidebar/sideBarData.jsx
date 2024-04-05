@@ -6,7 +6,7 @@ import * as MdIcons from "react-icons/md";
 const sidebarData = [
   {
     title: "Home",
-    path: "/accueil",
+    path: "/",
     icon: <CiIcons.CiHome />,
     cName: "nav-text",
   },
