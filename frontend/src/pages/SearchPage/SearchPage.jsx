@@ -1,20 +1,17 @@
-import {
-  useNavigate,
-  useOutletContext,
-  useSearchParams,
-} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { jobType, jobPlace } from "./datas/filterDatas";
 import { formatString, replaceAll } from "../../services/formatting";
+import { useAuthContext } from "../../context/AuthContext";
 import styles from "./searchpage.module.scss";
 import src from "../../assets/images/map.png";
 
 export default function SearchPage() {
   const navigate = useNavigate();
-  const { auth, type, search } = useOutletContext();
+  const { auth, type, search } = useAuthContext();
   // Mes différents états lier à mon GET & les potentiels filtres via les query.
   const [data, setData] = useState("");
   const [terms, setTerms] = useState("");

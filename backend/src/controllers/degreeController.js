@@ -85,12 +85,16 @@ const add = async (req, res) => {
 
 const remove = async (req, res) => {
   const { sub } = req.auth;
+  const { id } = req.params;
   try {
-    const degree = await tables.degree.read(parseInt(sub, 10));
+    const degree = await tables.degree.read(
+      parseInt(sub, 10),
+      parseInt(id, 10)
+    );
     if (!degree) {
       res.sendStatus(404);
     } else {
-      await tables.degree.delete(parseInt(sub, 10));
+      await tables.degree.delete(parseInt(sub, 10), parseInt(id, 10));
       res
         .status(200)
         .json("Degree has been successfully deleted from your table");

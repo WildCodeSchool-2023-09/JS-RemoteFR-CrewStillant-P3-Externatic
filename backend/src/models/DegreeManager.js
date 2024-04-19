@@ -48,10 +48,10 @@ class DegreeManager extends AbstractManager {
     return result;
   }
 
-  async delete(sub) {
+  async delete(sub, id) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id IN (SELECT degree_id FROM candidate_degree WHERE candidate_id IN (SELECT id FROM candidate WHERE user_id=?))`,
-      [sub]
+      `DELETE FROM ${this.table} WHERE id IN (SELECT degree_id FROM candidate_degree WHERE candidate_id IN (SELECT id FROM candidate WHERE user_id=?)) AND id = ?`,
+      [sub, id]
     );
     return result;
   }

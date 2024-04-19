@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useLoaderData, useNavigate, useOutletContext } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 import style from "./offerpage.module.scss";
 import src from "../../assets/images/map.png";
 
 export default function OfferPage() {
   const offer = useLoaderData();
-  const { auth, type } = useOutletContext();
+  const { auth, type } = useAuthContext();
   const navigate = useNavigate();
 
   const onApply = async () => {

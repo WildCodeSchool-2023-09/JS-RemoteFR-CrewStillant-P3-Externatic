@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Outlet, useOutletContext, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 import SideSection from "../../components/SideSection";
 import style from "./admin.module.scss";
 
 function Admin() {
-  const { auth, setAuth, user, type, setType } = useOutletContext();
+  const { auth, setAuth, user, type, setType } = useAuthContext();
   const navigate = useNavigate();
 
   useEffect(() => {

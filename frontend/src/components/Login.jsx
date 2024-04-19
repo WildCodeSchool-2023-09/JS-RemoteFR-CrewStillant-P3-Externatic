@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAuthContext } from "../context/AuthContext";
 import hide from "../assets/images/hide.png";
 import show from "../assets/images/show.png";
 import style from "../assets/styles/login.module.scss";
 
 function Login() {
-  const { setAuth, auth } = useOutletContext();
+  const { setAuth, auth } = useAuthContext();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const {

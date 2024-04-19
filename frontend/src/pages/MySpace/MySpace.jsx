@@ -1,16 +1,17 @@
-import { Outlet, useNavigate, useOutletContext } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 import SideSection from "../../components/SideSection";
 import style from "../../assets/styles/candidatePage.module.scss";
 
 export default function MySpace() {
-  const { auth, setAuth, user, type, setType } = useOutletContext();
+  const { auth, setAuth, user, type, setType } = useAuthContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!auth?.token) {
-      navigate("/accueil");
+      navigate("/");
     }
   }, []);
 

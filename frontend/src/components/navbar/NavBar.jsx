@@ -5,12 +5,14 @@ import PropTypes from "prop-types";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useAuthContext } from "../../context/AuthContext";
 import externaticLogo from "../../assets/images/EXTERNATIC-LOGO-ORIGINAL-RVB.png";
 import externaticLogo2 from "../../assets/images/EXTERNATIC-LOGO2.png";
 import SideBar from "../sidebar/SideNavBar";
 import styles from "./navBar.module.scss";
 
-function NavBar({ auth, setAuth, type }) {
+function NavBar() {
+  const { auth, setAuth, type } = useAuthContext();
   const [bar, setbar] = useState(false);
   const showSidebar = () => setbar(!bar);
   const navigate = useNavigate();
@@ -124,7 +126,6 @@ NavBar.propTypes = {
     firstname: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
-  setAuth: PropTypes.func.isRequired,
 };
 
 export default NavBar;
