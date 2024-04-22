@@ -70,7 +70,10 @@ function UserProfil() {
             </p>
             <p> n° de siret: {typeData.siret} </p>
             <p> Secteur d'activité: {typeData.companySector} </p>
-            <p> Description: {typeData.description} </p>
+            <p className={`${style.description}`}>
+              {" "}
+              Description: {typeData.description}{" "}
+            </p>
           </div>
         </div>
       )}
