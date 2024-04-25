@@ -31,7 +31,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, "http://192.168.2.106:3000/"],
+    origin: [process.env.FRONTEND_URL],
   })
 );
 
@@ -123,7 +123,7 @@ app.use("*", (req, res) => {
   if (req.originalUrl.includes("assets")) {
     res.sendFile(path.resolve(__dirname, `../../frontend/${req.originalUrl}`));
   } else {
-    res.sendFile(path.resolve(__dirname, `../../frontend/index.html`));
+    res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
   }
 });
 
