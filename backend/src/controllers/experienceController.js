@@ -20,7 +20,7 @@ const read = async (req, res) => {
   try {
     const getExperienceId = await tables.experience.read(parseInt(sub, 10));
     if (getExperienceId) {
-      res.status(200).json(getExperienceId[0]);
+      res.status(200).json(getExperienceId);
     } else {
       res.sendStatus(404);
     }
@@ -40,6 +40,7 @@ const edit = async (req, res, next) => {
     description,
     city,
     country,
+    id,
   } = req.body;
   const { sub } = req.auth;
   try {
@@ -51,10 +52,11 @@ const edit = async (req, res, next) => {
       description,
       city,
       country,
+      id,
       parseInt(sub, 10)
     );
 
-    if (editExperience) {
+    if (editExperience.affectedRows > 0) {
       res.status(200).json(editExperience);
     } else {
       res.sendStatus(404);
@@ -101,9 +103,13 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
+  const { sub } = req.auth;
   const { id } = req.params;
   try {
-    const deleteExperience = await tables.experience.delete(parseInt(id, 10));
+    const deleteExperience = await tables.experience.delete(
+      id,
+      parseInt(sub, 10)
+    );
     if (deleteExperience) {
       res
         .status(200)

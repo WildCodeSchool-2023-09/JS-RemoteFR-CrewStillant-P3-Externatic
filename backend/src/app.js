@@ -31,9 +31,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: [
-      process.env.FRONTEND_URL, // keep this one, after checking the value in `backend/.env`
-    ],
+    origin: [process.env.FRONTEND_URL],
   })
 );
 
@@ -123,9 +121,7 @@ app.use("/public/*", (req, res) => {
 
 app.use("*", (req, res) => {
   if (req.originalUrl.includes("assets")) {
-    res.sendFile(
-      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
-    );
+    res.sendFile(path.resolve(__dirname, `../../frontend/${req.originalUrl}`));
   } else {
     res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
   }

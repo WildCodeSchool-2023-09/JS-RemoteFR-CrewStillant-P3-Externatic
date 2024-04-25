@@ -2,12 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 
-const { read, remove } = require("../controllers/activityController");
+const { read, create, remove } = require("../controllers/activityController");
+const { verifyToken } = require("../middlewares/hashPassword");
 
 // GET
-router.get("/", read);
+router.get("/", verifyToken, read);
+
+// CREATE
+router.post("/", create);
 
 // DELETE
-router.delete("/:id", remove);
+router.delete("/:id", verifyToken, remove);
 
 module.exports = router;

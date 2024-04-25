@@ -32,10 +32,6 @@ function UserChoices() {
         <p>Aucune compétence ajoutée</p>
       )}
       <CriteriaUser criteria={criteria} />
-      <CriteriaUser criteria={criteria} />
-      <CriteriaUser criteria={criteria} />
-      <CriteriaUser criteria={criteria} />
-      <CriteriaUser criteria={criteria} />
     </div>
   );
 }

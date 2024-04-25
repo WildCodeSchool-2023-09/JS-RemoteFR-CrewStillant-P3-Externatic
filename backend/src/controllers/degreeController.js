@@ -19,8 +19,8 @@ const read = async (req, res) => {
   const { sub } = req.auth;
   try {
     const getDegreeId = await tables.degree.read(parseInt(sub, 10));
-    if (getDegreeId) {
-      res.status(200).json(getDegreeId[0]);
+    if (getDegreeId.length > 0) {
+      res.status(200).json(getDegreeId);
     } else {
       res.sendStatus(404);
     }
@@ -32,7 +32,7 @@ const read = async (req, res) => {
 // PUT
 
 const edit = async (req, res, next) => {
-  const { name, level, startingDate, completionDate, university, city } =
+  const { name, level, startingDate, completionDate, university, city, id } =
     req.body;
   const { sub } = req.auth;
   try {
@@ -43,10 +43,11 @@ const edit = async (req, res, next) => {
       completionDate,
       university,
       city,
+      id,
       parseInt(sub, 10)
     );
 
-    if (editDegree.length > 0) {
+    if (editDegree.affectedRows > 0) {
       res.status(200).json(editDegree);
     } else {
       res.sendStatus(404);
@@ -83,15 +84,20 @@ const add = async (req, res) => {
 // DELETE
 
 const remove = async (req, res) => {
-  const { sub } = req.params;
+  const { sub } = req.auth;
+  const { id } = req.params;
   try {
-    const deleteDegree = await tables.degree.delete(parseInt(sub, 10));
-    if (deleteDegree) {
+    const degree = await tables.degree.read(
+      parseInt(sub, 10),
+      parseInt(id, 10)
+    );
+    if (!degree) {
+      res.sendStatus(404);
+    } else {
+      await tables.degree.delete(parseInt(sub, 10), parseInt(id, 10));
       res
         .status(200)
-        .json("Degree has been successefully deleted from your table");
-    } else {
-      res.sendStatus(404);
+        .json("Degree has been successfully deleted from your table");
     }
   } catch (err) {
     console.error(err);

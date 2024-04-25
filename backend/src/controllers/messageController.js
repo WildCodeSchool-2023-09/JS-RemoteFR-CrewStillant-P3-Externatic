@@ -21,7 +21,7 @@ const read = async (req, res) => {
   const { sub } = req.auth;
   try {
     const getMessageId = await tables.message.read(parseInt(sub, 10));
-    if (getMessageId) {
+    if (getMessageId.length > 0) {
       res.status(200).json(getMessageId[0]);
     } else {
       res.sendStatus(404);

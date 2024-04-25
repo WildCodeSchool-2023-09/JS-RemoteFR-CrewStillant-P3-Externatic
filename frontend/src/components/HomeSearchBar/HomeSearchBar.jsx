@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../../context/AuthContext";
 import styles from "./searchbar.module.scss";
 
 export default function HomeSearchBar() {
-  const { setSearch } = useOutletContext();
+  const { setSearch } = useAuthContext();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm({
     criteriaMode: "all",
