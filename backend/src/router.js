@@ -16,7 +16,8 @@ const sectorRouter = require("./routers/sectorRouter");
 const skillRouter = require("./routers/skillRouter");
 const authRouter = require("./routers/authRouter");
 const adminRouter = require("./routers/adminRouter");
-const { verifyToken } = require("./middlewares/hashPassword");
+const candidateDegreeRouter = require("./routers/candidateDegreeRouter");
+const locationRouter = require("./routers/locationRouter");
 
 // ROUTES
 
@@ -24,15 +25,15 @@ router.use("/user", userRouter);
 router.use("/job", jobRouter);
 router.use("/login", authRouter);
 router.use("/candidate", candidateRouter);
-
-// Token identification wall, protecting routers below.
-router.use("/company", verifyToken, companyRouter);
-router.use("/admin", verifyToken, adminRouter);
-router.use("/activity", verifyToken, activityRouter);
-router.use("/message", verifyToken, messageRouter);
-router.use("/sector", verifyToken, sectorRouter);
-router.use("/skill", verifyToken, skillRouter);
-router.use("/degree", verifyToken, degreeRouter);
-router.use("/experience", verifyToken, experienceRouter);
+router.use("/degree", degreeRouter);
+router.use("/experience", experienceRouter);
+router.use("/candidate-degree", candidateDegreeRouter);
+router.use("/company", companyRouter);
+router.use("/location", locationRouter);
+router.use("/admin", adminRouter);
+router.use("/activity", activityRouter);
+router.use("/message", messageRouter);
+router.use("/sector", sectorRouter);
+router.use("/skill", skillRouter);
 
 module.exports = router;

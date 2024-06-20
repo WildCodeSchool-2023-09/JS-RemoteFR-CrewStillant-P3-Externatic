@@ -37,6 +37,7 @@ const add = async (req, res, next) => {
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
+    image,
     type,
   } = req.body;
   try {
@@ -47,12 +48,13 @@ const add = async (req, res, next) => {
       contactNumber,
       smsNotificationActive ? 1 : 0,
       emailNotificationActive ? 1 : 0,
+      image,
       type
     );
     if (insertId) {
       res
         .status(201)
-        .json({ insertId, message: "Votre utilisateur a bien été créer." });
+        .json({ insertId, message: "Votre utilisateur a bien été créé." });
     } else {
       res.sendStatus(404);
     }
@@ -66,26 +68,23 @@ const edit = async (req, res, next) => {
   const {
     email,
     hashedPassword,
-    isActive,
     contactNumber,
     smsNotificationActive,
     emailNotificationActive,
     image,
   } = req.body;
-  const { sub, userTypeId } = req.auth;
+  const { sub } = req.auth;
   try {
-    const editUser = await tables.user.edit(
+    const editUser = await tables.user.update(
       email,
       hashedPassword,
-      isActive,
       contactNumber,
       smsNotificationActive,
       emailNotificationActive,
       image,
-      userTypeId,
       parseInt(sub, 10)
     );
-    if (editUser.length > 0) {
+    if (editUser) {
       res.status(200).json(editUser);
     } else {
       res.sendStatus(404);
@@ -95,4 +94,32 @@ const edit = async (req, res, next) => {
   }
 };
 
-module.exports = { browse, read, edit, add };
+const remove = async (req, res, next) => {
+  const { sub } = req.auth;
+  try {
+    const deleteUser = await tables.user.delete(parseInt(sub, 10));
+    if (deleteUser) {
+      res.status(200).json("User is successfully deleted");
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const adminDeleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deleteUser = await tables.user.deleteUser(parseInt(id, 10));
+    if (deleteUser) {
+      res.status(200).json("User is successfully deleted");
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports = { browse, read, edit, add, remove, adminDeleteUser };

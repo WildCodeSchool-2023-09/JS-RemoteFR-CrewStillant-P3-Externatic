@@ -1,0 +1,85 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.jobList {
+  border: solid 0.25em;
+  border-radius: 0.75em;
+
+  gap: 1em;
+  padding: 2em 5em;
+  margin: 0 0 1em 0;
+  background-color: #f5f5f5;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1em 1em;
+  }
+}
+
+.jobList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.message {
+  font: 120% jost;
+
+  @media (max-width: 768px) {
+    font-size: 100%;
+  }
+}
+
+.hr {
+  @media (max-width: 768px) {
+    border: 1px solid #ca2061;
+  }
+}
+
+.divButton {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 1em;
+  gap: 2em;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    margin-top: 2em;
+  }
+}
+
+.jobButton {
+  font: 100% jost;
+  background-color: var(--secondary);
+  color: var(--gray-2);
+  border-style: none;
+  border-radius: 0.4em;
+  padding: 0.8em 1em;
+  display: flex;
+  align-items: center;
+  margin: 1em;
+
+  @media (max-width: 768px) {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.hr {
+  border: 1px solid #ca2061;
+  @media (max-width: 768px) {
+    border: 1px solid #ca2061;
+  }
+}

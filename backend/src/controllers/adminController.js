@@ -4,9 +4,9 @@ const tables = require("../tables");
 
 const browse = async (req, res) => {
   try {
-    const getCompany = await tables.company.readAll();
-    if (getCompany) {
-      res.status(200).json(getCompany);
+    const getAdmin = await tables.admin.readAll();
+    if (getAdmin) {
+      res.status(200).json(getAdmin);
     } else {
       res.sendStatus(400);
     }
@@ -17,37 +17,36 @@ const browse = async (req, res) => {
 
 // GET BY ID
 
-const read = async (req, res) => {
-  const { id } = req.params;
+const read = async (req, res, next) => {
+  const { sub } = req.auth;
   try {
-    const getCompanyId = await tables.company.read(parseInt(id, 10));
-    if (getCompanyId[0]) {
-      res.status(200).json(getCompanyId);
+    const user = await tables.user.read(parseInt(sub, 10));
+    const getAdmin = await tables.admin.read(parseInt(sub, 10));
+    if (user[0] && getAdmin[0]) {
+      res.status(200).json([user[0], getAdmin[0]]);
     } else {
       res.sendStatus(404);
     }
   } catch (err) {
-    console.error(err);
+    next(err);
   }
 };
 
 // PUT
 
 const edit = async (req, res, next) => {
-  const { name, image, description, website, establishmentDate } = req.body;
-  const { id } = req.params;
+  const { firstname, lastname, dateOfBirth } = req.body;
+  const { sub } = req.auth;
   try {
-    const editCompany = await tables.company.update(
-      name,
-      image,
-      description,
-      website,
-      establishmentDate,
-      parseInt(id, 10)
+    const editAdmin = await tables.admin.update(
+      firstname,
+      lastname,
+      dateOfBirth,
+      parseInt(sub, 10)
     );
 
-    if (editCompany.length > 0) {
-      res.status(200).json(editCompany);
+    if (editAdmin.length > 0) {
+      res.status(200).json(editAdmin);
     } else {
       res.sendStatus(404);
     }
@@ -59,30 +58,18 @@ const edit = async (req, res, next) => {
 // POST
 
 const add = async (req, res) => {
-  console.info("company:", req.body);
-  const {
-    name,
-    description,
-    website,
-    establishmentDate,
-    siret,
-    insertId2: companySectorId,
-    insertId: userId,
-  } = req.body;
+  const { firstname, lastname, dateOfBirth, insertId: userId } = req.body;
   try {
-    const insertId = await tables.company.create(
-      name,
-      description,
-      website,
-      establishmentDate,
-      siret,
-      companySectorId,
+    const insertId = await tables.admin.create(
+      firstname,
+      lastname,
+      dateOfBirth,
       userId
     );
     if (insertId) {
       res
         .status(201)
-        .json({ insertId, message: "Votre entreprise a bien été crée." });
+        .json({ insertId, message: "Votre Admin a bien été créé." });
     } else {
       res.sendStatus(404);
     }
@@ -91,22 +78,4 @@ const add = async (req, res) => {
   }
 };
 
-// DELETE
-
-const remove = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const removeCompany = await tables.company.delete(parseInt(id, 10));
-    if (removeCompany.length > 0) {
-      res
-        .status(200)
-        .json("Company has been successefully deleted from your table");
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-module.exports = { browse, read, edit, add, remove };
+module.exports = { browse, read, edit, add };

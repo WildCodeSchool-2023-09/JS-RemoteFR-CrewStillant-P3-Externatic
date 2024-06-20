@@ -12,10 +12,10 @@ class DegreeManager extends AbstractManager {
     return result;
   }
 
-  async read(id) {
+  async read(sub) {
     const [result] = await this.database.query(
-      `SELECT degree.name AS degree, degree.level AS level, degree.starting_date AS startingDate, degree.completion_date AS completionDate, degree.university AS university, degree.city AS city, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate_degree ON ${this.table}.id = candidate_degree.degree_id LEFT JOIN candidate ON candidate_degree.candidate_id = candidate.id WHERE candidate_degree.candidate_id =?`,
-      [id]
+      `SELECT degree.id ,degree.name AS degree, degree.level AS level, degree.starting_date AS startingDate, degree.completion_date AS completionDate, degree.university AS university, degree.city AS city, candidate_degree.id AS candidateDegreeId, candidate.firstname AS firstname, candidate.lastname AS lastname FROM ${this.table} LEFT JOIN candidate_degree ON ${this.table}.id = candidate_degree.degree_id LEFT JOIN candidate ON candidate_degree.candidate_id = candidate.id INNER JOIN user ON candidate.user_id = user.id WHERE user.id =?`,
+      [sub]
     );
     return result;
   }
@@ -27,11 +27,14 @@ class DegreeManager extends AbstractManager {
     completionDate,
     university,
     city,
-    id
+    id,
+    sub
   ) {
     const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name=?, level=?, starting_date=?, completion_date=?, university=?, city=? WHERE id=?`,
-      [name, level, startingDate, completionDate, university, city, id]
+      `UPDATE ${this.table}
+      INNER JOIN candidate_degree ON ${this.table}.id = candidate_degree.degree_id
+       SET name=?, level=?, starting_date=?, completion_date=?, university=?, city=? WHERE ${this.table}.id = ? AND candidate_id IN (SELECT id FROM candidate WHERE user_id=?)`,
+      [name, level, startingDate, completionDate, university, city, id, sub]
     );
 
     return result;
@@ -45,10 +48,10 @@ class DegreeManager extends AbstractManager {
     return result;
   }
 
-  async delete(id) {
+  async delete(sub, id) {
     const [result] = await this.database.query(
-      `DELETE FROM ${this.table} WHERE id=?`,
-      [id]
+      `DELETE FROM ${this.table} WHERE id IN (SELECT degree_id FROM candidate_degree WHERE candidate_id IN (SELECT id FROM candidate WHERE user_id=?)) AND id = ?`,
+      [sub, id]
     );
     return result;
   }

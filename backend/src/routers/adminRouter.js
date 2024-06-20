@@ -2,25 +2,18 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  browse,
-  read,
-  edit,
-  add,
-  remove,
-} = require("../controllers/adminController");
+const { browse, read, edit, add } = require("../controllers/adminController");
+
+const { verifyToken } = require("../middlewares/hashPassword");
 
 // GET
-router.get("/", browse);
-router.get("/:id", read);
+router.get("/all", verifyToken, browse);
+router.get("/", verifyToken, read);
 
 // PUT
-router.put("/:id", edit);
+router.put("/", verifyToken, edit);
 
 // POST
 router.post("/", add);
-
-// DELETE
-router.delete("/:id", remove);
 
 module.exports = router;

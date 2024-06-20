@@ -27,7 +27,7 @@ html {
 
 .userpage {
   display: flex;
-  gap: 5em;
+  gap: 4em;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -35,29 +35,38 @@ html {
   }
 }
 
+.description {
+  width: 40em;
+  @media (max-width: 768px) {
+    width: auto;
+  }
+}
+
 // Side section
 
 .sidesection {
+  position: sticky;
+  top: 0;
   padding: 6em 2em;
   border-radius: 0.75em;
   display: flex;
   align-items: flex-start;
-  justify-self: flex-start;
+  justify-content: flex-start;
   flex-direction: column;
   gap: 6em;
   background-color: var(--primary);
-  height: auto;
+  height: 50em;
   margin: 0 0 3em 2em;
 
   @media (max-width: 768px) {
-    font: 80% jost;
+    font: 50% jost;
     flex-direction: row;
     align-items: center;
-    justify-self: center;
+    justify-content: center;
     padding: 3em 1em;
     gap: 1.2em;
-    margin-bottom: 1.5em;
-    margin-left: 0;
+    height: 10em;
+    margin: 0;
   }
 
   a {
@@ -67,7 +76,8 @@ html {
     color: aliceblue;
 
     @media (max-width: 768px) {
-      font-size: 100%;
+      font-size: 120%;
+      text-align: center;
     }
   }
 }
@@ -107,6 +117,18 @@ html {
 .profilepic {
   border-radius: 15em;
   width: 15em;
+
+  @media (max-width: 768px) {
+    width: 10em;
+    border-radius: 10em;
+  }
+}
+
+.companyPic {
+  background-color: white;
+  border-radius: 0.5em;
+  width: 20em;
+  height: 22em;
 
   @media (max-width: 768px) {
     width: 10em;

@@ -6,7 +6,7 @@ function HomePage() {
 
   return (
     <div>
-      <MainHomePage job={job} count={count} />;
+      <MainHomePage job={job} count={count} />
     </div>
   );
 }

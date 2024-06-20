@@ -5,9 +5,10 @@ const router = express.Router();
 // Imports
 
 const { read, add, remove } = require("../controllers/messageController");
+const { verifyToken } = require("../middlewares/hashPassword");
 
 // GET
-router.get("/", read);
+router.get("/", verifyToken, read);
 
 // POST
 router.post("/", add);
