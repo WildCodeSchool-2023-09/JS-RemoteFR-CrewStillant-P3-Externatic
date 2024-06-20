@@ -20,7 +20,7 @@ const login = async (req, res, next) => {
     const mail = user.email;
 
     if (!verified) {
-      res.status(422).json({
+      res.status(401).json({
         message: "Mot de passe invalide",
       });
     } else {

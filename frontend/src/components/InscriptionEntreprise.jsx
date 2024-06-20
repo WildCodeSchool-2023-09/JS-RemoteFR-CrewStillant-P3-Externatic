@@ -32,12 +32,12 @@ export default function InscriptionEntreprise() {
     apiKey: "free",
   });
 
-  const options = { multi: true };
+  const options = { multi: false };
   passwordRef.current = watch("password", "");
 
   const onSubmit = async (data) => {
+    const type = 2;
     try {
-      const type = 2;
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/user`,
         { ...data, type }
@@ -61,7 +61,7 @@ export default function InscriptionEntreprise() {
         responseTwo.status === 201 &&
         responseThree.status === 201
       ) {
-        toast.success(response.data.message);
+        toast.success("Votre inscription a bien été prise en compte.");
         setTimeout(() => {
           navigate("/connexion");
         }, 2000);
@@ -82,7 +82,7 @@ export default function InscriptionEntreprise() {
               <input
                 className={`${style.input}`}
                 type="text"
-                placeholder="Toto SARL"
+                placeholder="Entreprise"
                 autoComplete="true"
                 {...register("name", {
                   minLength: { value: 2, message: "Au moins 2 caractères" },
@@ -97,7 +97,7 @@ export default function InscriptionEntreprise() {
               <input
                 className={`${style.input}`}
                 type="email"
-                placeholder="toto@gmail.com"
+                placeholder="entreprise@contact.com"
                 autoComplete="true"
                 {...register("email", {
                   pattern: {
@@ -171,7 +171,7 @@ export default function InscriptionEntreprise() {
               <input
                 className={`${style.input}`}
                 type="text"
-                placeholder="www.toto.com"
+                placeholder="www.entreprise.com"
                 {...register("website", {
                   minLength: { value: 5, message: "Au moins 5 caractères" },
                   required: "Ce champ est obligatoire",
@@ -185,7 +185,7 @@ export default function InscriptionEntreprise() {
               <input
                 className={`${style.input}`}
                 type="text"
-                placeholder="0123456789"
+                placeholder="06...."
                 autoComplete="true"
                 {...register("contactNumber", {
                   minLength: { value: 10, message: "Format invalide" },
@@ -288,7 +288,7 @@ export default function InscriptionEntreprise() {
 
               <p className={`${style.p}`}>Description:</p>
               <textarea
-                className={`${style.input}`}
+                className={`${style.inputArea}`}
                 type="text"
                 placeholder="Entrez une description"
                 {...register("description", {
@@ -331,7 +331,7 @@ export default function InscriptionEntreprise() {
           <div className={`${style.divButton}`}>
             <UploadButton
               uploader={uploader}
-              options={options}
+              options={{ ...options, accept: "image/*" }}
               onComplete={(image) => {
                 const urls = image.map((x) => x.fileUrl).join("\n");
 
@@ -349,7 +349,13 @@ export default function InscriptionEntreprise() {
                 </button>
               )}
             </UploadButton>
-            {fileUrls ? <img src={success} alt="success" /> : null}
+            {fileUrls ? (
+              <img
+                src={success}
+                alt="success"
+                className={`${style.checkPicture}`}
+              />
+            ) : null}
 
             <button type="submit" className={`${style.companyButton}`}>
               Inscription

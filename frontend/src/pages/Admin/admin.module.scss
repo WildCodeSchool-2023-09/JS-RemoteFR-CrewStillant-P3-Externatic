@@ -1,0 +1,62 @@
+.admin {
+  display: flex;
+  gap: 20em;
+  margin-top: 2em;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2em;
+  }
+}
+
+.candidate {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+  margin-top: 2em;
+
+  @media (max-width: 768px) {
+    gap: 2em;
+  }
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.info {
+  @media (max-width: 768px) {
+    margin-left: 7em;
+  }
+}
+
+.image {
+  width: 65%;
+  @media (max-width: 768px) {
+    width: 45%;
+  }
+}
+
+.deleteButton {
+  font: 100% jost;
+  background-color: var(--secondary);
+  color: var(--gray-2);
+  border-style: none;
+  border-radius: 0.4em;
+  padding: 0.8em 1em;
+  margin: 1em;
+
+  @media (max-width: 768px) {
+    width: 60%;
+    display: flex;
+    width: 100%;
+    margin: 0.5em;
+  }
+}

@@ -30,7 +30,6 @@ const browseFilters = async (req, res, next) => {
       res.send(401).json({ message: "Recherche non aboutie" });
     }
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
@@ -45,6 +44,19 @@ const browse = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
+  }
+};
+
+const browseAdmin = async (req, res, next) => {
+  try {
+    const getJob = await tables.job.readJobs();
+    if (getJob) {
+      res.status(200).json(getJob);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -65,7 +77,7 @@ const browseCount = async (req, res) => {
 
 const read = async (req, res) => {
   const { sub } = req.auth;
-  console.info(req.auth);
+
   try {
     const getJobId = await tables.job.read(parseInt(sub, 10));
     if (getJobId) {
@@ -99,26 +111,32 @@ const edit = async (req, res) => {
     title,
     type,
     description,
-    salary,
     hoursWorked,
     isActive,
+    salary,
+    place,
+    sector,
     locationId,
     companyId,
+    id,
   } = req.body;
-  const { id } = req.params;
+  const { sub } = req.auth;
   try {
-    const editJob = await tables.job.edit(
+    const editJob = await tables.job.update(
       title,
       type,
       description,
-      salary,
       hoursWorked,
       isActive,
+      salary,
+      place,
+      sector,
       locationId,
       companyId,
-      parseInt(id, 10)
+      id,
+      parseInt(sub, 10)
     );
-    if (editJob.length > 0) {
+    if (editJob) {
       res.status(200).json(editJob);
     } else {
       res.sendStatus(404);
@@ -135,9 +153,11 @@ const add = async (req, res) => {
     title,
     type,
     description,
-    salary,
     hoursWorked,
     isActive,
+    salary,
+    place,
+    sector,
     locationId,
     companyId,
   } = req.body;
@@ -146,9 +166,11 @@ const add = async (req, res) => {
       title,
       type,
       description,
-      salary,
       hoursWorked,
       isActive,
+      salary,
+      place,
+      sector,
       locationId,
       companyId
     );
@@ -166,11 +188,12 @@ const add = async (req, res) => {
 
 const remove = async (req, res) => {
   const { id } = req.params;
+  const { sub } = req.auth;
 
   try {
-    const deleteJob = await tables.job.delete(parseInt(id, 10));
-    if (deleteJob.length > 0) {
-      res.status(200).json(deleteJob);
+    const deleteJob = await tables.job.delete(id, parseInt(sub, 10));
+    if (deleteJob) {
+      res.status(200).json("The offer has been successfully deleted");
     } else {
       res.sendStatus(404);
     }
@@ -179,13 +202,30 @@ const remove = async (req, res) => {
   }
 };
 
+const adminDelete = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deleteJob = await tables.job.deleteJob(parseInt(id, 10));
+    if (deleteJob) {
+      res.status(200).json("The offer has been successfully deleted");
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   browseFilters,
   browseCount,
   browse,
+  browseAdmin,
   read,
   readOffer,
   edit,
   add,
   remove,
+  adminDelete,
 };
