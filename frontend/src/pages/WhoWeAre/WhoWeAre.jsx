@@ -1,8 +1,8 @@
-import "./whoweare.module.scss";
+import style from "./whoweare.module.scss";
 
 function WhoWeAre() {
   return (
-    <div className="qui-sommes-nous">
+    <div className={`${style.WhoWeAre}`}>
       <h1>Qui sommes-nous ?</h1>
       <p className="introduction">
         Bienvenue sur notre plateforme de recrutement en informatique. Chez
@@ -16,15 +16,15 @@ function WhoWeAre() {
         la mise en relation de professionnels qualifiés avec des opportunités de
         carrière enrichissantes.
       </p>
-      <div className="mission-vision">
-        <h2>Notre Mission</h2>
+      <div>
+        <h2 className={`${style.missionVision}`}>Notre Mission</h2>
         <p>
           Chez Externatic, notre mission est de simplifier le processus de
           recrutement informatique en mettant en avant les compétences des
           candidats et en fournissant des solutions sur mesure aux entreprises à
           la recherche de talents qualifiés.
         </p>
-        <h2>Notre Vision</h2>
+        <h2 className={`${style.missionVision}`}>Notre Vision</h2>
         <p>
           Nous aspirons à être le partenaire de confiance pour les
           professionnels de l'informatique, en les accompagnant tout au long de

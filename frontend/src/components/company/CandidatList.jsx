@@ -6,6 +6,7 @@ import style from "../../assets/styles/messagePage.module.scss";
 function CandidatList() {
   const { auth } = useOutletContext();
   const [candidates, setCandidates] = useState();
+  const [candidate, setCandidate] = useState();
 
   useEffect(() => {
     if (auth?.token) {
@@ -24,11 +25,11 @@ function CandidatList() {
 
   return (
     <div className={`${style.profileMessage}`}>
-      <div id="1" className={`${style.messageList}`}>
+      <div className={`${style.messageList}`}>
         {candidates &&
           candidates.map((c) => (
             <>
-              <NavLink>
+              <NavLink onClick={() => setCandidate(c)}>
                 <h3>
                   {c?.firstname} {c?.lastname}
                 </h3>
@@ -40,20 +41,20 @@ function CandidatList() {
           ))}
       </div>
       <hr />
-      <div id="2" className={`${style.message}`}>
-        {candidates &&
-          candidates.map((c) => (
-            <>
-              <img src={c?.image} alt={c?.firstname} />
-              <h2>
-                {c?.firstname} {c?.lastname}
-              </h2>
-              <p>{formatDateString(c?.dateOfBirth)}</p>
-              <p>{c?.email}</p>
-              <p>{c?.contactNumber}</p>
-              <hr />
-            </>
-          ))}
+      <div className={`${style.message}`}>
+        {candidate ? (
+          <>
+            <img src={candidate.image} alt={candidate.firstname} />
+            <h2>
+              {candidate.firstname} {candidate.lastname}
+            </h2>
+            <p>{formatDateString(candidate.dateOfBirth)}</p>
+            <p>{candidate.email}</p>
+            <p>{candidate.contactNumber}</p>
+          </>
+        ) : (
+          <h3> Séléctionnez un candidat </h3>
+        )}
       </div>
     </div>
   );

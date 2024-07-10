@@ -10,7 +10,7 @@ function UserProfil() {
 
   useEffect(() => {
     if (!auth?.token) {
-      navigate("/accueil");
+      navigate("/");
     }
   }, []);
 
@@ -26,11 +26,8 @@ function UserProfil() {
           <img
             src={typeData.image}
             alt={typeData.firstname}
-            className={`${style.profilepic}`}
-          />
-          <button type="button" className={`${style.buttonspace}`}>
-            Changer votre photo
-          </button>
+            className={`${style.companyPic}`}
+          />{" "}
         </div>
       )}
       {userData && userData.type === "candidat" && (
@@ -73,7 +70,10 @@ function UserProfil() {
             </p>
             <p> n° de siret: {typeData.siret} </p>
             <p> Secteur d'activité: {typeData.companySector} </p>
-            <p> Description: {typeData.description} </p>
+            <p className={`${style.description}`}>
+              {" "}
+              Description: {typeData.description}{" "}
+            </p>
           </div>
         </div>
       )}

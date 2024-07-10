@@ -1,8 +1,8 @@
-import "../WhoWeAre/whoweare.module.scss";
+import style from "../WhoWeAre/whoweare.module.scss";
 
 export default function RGPD() {
   return (
-    <section className="rgpd">
+    <section className={`${style.rgpd}`}>
       <h1>Politique de Confidentialité</h1>
       <p>
         Le Règlement Général sur la Protection des Données (RGPD) est une

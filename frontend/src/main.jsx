@@ -19,13 +19,20 @@ import UserMessage from "./components/user/UserMessage";
 import WhoWeAre from "./pages/WhoWeAre/WhoWeAre";
 import OfferPage from "./pages/OfferPage/OfferPage";
 import RGPD from "./pages/RGPD/RGPD";
+import ModifyProfil from "./components/user/ModifyProfil";
+import UserExperience from "./components/user/UserExperience";
+import Admin from "./pages/Admin/Admin";
+import Candidate from "./components/admin/Candidate";
+import Company from "./components/admin/Company";
+import Job from "./components/admin/Job";
+import AddAdmin from "./components/admin/AddAdmin";
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: "/accueil",
+        path: "/",
         element: <HomePage />,
         loader: async () => {
           const job = await axios
@@ -68,8 +75,16 @@ const router = createBrowserRouter([
             element: <UserProfil />,
           },
           {
+            path: "modifier",
+            element: <ModifyProfil />,
+          },
+          {
             path: "diplome",
             element: <UserDiploma />,
+          },
+          {
+            path: "experience",
+            element: <UserExperience />,
           },
           {
             path: "competence",
@@ -90,6 +105,28 @@ const router = createBrowserRouter([
           {
             path: "candidats",
             element: <CandidatList />,
+          },
+        ],
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
+        children: [
+          {
+            path: "candidats",
+            element: <Candidate />,
+          },
+          {
+            path: "entreprises",
+            element: <Company />,
+          },
+          {
+            path: "offres",
+            element: <Job />,
+          },
+          {
+            path: "ajouter&&admin",
+            element: <AddAdmin />,
           },
         ],
       },

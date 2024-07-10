@@ -6,7 +6,7 @@
   border: 0.1em solid;
   border-radius: 1em;
   border-color: #ca2061;
-  margin: 3em;
+  margin: 3em 0.5em;
   background-color: #e0e0e0;
 
   @media (max-width: 768px) {
@@ -26,8 +26,8 @@
 
 .divButton {
   display: flex;
-  justify-content: space-around;
-  margin-left: 1em;
+  justify-content: center;
+  margin-top: 2em;
   gap: 2em;
 
   @media (max-width: 768px) {
@@ -52,6 +52,8 @@
 }
 
 .imageSignup {
+  border-radius: 0.7em;
+  max-width: 80%;
   @media (max-width: 768px) {
     display: none;
   }
@@ -84,14 +86,17 @@
   }
 }
 
+.signupAdmin {
+  text-align: center;
+}
+
 .showPassword {
   border-style: none;
   background-color: transparent;
-  border-top: 0.2em;
 }
 
 .CandidateButton {
-  font: 100% jost;
+  font: 80% jost;
   background-color: var(--secondary);
   color: var(--gray-2);
   border-style: none;
@@ -112,27 +117,87 @@
 
 .signDiv {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
   gap: 4em;
   margin-top: 4em;
   margin-left: 4em;
 
   @media (max-width: 768px) {
     width: 70%;
-    display: inline;
+    flex-direction: column;
     margin: 1em;
   }
 }
 
 .password {
   display: flex;
-  align-items: center;
+  position: relative;
   gap: 1em;
+  align-items: center;
 
   @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     align-items: start;
+    justify-content: center;
+    right: 0;
+  }
+}
+
+.checkPicture {
+  height: max-content;
+  margin-top: 1.5em;
+}
+
+.inputArea {
+  width: 15em;
+  height: 15em;
+  font: 100% jost;
+  background-color: var(--gray-2);
+  color: var(--gray-1);
+  border-style: none;
+  border-radius: 0.4em;
+  padding: 0.6em;
+}
+
+.checkWork {
+  margin-top: 2em;
+
+  @media (max-width: 768px) {
+    display: flex;
+    gap: 0.5em;
+    text-align: center;
+  }
+}
+
+.fieldSet {
+  border-style: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.adminPassword {
+  display: flex;
+  position: relative;
+  left: 1.8em;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    left: 1.2em;
   }
 }

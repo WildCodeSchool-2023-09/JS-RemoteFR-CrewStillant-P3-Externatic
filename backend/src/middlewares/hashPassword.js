@@ -10,8 +10,13 @@ const hashingOptions = {
 
 const hash = async (req, res, next) => {
   try {
-    const hashed = await argon2.hash(req.body.password, hashingOptions);
-    req.body.hashedPassword = hashed;
+    if (!req.body.password.startsWith("$argon2i$")) {
+      const hashed = await argon2.hash(req.body.password, hashingOptions);
+      req.body.hashedPassword = hashed;
+    } else {
+      req.body.hashedPassword = req.body.password;
+    }
+
     delete req.body.password;
 
     next();
