@@ -26,26 +26,38 @@ const hash = async (req, res, next) => {
 };
 
 const verifyToken = (req, res, next) => {
+  console.info(req.path);
+  console.info(req.url);
+  console.info(req.originalUrl);
   try {
-    const authorizationHeader = req.get("Authorization");
+    const authorizationHeader = req.headers.authorization || null;
 
-    if (authorizationHeader == null) {
-      throw new Error("Authorization header is missing");
+    if (!authorizationHeader) {
+      return res
+        .status(403)
+        .json({ message: "Authorization header is missing" });
     }
 
-    const [type, token] = authorizationHeader.split(" ");
+    const parts = authorizationHeader.split(" ");
+    if (parts.length !== 2) {
+      return res
+        .status(400)
+        .json({ message: "Invalid Authorization header format" });
+    }
+
+    const [type, token] = parts;
 
     if (type !== "Bearer") {
-      throw new Error("Authorization header has not the 'Bearer' type");
+      return res
+        .status(403)
+        .json({ message: "Authorization header has not the 'Bearer' type" });
     }
 
     req.auth = jwt.verify(token, process.env.APP_SECRET);
 
-    next();
-  } catch (err) {
-    console.error(err);
-
-    res.sendStatus(401);
+    return next();
+  } catch (e) {
+    return next(e);
   }
 };
 
